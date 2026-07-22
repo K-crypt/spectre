@@ -8,3 +8,6 @@ dist/
 out/
 .next/
 .env*
+
+# Local Netlify folder
+.netlify

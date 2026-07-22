@@ -33,7 +33,8 @@ export const metadata: Metadata = {
   title: "The Spectre — Automate what can be",
   description:
     "The Spectre builds AI operating teams for your business. They run the repeatable work. Every outward move waits for your tap.",
-  robots: { index: false, follow: false }, // preview phase — flips at public launch
+  robots: { index: true, follow: true }, // launched 2026-07-22 on thespectre.one
+  metadataBase: new URL("https://thespectre.one"),
   icons: { icon: "/favicon.svg" },
 };
 

@@ -1,0 +1,726 @@
+@import "tailwindcss";
+
+/* ── The Spectre design tokens (DESIGN.md is the spec; this file is canonical) ── */
+:root {
+  --ground: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #161616;
+  --ink: #f5f5f3;
+  --ghost: #9a9a9a;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --brass: #b8944c;
+
+  --spectral: #a9a3c9;
+  --steel: #7c9cbf;
+  --clay: #c98a72;
+  --archive: #8fae94;
+  --ochre: #c9ad7c;
+
+  /* per-page accent; pages override via inline style. Home stays mono. */
+  --accent: var(--ink);
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-text: var(--font-instrument), system-ui, sans-serif;
+  --font-mono: var(--font-spline-mono), ui-monospace, monospace;
+  --font-wordmark: var(--font-michroma), sans-serif;
+}
+
+/* manual theme switcher: the pre-paint script in layout.tsx sets html.light
+   from localStorage `spectre.site.theme`, falling back to the system scheme. */
+html.light {
+  --ground: #f7f5f0;
+  --surface: #ffffff;
+  --surface-2: #fbfaf7;
+  --ink: #111111;
+  --ghost: #6b6b6b;
+  --hairline: rgba(0, 0, 0, 0.09);
+  --brass: #8c6f37;
+
+  --spectral: #5b5488;
+  --steel: #3e608c;
+  --clay: #9c5237;
+  --archive: #4e7057;
+  --ochre: #8c7340;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background 240ms ease-out, color 240ms ease-out;
+}
+
+/* ambient sheen — one breathing ghost-glow, fixed, never loud (gloss amendment) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20% -10% auto -10%;
+  height: 70vh;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(50% 60% at 70% 20%, color-mix(in srgb, var(--brass) 7%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 20% 10%, color-mix(in srgb, var(--ink) 5%, transparent), transparent 70%);
+  animation: breathe 9s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(10px); }
+}
+main, nav, footer { position: relative; z-index: 1; }
+
+::selection {
+  background: var(--accent);
+  color: var(--ground);
+}
+
+/* ── type utilities ── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+/* headline sheen: ink fading down — quiet gloss, both themes */
+h1.display {
+  background: linear-gradient(180deg, var(--ink) 55%, color-mix(in srgb, var(--ink) 62%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--ink);
+}
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.stamp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ghost);
+}
+.wordmark {
+  font-family: var(--font-wordmark);
+  letter-spacing: 0.34em;
+  font-size: 14px;
+}
+
+/* ── structure ── */
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+.hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ── the ghost reveal (single motion signature) ──
+   Default = VISIBLE (no-JS, crawlers, screenshots all see content).
+   JS adds .pending (hide) only right before observing, then .in reveals. */
+.reveal {
+  transition: opacity 240ms ease-out, transform 240ms ease-out;
+}
+.reveal.pending {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal.pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  body::before { animation: none; }
+  .btn, .card { transition: none; }
+}
+
+/* ── nav responsive + mobile menu ── */
+.menu-btn { display: none; }
+.theme-btn {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  color: var(--ghost);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 160ms ease-out, border-color 160ms ease-out;
+}
+.theme-btn:hover { color: var(--ink); border-color: color-mix(in srgb, var(--ink) 25%, transparent); }
+@media (max-width: 800px) {
+  .nav-products { display: none !important; }
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    color: var(--ink);
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+}
+.sheet {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--ground);
+  z-index: 60;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+.sheet a {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 20px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--hairline);
+}
+.sheet .stamp { margin-top: 18px; }
+
+/* ── researcher playground responsive ── */
+.rsr-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) 1fr;
+  gap: 18px;
+}
+.rsr-tree {
+  border-right: 1px solid var(--hairline);
+  padding-right: 14px;
+}
+@media (max-width: 680px) {
+  .rsr-grid { grid-template-columns: 1fr; }
+  .rsr-tree {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 10px;
+  }
+}
+
+/* mobile rhythm: tighter section padding under 640px */
+@media (max-width: 640px) {
+  .wrap { padding-left: 18px; padding-right: 18px; }
+}
+
+/* ── roster cards: fixed structure, badge pinned, motif clipped clear of text ── */
+.roster-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+  padding: 18px 16px;
+  position: relative;
+  overflow: hidden;
+}
+.roster-card .motif-corner {
+  position: absolute;
+  right: -18px;
+  top: -18px;
+  opacity: 0.13;
+}
+.roster-card .r-name {
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.roster-card .r-claim {
+  color: var(--ghost);
+  font-size: 13px;
+  line-height: 1.6;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.roster-card .badge {
+  margin-top: 14px;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── the comparison centerpiece ── */
+.cmp-panel {
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.cmp-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 120px;
+  background: radial-gradient(60% 100% at 80% 0%, color-mix(in srgb, var(--brass) 8%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 680px; }
+.cmp-table th, .cmp-table td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--hairline); }
+.cmp-table td { color: var(--ghost); }
+.cmp-table .cmp-us {
+  background: color-mix(in srgb, var(--brass) 5%, var(--surface-2));
+  color: var(--ink);
+  font-weight: 500;
+  border-left: 1px solid var(--hairline);
+}
+.cmp-table thead .cmp-us {
+  border-top: 2px solid var(--brass);
+  color: var(--brass);
+}
+.cmp-table tbody tr:last-child td { border-bottom: none; }
+.cmp-swap { animation: cmpfade 320ms ease-out; }
+.view-swap { animation: cmpfade 480ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+@keyframes cmpfade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmp-swap, .view-swap { animation: none; }
+}
+
+/* ── feature-tour highlight: the TARGET itself gets a pulsing accent ring,
+      with the TRY IT pill floating centered above it. Rendered INSIDE the
+      target element, so alignment is by construction. Until first touch. ── */
+.chip, .btn { position: relative; }
+.spot-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  pointer-events: none;
+  animation: spotpulse 1.5s ease-in-out infinite;
+}
+.spot-ring.sq { border-radius: 12px; }
+@keyframes spotpulse {
+  0%, 100% { opacity: 0.35; box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 0%, transparent); }
+  50% { opacity: 1; box-shadow: 0 0 14px 2px color-mix(in srgb, currentColor 35%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spot-ring { animation: none; opacity: 0.7; }
+}
+.tryit-pill {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: var(--ground);
+  padding: 8px 13px;
+  border-radius: 9px;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.65);
+  animation: bobf 1.6s ease-in-out infinite;
+}
+.tryit-pill::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ink);
+}
+@keyframes bobf {
+  0%, 100% { margin-bottom: 0; }
+  50% { margin-bottom: 7px; }
+}
+/* right-edge targets: pill right-aligns to the control so it never clips */
+.tryit-pill.edge-r {
+  left: auto;
+  right: -8px;
+  transform: none;
+}
+.tryit-pill.edge-r::after {
+  left: auto;
+  right: 22px;
+  transform: none;
+}
+/* below-variant: pill sits under the control, arrow pointing up at it */
+.tryit-pill.below {
+  bottom: auto;
+  top: calc(100% + 12px);
+  animation-name: bobfb;
+}
+.tryit-pill.below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--ink);
+}
+@keyframes bobfb {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tryit-beacon::before, .tryit-beacon::after { animation: none; opacity: 0.35; transform: scale(1.8); }
+  .tryit-pill { animation: none; }
+}
+
+/* status-LED breathe: a light, not a spectacle */
+.led-breathe {
+  display: inline-block;
+  animation: ledfade 2.4s ease-in-out infinite;
+}
+@keyframes ledfade {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .led-breathe { animation: none; }
+}
+.cmp-rowlabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ghost);
+  white-space: nowrap;
+}
+
+/* (cursor spotlight tried 2026-07-23, removed same day on Aashrit's call —
+   it read as a distraction. Do not re-add. The ambient breathe + hover states
+   remain the only gloss motion.) */
+
+/* ── the chat layer: launcher, panel, thread ── */
+.chat-launcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.55);
+  transition: transform 180ms ease-out, border-color 180ms ease-out;
+}
+.chat-launcher:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+}
+.chat-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 78px;
+  z-index: 85;
+  width: min(370px, calc(100vw - 32px));
+  max-height: min(560px, calc(100vh - 110px));
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  animation: chatin 220ms ease-out;
+}
+@keyframes chatin {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+.chat-thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 180px;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ghost) 35%, transparent) transparent;
+}
+.chat-thread::-webkit-scrollbar { width: 4px; }
+.chat-thread::-webkit-scrollbar-track { background: transparent; }
+.chat-thread::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ghost) 35%, transparent);
+  border-radius: 4px;
+}
+.chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px 4px;
+  border-top: 1px solid var(--hairline);
+}
+.chat-chips .chip {
+  font-size: 10.5px;
+  padding: 6px 10px;
+  text-align: left;
+}
+.chat-input {
+  display: flex;
+  gap: 7px;
+  padding: 9px 14px 7px;
+}
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  border-radius: 7px;
+}
+.chat-input .btn {
+  padding: 8px 13px;
+  font-size: 12px;
+  border-radius: 7px;
+}
+/* the discovery label — same bottom + height as the launcher, so their
+   vertical centers align exactly */
+.chat-label {
+  position: fixed;
+  right: 78px;
+  bottom: 20px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  z-index: 80;
+  /* base look only — the widget tints background/border with the page's
+     accent inline, so the pill reads as the bot speaking, not as chrome */
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  animation: labelin 320ms ease-out 1.2s both;
+  white-space: nowrap;
+}
+@keyframes labelin {
+  from { opacity: 0; transform: translateX(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-label { animation: none; }
+}
+.chat-foot {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--ghost);
+  text-align: center;
+  padding: 0 14px 10px;
+}
+.chat-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px 2px;
+}
+.chat-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ghost);
+  animation: dotpulse 1.1s ease-in-out infinite;
+}
+.chat-dots i:nth-child(2) { animation-delay: 0.18s; }
+.chat-dots i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes dotpulse {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+/* expanded focus mode: centered dialog over a scrim */
+.chat-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 84;
+  background: rgba(0, 0, 0, 0.5);
+  animation: scrimin 200ms ease-out;
+}
+html.light .chat-scrim { background: rgba(0, 0, 0, 0.28); }
+@keyframes scrimin {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.chat-panel.chat-panel-x {
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+  width: min(720px, 94vw);
+  height: min(78vh, 720px);
+  max-height: none;
+}
+.chat-panel-x .chat-thread { padding: 18px 20px; gap: 12px; }
+.chat-panel-x .chat-chips { padding: 12px 20px 6px; }
+.chat-panel-x .chat-input { padding: 10px 20px 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .chat-panel { animation: none; }
+  .chat-scrim { animation: none; }
+  .chat-dots i { animation: none; opacity: 0.6; }
+}
+@media (max-width: 480px) {
+  .chat-panel { right: 12px; left: 12px; width: auto; bottom: 72px; }
+  .chat-launcher { right: 14px; bottom: 14px; }
+  .chat-label { right: 72px; bottom: 14px; }
+  .chat-panel.chat-panel-x {
+    inset: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    height: auto;
+    transform: none;
+  }
+}
+
+/* ── components ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  line-height: 1; /* uniform height across variants — never inherit body leading */
+  padding: 14px 22px;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  text-decoration: none;
+  justify-content: center;
+}
+.btn {
+  transition: opacity 180ms ease-out, transform 180ms ease-out, box-shadow 180ms ease-out;
+}
+.btn:hover { opacity: 0.92; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-hard {
+  background: var(--accent);
+  color: var(--ground);
+  border-color: transparent;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 55%);
+}
+.btn-hard:hover {
+  box-shadow: 0 6px 22px -8px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.btn-soft {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-soft:hover { border-color: color-mix(in srgb, var(--ink) 25%, transparent); }
+.badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  padding: 5px 9px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  color: var(--ghost);
+  display: inline-block;
+  white-space: nowrap;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  transition: border-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+/* cards that are links lift on hover */
+a .card:hover {
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -14px rgba(0, 0, 0, 0.5);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.fnote {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ghost);
+  vertical-align: super;
+  margin-left: 2px;
+}
+input[type="email"],
+input[type="text"] {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  color: var(--ink);
+  padding: 12px 14px;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+}
+input:focus-visible {
+  border-color: var(--brass);
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 7px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--ghost);
+  cursor: pointer;
+  background: transparent;
+  transition: all 160ms ease-out;
+}
+.chip[data-on="true"] {
+  color: var(--ground);
+  background: var(--ink);
+  border-color: transparent;
+}

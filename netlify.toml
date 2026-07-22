@@ -1,0 +1,13 @@
+# The Spectre — site config
+# Static Next.js export served from out/, gated site-wide by the password edge
+# function while in preview (set SITE_PASSWORD in the Netlify env; set
+# PREVIEW_GATE=off at public launch — no code change needed).
+# Deploys are manual: `npx -y netlify-cli deploy --prod --build` from this dir.
+
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[[edge_functions]]
+  function = "gate"
+  path = "/*"

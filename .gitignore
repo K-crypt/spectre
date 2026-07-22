@@ -1,0 +1,10 @@
+# PROPRIETARY CLIENT MATERIAL — never enters git or any deploy (plan §4 hard rule)
+raw/
+
+# system
+.DS_Store
+node_modules/
+dist/
+out/
+.next/
+.env*

@@ -74,7 +74,10 @@ body::before {
   0%, 100% { opacity: 0.6; transform: translateY(0); }
   50% { opacity: 1; transform: translateY(10px); }
 }
-main, nav, footer { position: relative; z-index: 1; }
+main, footer { position: relative; z-index: 1; }
+/* nav must outrank main, not tie with it — a tie resolves by DOM order and main
+   paints over the fixed bar and the open mobile sheet. Chat suite sits at 80+. */
+nav { position: relative; z-index: 70; }
 
 ::selection {
   background: var(--accent);
@@ -187,11 +190,14 @@ h1.display {
   }
 }
 .sheet {
-  position: fixed;
-  top: 60px;
+  /* absolute, not fixed: the nav's backdrop-filter makes it the containing
+     block for fixed descendants, collapsing top/bottom into the 60px bar */
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: calc(100vh - 60px);
+  height: calc(100dvh - 60px);
   background: var(--ground);
   z-index: 60;
   padding: 24px;

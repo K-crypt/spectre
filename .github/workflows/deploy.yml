@@ -1,14 +1,14 @@
-# Auto-deploy: every push to master builds and ships to Netlify via CLI.
-# The repo is deliberately NOT linked in Netlify (private-org linking is paid);
-# GitHub Actions pushes the build instead — same result, free tier.
+# ON-DEMAND deploy: builds on GitHub's free runners, ships to Netlify via CLI.
+# The repo is deliberately NOT linked in Netlify (private-org linking is paid),
+# and per-push auto-deploy was retired 2026-07-22 to control Netlify credits —
+# trigger manually: the "Run workflow" button on GitHub → Actions, or
+#   gh workflow run deploy.yml --repo the-spectre-one/website
 # Requires one repo secret: NETLIFY_AUTH_TOKEN (Netlify → User settings →
 # Applications → New access token). The site ID is not a secret.
 
 name: Deploy to Netlify
 
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
 
 concurrency:

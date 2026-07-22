@@ -1,9 +1,9 @@
 # The Spectre — site config
 # Static Next.js export served from out/. No edge functions in production:
-# the preview password gate (netlify/edge-functions/gate.ts) is unmapped since
-# launch — an edge function on path /* bills one invocation per page view.
-# To re-gate a preview: restore the [[edge_functions]] block below and set
-# SITE_PASSWORD in the Netlify env.
+# the preview password gate (netlify/preview-gate/gate.ts) is parked outside the
+# auto-bundled edge-functions dir — an edge function on path /* bills one
+# invocation per page view. To re-gate a preview: move gate.ts back into
+# netlify/edge-functions/, restore the block below, set SITE_PASSWORD in the env.
 #
 #   [[edge_functions]]
 #     function = "gate"

@@ -229,6 +229,12 @@ export function Footer() {
           Nothing on this site shows client data. Every demo runs on generated, fictional
           datasets. Every shipped number carries an as-of date.
         </div>
+        <div className="mono" style={{ fontSize: 10.5, color: "var(--ghost)", marginTop: 14 }}>
+          Working with the studio —{" "}
+          <a href="mailto:access@thespectre.one" style={{ color: "var(--ghost)" }}>
+            access@thespectre.one
+          </a>
+        </div>
       </div>
     </footer>
   );

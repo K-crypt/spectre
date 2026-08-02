@@ -5,6 +5,9 @@ import { Motif } from "@/components/motifs";
 import { Comparison, WaitlistForm } from "@/components/interactive";
 import { ChatShowcase } from "@/components/chat-showcase";
 import { SCENARIOS } from "@/lib/chat-scenarios";
+import { Mist } from "@/components/atmosphere";
+import { OpsFeed } from "@/components/ops-feed";
+import { RoundTable } from "@/components/roundtable";
 
 const TAKE = ["status reports", "first drafts", "monitoring", "follow-ups", "research legwork", "scheduling", "data pulls", "reconciliation"];
 const KEEP = ["judgment", "taste", "relationships", "the final call"];
@@ -12,75 +15,87 @@ const KEEP = ["judgment", "taste", "relationships", "the final call"];
 export default function Home() {
   return (
     <main>
-      {/* ── HERO ── */}
-      <section className="hairline-b">
-        <div className="wrap" style={{ padding: "96px 24px 72px" }}>
-          <Reveal>
-            <Stamp>EST. 2026 · JAIPUR · HOUSE OF DOTONE</Stamp>
-            <h1 className="display" style={{ fontSize: "clamp(40px, 6vw, 64px)", maxWidth: "18ch" }}>
-              Automate what can be. Focus on what can&apos;t.
-            </h1>
-          </Reveal>
-          <Reveal delay={80}>
-            <p style={{ color: "var(--ghost)", maxWidth: "58ch", marginTop: 20, fontSize: 16 }}>
-              The Spectre builds AI operating teams for your business. They run the
-              repeatable work, and nothing they do goes out without your approval.
-            </p>
-            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginTop: 28 }}>
-              <a href="#access" className="btn btn-hard">Request early access</a>
-              <a href="#systems" className="btn btn-soft">See the systems</a>
-            </div>
-            <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 16 }}>
-              One of these systems already runs a real company&apos;s entire marketing operation.
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── DIVISION OF LABOR ── */}
-      <section className="hairline-b">
-        <div className="wrap" style={{ padding: "80px 24px" }}>
-          <Reveal>
-            <Stamp>01 · THE DIVISION</Stamp>
-            <h2 className="display" style={{ fontSize: 34, marginBottom: 32 }}>There are two kinds of work.</h2>
-          </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+      {/* ── HERO — the mist, the claim, and the loop shown live ── */}
+      <section className="hairline-b hero">
+        <Mist />
+        <div className="wrap hero-grid" style={{ padding: "112px 24px 96px" }}>
+          <div>
             <Reveal>
-              <div className="card" style={{ padding: 24 }}>
-                <div className="stamp" style={{ marginBottom: 16 }}>THE WORK WE TAKE</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {TAKE.map((t) => (
-                    <span key={t} className="chip" style={{ cursor: "default" }}>{t}</span>
-                  ))}
-                </div>
-              </div>
+              <Stamp>EST. 2026 · JAIPUR · HOUSE OF DOTONE</Stamp>
+              <h1 className="display" style={{ fontSize: "clamp(40px, 6vw, 64px)", maxWidth: "18ch" }}>
+                Automate what can be. Focus on what can&apos;t.
+              </h1>
             </Reveal>
-            <Reveal delay={90}>
-              <div className="card" style={{ padding: 24, borderColor: "var(--brass)" }}>
-                <div className="stamp" style={{ marginBottom: 16, color: "var(--brass)" }}>THE WORK YOU KEEP</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {KEEP.map((t) => (
-                    <span key={t} className="chip" style={{ cursor: "default", color: "var(--ink)" }}>{t}</span>
-                  ))}
-                </div>
-                <p style={{ color: "var(--ghost)", fontSize: 13, marginTop: 16 }}>
-                  That division is the whole idea behind The Spectre.
-                </p>
+            <Reveal delay={80}>
+              <p style={{ color: "var(--ghost)", maxWidth: "48ch", marginTop: 20, fontSize: 16 }}>
+                The Spectre builds AI operating teams for your business. They run the
+                repeatable work, and nothing they do goes out without your approval.
+              </p>
+              <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginTop: 28 }}>
+                <a href="#access" className="btn btn-hard">Request early access</a>
+                <a href="#systems" className="btn btn-soft">See the systems</a>
+              </div>
+              <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 16 }}>
+                One of these systems already runs a real company&apos;s entire marketing operation.
               </div>
             </Reveal>
           </div>
+          <Reveal delay={140} className="hero-feed">
+            <OpsFeed />
+          </Reveal>
         </div>
       </section>
 
-      {/* ── THE COMPARISON — the centerpiece ── */}
+      {/* ── THE TABLE — assistants to the suite, not the suite ── */}
+      <section className="hairline-b">
+        <div className="wrap" style={{ padding: "88px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "center" }}>
+          <div>
+            <Reveal>
+              <Stamp>01 · THE TABLE</Stamp>
+              <h2 className="display" style={{ fontSize: 34, marginBottom: 16, maxWidth: "18ch" }}>
+                Five specialists at your table. The head seat stays yours.
+              </h2>
+              <p style={{ color: "var(--ghost)", maxWidth: "48ch" }}>
+                The Spectre is not a replacement for your team. It seats specialists
+                beside you: they prepare, propose, and wait. The decision never moves
+                from the head of the table.
+              </p>
+            </Reveal>
+            <Reveal delay={90}>
+              <div className="table-ledgers">
+                <div className="card" style={{ padding: 18 }}>
+                  <div className="stamp" style={{ marginBottom: 12 }}>THE WORK THEY TAKE</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+                    {TAKE.map((t) => (
+                      <span key={t} className="chip" style={{ cursor: "default" }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="card" style={{ padding: 18, borderColor: "var(--brass)" }}>
+                  <div className="stamp" style={{ marginBottom: 12, color: "var(--brass)" }}>THE WORK YOU KEEP</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+                    {KEEP.map((t) => (
+                      <span key={t} className="chip" style={{ cursor: "default", color: "var(--ink)" }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+          <Reveal delay={120}>
+            <RoundTable />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── THE COMPARISON — artifact first ── */}
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
             <Stamp>02 · WHY US</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
-              Pick something you did last month. Then compare who does it, what it
-              costs, and what you are left with.
+              Pick something you did last month, and compare.
             </p>
           </Reveal>
           <Reveal delay={80}>
@@ -89,15 +104,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── THE ROSTER ── */}
+      {/* ── THE ROSTER — the motifs finally visible ── */}
       <section className="hairline-b" id="systems">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
             <Stamp>03 · THE ROSTER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Five specialists, one rule.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 32 }}>
-              Each one runs a different side of your operation. None of them acts
-              without you.
+              None of them acts without you.
             </p>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 16 }}>
@@ -105,7 +119,7 @@ export default function Home() {
               <Reveal key={p.slug} delay={idx * 60}>
                 <Link href={`/${p.slug}/`} style={{ textDecoration: "none", color: "inherit" }}>
                   <div className="card roster-card">
-                    <Motif kind={p.slug} size={72} style={{ position: "absolute", right: -18, top: -18, color: p.accent, opacity: 0.13 }} />
+                    <Motif kind={p.slug} size={150} className="motif-face" style={{ color: p.accent }} />
                     <div className="r-name">
                       <span className="dot" style={{ background: p.accent }} />
                       {p.name}
@@ -148,32 +162,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── THE CHAT LAYER ── */}
+      {/* ── THE CHAT LAYER — artifact first ── */}
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
-          <Reveal>
+          <Reveal className="chat-artifact">
+            <ChatShowcase scenario={SCENARIOS.coo} />
+          </Reveal>
+          <Reveal delay={100}>
             <Stamp>05 · THE CHAT LAYER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>Ask your business a real question.</h2>
-            <p style={{ color: "var(--ghost)", maxWidth: "52ch" }}>
-              Every product carries a chatbot that knows its own domain and, in the
-              live version, your data. It does not just answer; it checks the real
-              numbers, thinks through the constraints, and stages the actions for
-              your approval.
-            </p>
-            <p style={{ marginTop: 12, fontSize: 15 }}>
-              Here is the operations one, thinking through a rush order.
+            <p style={{ color: "var(--ghost)", maxWidth: "48ch" }}>
+              Every product carries a chatbot that knows its domain and, live, your
+              data. Here is the operations one, thinking through a rush order.
             </p>
             <p className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 16 }}>
               A PREVIEW OF EACH PRODUCT&apos;S BOT IS IN THE CORNER OF ITS PAGE, RIGHT NOW.
             </p>
           </Reveal>
-          <Reveal delay={100}>
-            <ChatShowcase scenario={SCENARIOS.coo} />
-          </Reveal>
         </div>
       </section>
 
-      {/* ── PROOF ── */}
+      {/* ── PROOF — ledger exhibits ── */}
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
@@ -182,13 +191,13 @@ export default function Home() {
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
             <Reveal>
-              <div className="card" style={{ padding: 22 }}>
+              <div className="card exhibit">
+                <Motif kind="cmo" size={110} className="exhibit-motif" style={{ color: "var(--clay)" }} />
                 <div className="stamp" style={{ marginBottom: 10 }}>LIVE CLIENT</div>
+                <div className="readout">1 FOUNDER · A FEW HOURS A WEEK</div>
                 <p style={{ fontSize: 14 }}>
                   <a href="https://carpetstory.one" style={{ color: "var(--ink)" }}>Carpetstory</a>, a luxury rug
-                  export house, runs its whole marketing operation through this system:
-                  content, publishing, outreach, ads review, and analytics. Its founder
-                  reviews the work in a few hours a week.
+                  export house, runs its whole marketing operation through this system.
                 </p>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 12 }}>
                   IN PRODUCTION · AS OF JUL 2026
@@ -196,11 +205,13 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={70}>
-              <div className="card" style={{ padding: 22 }}>
+              <div className="card exhibit">
+                <Motif kind="coo" size={110} className="exhibit-motif" style={{ color: "var(--steel)" }} />
                 <div className="stamp" style={{ marginBottom: 10 }}>PILOT · OPERATIONS</div>
+                <div className="readout">≈400 MACHINES · ONE SCREEN</div>
                 <p style={{ fontSize: 14, color: "var(--ghost)" }}>
-                  A manufacturing plant with about 400 machines, digitized into a live
-                  operating picture: every zone, machine, and material flow on one screen.
+                  A manufacturing plant digitized into a live operating picture: every
+                  zone, machine, and material flow.
                 </p>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 12 }}>
                   CLIENT NAMED ON PERMISSION · PILOT BUILD
@@ -208,12 +219,13 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={140}>
-              <div className="card" style={{ padding: 22 }}>
+              <div className="card exhibit">
+                <Motif kind="researcher" size={110} className="exhibit-motif" style={{ color: "var(--archive)" }} />
                 <div className="stamp" style={{ marginBottom: 10 }}>RESEARCH PROGRAM</div>
+                <div className="readout">EVERY CHAPTER RE-VERIFIED</div>
                 <p style={{ fontSize: 14, color: "var(--ghost)" }}>
                   A complete market-entry study for an industrial plant: machines,
-                  market, competition, and strategy, with every chapter re-verified
-                  before it reached the client.
+                  market, competition, and strategy.
                 </p>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 12 }}>
                   DELIVERED JUL 2026 · METHOD ON THE RESEARCHER PAGE
@@ -226,7 +238,7 @@ export default function Home() {
 
       {/* ── MANIFESTO ── */}
       <section className="hairline-b">
-        <div className="wrap" style={{ padding: "96px 24px" }}>
+        <div className="wrap" style={{ padding: "140px 24px" }}>
           <Reveal>
             <p className="display" style={{ fontSize: "clamp(24px, 3.4vw, 34px)", lineHeight: 1.45, maxWidth: "36ch" }}>
               Some things should never be automated: your judgment, your taste, the

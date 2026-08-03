@@ -44,7 +44,7 @@ export const PERSONAS: Record<string, Persona> = {
       },
       {
         q: "Who is behind this?",
-        a: "The Spectre is a House of Dotone company from Jaipur, built by a founder who runs three ventures on these systems in under ten hours a week. The proof pages on this site show the real work.",
+        a: "The Spectre is built by a founder who runs three real ventures on these same systems in under ten hours a week. The proof pages on this site show the real work.",
       },
     ],
   },

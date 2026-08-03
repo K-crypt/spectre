@@ -914,8 +914,7 @@ html.light .hero-photo-scrim {
   text-align: center;
 }
 .hero-line {
-  font-size: clamp(44px, 7.2vw, 88px);
-  max-width: 15ch;
+  font-size: clamp(42px, 6.6vw, 82px);
   margin-top: 6px;
 }
 .hero-why {

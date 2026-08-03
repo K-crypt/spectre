@@ -15,9 +15,9 @@ export default function Home() {
         <HeroPhoto />
         <div className="wrap hero-center">
           <Reveal>
-            <Stamp>EST. 2026 · JAIPUR · HOUSE OF DOTONE</Stamp>
             <h1 className="display hero-line">
-              Automate what can be. Focus on what can&apos;t.
+              <span style={{ display: "block" }}>Automate what can be.</span>
+              <span style={{ display: "block" }}>Focus on what can&apos;t.</span>
             </h1>
           </Reveal>
           <Reveal delay={90}>

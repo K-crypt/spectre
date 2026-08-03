@@ -1,7 +1,29 @@
-/* The hero atmosphere — a spectre in the mist, rendered in the house language:
-   layered 1px ridgelines in ghost tones + two slow fog drifts (ambient-sheen
-   register, gloss amendment). Pure SVG/CSS, zero image weight, both themes.
-   Motion dies under prefers-reduced-motion (globals.css). */
+/* Hero atmosphere.
+   HeroPhoto (v3, his call 2026-08-03): a documentary ridgeline photograph,
+   self-hosted and treated near-mono into the ghost palette — the owned-asset
+   photography path the trust dossier §7.6 sanctions (never raw stock).
+   Source: Unsplash photo-1506905925346-21bda4d32df4, Unsplash License,
+   credit note in public/hero-ridge-CREDIT.txt.
+   Mist (v2, generative) kept below for reuse on inner pages if ever wanted. */
+
+export function HeroPhoto() {
+  return (
+    <div className="hero-photo" aria-hidden>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/hero-ridge-1280.jpg"
+        srcSet="/hero-ridge-1280.jpg 1280w, /hero-ridge.jpg 2560w"
+        sizes="100vw"
+        alt=""
+        fetchPriority="high"
+        decoding="async"
+      />
+      <div className="hero-photo-scrim" />
+    </div>
+  );
+}
+
+/* The v2 generative mist — layered 1px ridgelines + fog drifts. */
 
 export function Mist() {
   return (

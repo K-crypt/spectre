@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp, Status, ApproveCard } from "@/components/ui";
 import { Motif } from "@/components/motifs";
-import { WaitlistForm } from "@/components/interactive";
+import { WaitlistForm, Comparison } from "@/components/interactive";
 import { PaPlayground } from "@/components/pa-playground";
 import { ChatShowcase } from "@/components/chat-showcase";
 import { SCENARIOS } from "@/lib/chat-scenarios";
@@ -54,11 +54,29 @@ export default function PaPage() {
         </div>
       </section>
 
+      {/* PLAYGROUND */}
+      <section className="hairline-b" id="playground">
+        <div className="wrap" style={{ padding: "80px 24px" }}>
+          <Reveal>
+            <Stamp>01 · THE PLAYGROUND</Stamp>
+            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Build a second brain. Then work it.</h2>
+            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
+              Feed it any combination of facts and watch the memory graph form. Then
+              run its operations: every answer is composed from exactly what you fed
+              it, and it tells you honestly when it is missing something.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <PaPlayground />
+          </Reveal>
+        </div>
+      </section>
+
       {/* PROBLEM */}
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>01 · THE PROBLEM IT REMOVES</Stamp>
+            <Stamp>02 · THE PROBLEM IT REMOVES</Stamp>
             <p className="display" style={{ fontSize: "clamp(22px, 3vw, 30px)", lineHeight: 1.45 }}>
               Every AI chat starts from zero. Your knowledge is scattered across a
               dozen tools. And the work that actually matters keeps losing the day to
@@ -72,7 +90,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>02 · WHAT IT GIVES BACK</Stamp>
+            <Stamp>03 · WHAT IT GIVES BACK</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 28 }}>Five things it gives back.</h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 14 }}>
@@ -86,24 +104,6 @@ export default function PaPage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* PLAYGROUND */}
-      <section className="hairline-b" id="playground">
-        <div className="wrap" style={{ padding: "80px 24px" }}>
-          <Reveal>
-            <Stamp>03 · THE PLAYGROUND</Stamp>
-            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Build a second brain. Then work it.</h2>
-            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
-              Feed it any combination of facts and watch the memory graph form. Then
-              run its operations: every answer is composed from exactly what you fed
-              it, and it tells you honestly when it is missing something.
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <PaPlayground />
-          </Reveal>
         </div>
       </section>
 
@@ -188,11 +188,27 @@ export default function PaPage() {
         </div>
       </section>
 
+      {/* THE OLD WAY */}
+      <section className="hairline-b">
+        <div className="wrap" style={{ padding: "80px 24px" }}>
+          <Reveal>
+            <Stamp>08 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
+            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
+              Pick something you did last month, and compare.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <Comparison />
+          </Reveal>
+        </div>
+      </section>
+
       {/* WAITLIST */}
       <section id="access">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>08 · EARLY ACCESS</Stamp>
+            <Stamp>09 · EARLY ACCESS</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>
               Everyone gets a second self. Yours starts here.
             </h2>

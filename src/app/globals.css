@@ -875,3 +875,56 @@ input:focus-visible {
   .rt-proposal, .rt-out { stroke-dashoffset: 0; animation: none; }
   .rt-pulse { animation: none; opacity: 0.25; transform: scale(1); }
 }
+
+/* ═══ LANDING v3 (2026-08-03, his verdicts: photo hero · centered company line ·
+   why-first narrative). The photo is a treated, self-hosted documentary asset
+   (dossier §7.6 owned-photography path), graded near-mono into the palette. ═══ */
+
+.hero-photo { position: absolute; inset: 0; pointer-events: none; }
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  filter: grayscale(0.86) brightness(0.52) contrast(1.06);
+}
+.hero-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 68% 60% at 50% 46%, color-mix(in srgb, var(--ground) 34%, transparent), transparent 74%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--ground) 42%, transparent) 0%, transparent 26%, transparent 62%, var(--ground) 100%);
+}
+html.light .hero-photo img {
+  filter: grayscale(0.9) brightness(1.12) contrast(0.92);
+  opacity: 0.42;
+}
+html.light .hero-photo-scrim {
+  background:
+    linear-gradient(to bottom, color-mix(in srgb, var(--ground) 55%, transparent) 0%, transparent 30%, transparent 60%, var(--ground) 100%);
+}
+
+.hero-center {
+  position: relative;
+  z-index: 1;
+  padding: 168px 24px 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero-line {
+  font-size: clamp(44px, 7.2vw, 88px);
+  max-width: 15ch;
+  margin-top: 6px;
+}
+.hero-why {
+  color: var(--ghost);
+  max-width: 52ch;
+  margin-top: 22px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+@media (max-width: 640px) {
+  .hero-center { padding: 120px 18px 104px; }
+}

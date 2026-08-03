@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp } from "@/components/ui";
 import { Motif } from "@/components/motifs";
-import { WaitlistForm } from "@/components/interactive";
+import { WaitlistForm, Comparison } from "@/components/interactive";
 import { HrPlayground } from "@/components/hr-playground";
 import { ChatShowcase } from "@/components/chat-showcase";
 import { SCENARIOS } from "@/lib/chat-scenarios";
@@ -106,10 +106,26 @@ export default function HrPage() {
         </div>
       </section>
 
+      {/* THE OLD WAY */}
+      <section className="hairline-b">
+        <div className="wrap" style={{ padding: "80px 24px" }}>
+          <Reveal>
+            <Stamp>05 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
+            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
+              Pick something you did last month, and compare.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <Comparison />
+          </Reveal>
+        </div>
+      </section>
+
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>05 · DESIGN PARTNERS</Stamp>
+            <Stamp>06 · DESIGN PARTNERS</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>We are building this with two or three design partners.</h2>
             <WaitlistForm preselect="hr" />
           </Reveal>

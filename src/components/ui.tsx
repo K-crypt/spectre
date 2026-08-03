@@ -134,7 +134,6 @@ export function Nav() {
           <Link href="/data/" onClick={() => setOpen(false)}>
             Data practices
           </Link>
-          <div className="stamp">A HOUSE OF DOTONE COMPANY · JAIPUR</div>
         </div>
       )}
     </nav>
@@ -211,7 +210,7 @@ export function Footer() {
             <Mark height={22} style={{ marginBottom: 12, color: "var(--ink)" }} />
             <div className="wordmark" style={{ marginBottom: 10 }}>THE&nbsp;SPECTRE</div>
             <div className="stamp" style={{ letterSpacing: ".14em" }}>
-              A HOUSE OF DOTONE COMPANY · JAIPUR, INDIA · <span style={{ color: "var(--brass)" }}>◆</span>
+              A HOUSE OF DOTONE COMPANY · <span style={{ color: "var(--brass)" }}>◆</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>

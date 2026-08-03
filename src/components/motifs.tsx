@@ -52,10 +52,12 @@ export function Motif({
   kind,
   size = 90,
   style = {},
+  className = "",
 }: {
   kind: keyof typeof paths | string;
   size?: number;
   style?: CSSProperties;
+  className?: string;
 }) {
   return (
     <svg
@@ -65,6 +67,7 @@ export function Motif({
       fill="none"
       stroke="currentColor"
       strokeWidth="1"
+      className={className}
       style={{ pointerEvents: "none", ...style }}
       aria-hidden
     >

@@ -66,7 +66,9 @@ Motifs are 1px-line schematics. Never illustration, never 3D, never glow (§7.6:
 
 ## 7. Imagery
 
-Zero photography. Zero stock (automatic-fail, dossier §10). Real UI screenshots (fictional data only) + the motif schematics. Numbers set as instrument readouts: mono, tabular, with as-of dates.
+Zero *decorative* photography, zero raw stock (automatic-fail, dossier §10). Real UI screenshots (fictional data only) + the motif schematics. Numbers set as instrument readouts: mono, tabular, with as-of dates.
+
+**Amendment (Aashrit, 2026-08-03):** ONE owned photographic asset is sanctioned — the hero ridgeline photograph (`public/hero-ridge.jpg`, Unsplash License, credit file alongside), on the dossier §7.6 documentary-photography path: self-hosted, graded near-mono into the ghost palette (grayscale ≥0.85 + scrim), used consistently as THE brand atmosphere, never captioned as anything real. Raw/untreated stock and any second decorative photo remain banned; any new photographic asset needs his explicit call.
 
 ## 8. Components (Phase-1 set)
 

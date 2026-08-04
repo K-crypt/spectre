@@ -60,3 +60,22 @@ export function Mist() {
     </div>
   );
 }
+
+/* RidgeEcho — the hero's ridgeline motif alone (no photo, no fog), for quiet
+   section backdrops. Ties the page back to the hero's world. */
+export function RidgeEcho() {
+  return (
+    <svg
+      className="ridge-echo"
+      viewBox="0 0 1440 200"
+      preserveAspectRatio="xMidYMax slice"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      aria-hidden
+    >
+      <path opacity="0.5" d="M0 118 L96 86 L168 106 L262 58 L340 88 L452 38 L548 78 L660 48 L764 96 L872 60 L986 100 L1102 52 L1208 88 L1310 66 L1440 106" />
+      <path opacity="0.8" d="M0 168 L88 142 L196 162 L308 114 L404 150 L512 108 L628 154 L744 120 L848 162 L964 124 L1084 166 L1196 132 L1312 162 L1440 140" />
+    </svg>
+  );
+}

@@ -116,6 +116,9 @@ export function Nav() {
             );
           })}
         </div>
+        <Link href="/notes/" className="nav-notes" style={{ textDecoration: "none", color: "var(--ghost)", fontSize: 13 }}>
+          Notes
+        </Link>
         <ThemeToggle />
         <a href="#access" className="btn btn-hard" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
           Access
@@ -131,6 +134,9 @@ export function Nav() {
               {p.name}
             </Link>
           ))}
+          <Link href="/notes/" onClick={() => setOpen(false)}>
+            Studio notes
+          </Link>
           <Link href="/data/" onClick={() => setOpen(false)}>
             Data practices
           </Link>
@@ -219,6 +225,9 @@ export function Footer() {
                 {p.short}
               </Link>
             ))}
+            <Link href="/notes/" style={{ color: "var(--ghost)", fontSize: 12, textDecoration: "none" }}>
+              Notes
+            </Link>
             <Link href="/data/" style={{ color: "var(--ghost)", fontSize: 12, textDecoration: "none" }}>
               Data practices
             </Link>

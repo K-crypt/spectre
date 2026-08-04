@@ -58,7 +58,7 @@ export default function PaPage() {
       <section className="hairline-b" id="playground">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>01 · THE PLAYGROUND</Stamp>
+            <Stamp>THE PLAYGROUND</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Build a second brain. Then work it.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
               Feed it any combination of facts and watch the memory graph form. Then
@@ -76,7 +76,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>02 · THE PROBLEM IT REMOVES</Stamp>
+            <Stamp>THE PROBLEM IT REMOVES</Stamp>
             <p className="display" style={{ fontSize: "clamp(22px, 3vw, 30px)", lineHeight: 1.45 }}>
               Every AI chat starts from zero. Your knowledge is scattered across a
               dozen tools. And the work that actually matters keeps losing the day to
@@ -90,7 +90,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>03 · WHAT IT GIVES BACK</Stamp>
+            <Stamp>WHAT IT GIVES BACK</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 28 }}>Five things it gives back.</h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 14 }}>
@@ -111,7 +111,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
           <Reveal>
-            <Stamp>04 · THE CHAT LAYER</Stamp>
+            <Stamp>THE CHAT LAYER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>Ask it a real question.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "50ch" }}>
               This is what a second brain sounds like in use: it answers from your own
@@ -129,7 +129,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
           <Reveal>
-            <Stamp>05 · HOW IT WORKS</Stamp>
+            <Stamp>HOW IT WORKS</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>How it works, in five parts.</h2>
             <ol style={{ color: "var(--ghost)", fontSize: 14, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 10 }}>
               <li><strong style={{ color: "var(--ink)" }}>The memory.</strong> Your world, compiled into a cross-linked knowledge base it keeps clean itself.</li>
@@ -156,7 +156,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>06 · WHY IT&apos;S DIFFERENT</Stamp>
+            <Stamp>WHY IT&apos;S DIFFERENT</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 28 }}>Where it differs, plainly.</h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
@@ -176,7 +176,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>07 · PROOF</Stamp>
+            <Stamp>PROOF</Stamp>
             <p className="display" style={{ fontSize: "clamp(22px, 3vw, 30px)", lineHeight: 1.45 }}>
               &ldquo;I built this to run three businesses on under ten hours a week.
               It worked. Now I&apos;m opening it up.&rdquo;
@@ -192,7 +192,7 @@ export default function PaPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>08 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <Stamp>THE OLD WAY, SIDE BY SIDE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
               Pick something you did last month, and compare.
@@ -208,7 +208,7 @@ export default function PaPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>09 · EARLY ACCESS</Stamp>
+            <Stamp>EARLY ACCESS</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>
               Everyone gets a second self. Yours starts here.
             </h2>

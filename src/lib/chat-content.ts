@@ -44,7 +44,7 @@ export const PERSONAS: Record<string, Persona> = {
       },
       {
         q: "Who is behind this?",
-        a: "The Spectre is built by a founder who runs three real ventures on these same systems in under ten hours a week. The proof pages on this site show the real work.",
+        a: "The Spectre's systems already run three real operations end to end: a live company's entire marketing, a manufacturing pilot, and a delivered research program. The proof pages on this site show the real work.",
       },
     ],
   },

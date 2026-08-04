@@ -36,9 +36,25 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true }, // launched 2026-07-22 on thespectre.one
   metadataBase: new URL("https://thespectre.one"),
   icons: { icon: "/favicon.svg" },
+  openGraph: {
+    title: "The Spectre — Automate what can be. Focus on what can't.",
+    description:
+      "Five AI specialists that make your executive team more powerful. They prepare the work; your people make the calls.",
+    url: "https://thespectre.one",
+    siteName: "The Spectre",
+    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Spectre — Automate what can be. Focus on what can't.",
+    description:
+      "Five AI specialists that make your executive team more powerful. They prepare the work; your people make the calls.",
+    images: ["/og.jpg"],
+  },
 };
 
-const themeScript = `try{var t=localStorage.getItem("spectre.site.theme");var l=t?t==="light":matchMedia("(prefers-color-scheme: light)").matches;if(l)document.documentElement.classList.add("light")}catch(e){}`;
+const themeScript = `try{var t=localStorage.getItem("spectre.site.theme");var l=t?t==="light":true;if(l)document.documentElement.classList.add("light")}catch(e){}`; // white-first (his call 2026-08-04): light is the default for everyone; dark is the stored toggle
 
 export default function RootLayout({
   children,

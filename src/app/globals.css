@@ -28,12 +28,12 @@
 /* manual theme switcher: the pre-paint script in layout.tsx sets html.light
    from localStorage `spectre.site.theme`, falling back to the system scheme. */
 html.light {
-  --ground: #f7f5f0;
+  --ground: #ffffff;
   --surface: #ffffff;
-  --surface-2: #fbfaf7;
+  --surface-2: #fafafa;
   --ink: #111111;
   --ghost: #6b6b6b;
-  --hairline: rgba(0, 0, 0, 0.09);
+  --hairline: rgba(0, 0, 0, 0.1);
   --brass: #8c6f37;
 
   --spectral: #5b5488;
@@ -936,18 +936,15 @@ html.light .hero-photo-scrim {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 26px;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--ground) 46%, transparent);
-  backdrop-filter: blur(3px);
-  overflow: hidden;
+  margin-top: 30px;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
 }
 .hero-readouts span {
   font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--ink);
-  padding: 11px 18px;
+  padding: 12px 22px;
   border-left: 1px solid var(--hairline);
   white-space: nowrap;
 }
@@ -983,3 +980,72 @@ main > section .wrap > .reveal > .stamp::after {
 }
 
 .exhibit .readout { font-size: 19px; letter-spacing: 0.05em; }
+
+
+/* ═══ LANDING v5 (2026-08-04): THE DAY · proof plates · white-first tunings ═══ */
+
+.day { max-width: 780px; margin: 26px auto 0; }
+.day-label { font-size: 10px; letter-spacing: 0.14em; color: var(--ghost); margin-bottom: 26px; }
+
+.beat { display: flex; gap: 22px; position: relative; padding-bottom: 40px; }
+.beat::before {
+  content: "";
+  position: absolute;
+  left: 86px;
+  top: 22px;
+  bottom: 0;
+  width: 1px;
+  background: var(--hairline);
+}
+.beat:last-of-type::before { display: none; }
+.beat-rail { display: flex; align-items: center; gap: 14px; flex: none; width: 100px; }
+.beat-time { font-size: 12px; letter-spacing: 0.08em; color: var(--ghost); width: 44px; text-align: right; }
+.beat-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--ghost);
+  position: relative; z-index: 1;
+  box-shadow: 0 0 0 4px var(--ground);
+}
+.beat-you .beat-time { color: var(--ink); font-weight: 600; }
+.beat-body { flex: 1; min-width: 0; padding-top: 1px; }
+.beat-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.beat-who {
+  font-size: 10px; letter-spacing: 0.12em; color: var(--ghost);
+  text-decoration: none; border-bottom: 1px solid transparent;
+}
+a.beat-who:hover { color: var(--ink); border-bottom-color: var(--hairline); }
+.beat-who-you { color: var(--ink); }
+.beat-title { font-size: 16.5px; font-weight: 550; }
+.beat-note { color: var(--ghost); font-size: 14px; max-width: 54ch; margin: 0; }
+.beat-list { margin: 0; padding: 0; list-style: none; color: var(--ghost); font-size: 13.5px; }
+.beat-list li { padding: 5px 0; border-bottom: 1px solid var(--hairline); max-width: 46ch; }
+.beat-list li:last-child { border-bottom: none; }
+.beat-stats { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; letter-spacing: 0.06em; color: var(--ink); }
+.beat-feas { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; font-size: 13.5px; color: var(--ghost); max-width: 54ch; }
+.beat-feas .ok { font-size: 11px; letter-spacing: 0.1em; color: var(--ink); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: 5px; }
+
+.approve-moment { padding: 20px; max-width: 460px; }
+.approve-moment.is-done { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+
+.day-close { display: flex; align-items: baseline; gap: 36px; margin-top: 6px; padding-left: 20px; }
+.day-close-line { font-size: clamp(24px, 3vw, 32px); margin: 0; }
+
+/* proof plates — no boxes, scale + rules */
+.plate { padding: 34px 0 30px; border-top: 1px solid var(--hairline); }
+.plate:last-of-type { border-bottom: 1px solid var(--hairline); }
+.plate-line { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.2; margin: 0 0 12px; max-width: 26ch; }
+.plate-stamp { font-size: 11px; letter-spacing: 0.1em; color: var(--ghost); }
+.plate-stamp a { text-decoration: none; border-bottom: 1px solid var(--hairline); }
+
+/* white-register tunings */
+html.light .hero-photo img { opacity: 0.5; }
+html.light .ridge-echo { opacity: 0.5; }
+html.light .rt { opacity: 0.95; }
+
+@media (max-width: 640px) {
+  .beat { gap: 14px; }
+  .beat::before { left: 64px; }
+  .beat-rail { width: 78px; gap: 10px; }
+  .beat-time { width: 40px; font-size: 11px; }
+  .day-close { padding-left: 0; gap: 20px; }
+}

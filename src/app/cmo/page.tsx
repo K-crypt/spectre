@@ -39,12 +39,12 @@ export default function CmoPage() {
       <section className="hairline-b" id="playground">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>01 · THE CONSOLE</Stamp>
+            <Stamp>THE CONSOLE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Your week arrives already staged.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "58ch", marginBottom: 24 }}>
-              This is a working miniature of the real console. Approve posts, kill an
-              ad, accept the analyst&apos;s fix, run an agent, and watch every verdict
-              ripple through the system. One number tracks what still needs you.
+              Approve posts, kill an ad, accept the analyst&apos;s fix, run an agent,
+              and watch every verdict ripple through the system. One number tracks
+              what still needs you.
             </p>
           </Reveal>
           <Reveal delay={80}>
@@ -56,7 +56,7 @@ export default function CmoPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
           <Reveal>
-            <Stamp>02 · THE CHAT LAYER</Stamp>
+            <Stamp>THE CHAT LAYER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>Ask it a real question.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "50ch" }}>
               Behind the staged queue sits a marketer you can question. It computes the
@@ -73,7 +73,7 @@ export default function CmoPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>03 · WHAT IT RUNS</Stamp>
+            <Stamp>WHAT IT RUNS</Stamp>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
             {[
@@ -96,7 +96,7 @@ export default function CmoPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "64px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>04 · PROOF</Stamp>
+            <Stamp>PROOF</Stamp>
             <p className="display" style={{ fontSize: "clamp(20px, 2.6vw, 26px)", lineHeight: 1.5, maxWidth: "40ch" }}>
               This is not a concept. It runs Carpetstory, a luxury rug export house:
               content, publishing, outreach, ads review, analytics.
@@ -112,7 +112,7 @@ export default function CmoPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>05 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <Stamp>THE OLD WAY, SIDE BY SIDE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
               Pick something you did last month, and compare.
@@ -127,7 +127,7 @@ export default function CmoPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>06 · EARLY ACCESS</Stamp>
+            <Stamp>EARLY ACCESS</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
             <WaitlistForm preselect="cmo" />
           </Reveal>

@@ -1049,3 +1049,37 @@ html.light .rt { opacity: 0.95; }
   .beat-time { width: 40px; font-size: 11px; }
   .day-close { padding-left: 0; gap: 20px; }
 }
+
+
+/* ═══ STUDIO NOTES (2026-08-04) ═══ */
+.note-measure { max-width: 720px; }
+.note-row {
+  display: flex;
+  align-items: baseline;
+  gap: 26px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--hairline);
+  text-decoration: none;
+  color: inherit;
+}
+.note-row:first-of-type { border-top: 1px solid var(--hairline); }
+.note-row-stamp { flex: none; width: 128px; font-size: 10.5px; letter-spacing: 0.1em; color: var(--ghost); }
+.note-row-title { font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; transition: opacity 150ms ease; }
+.note-row:hover .note-row-title { opacity: 0.65; }
+.note-row-dek { color: var(--ghost); font-size: 14px; margin-top: 6px; }
+.note-row-arrow { margin-left: auto; color: var(--ghost); flex: none; }
+@media (max-width: 640px) {
+  .note-row { flex-direction: column; gap: 8px; }
+  .note-row-stamp { width: auto; }
+  .note-row-arrow { display: none; }
+}
+.note-body p {
+  font-size: 17px;
+  line-height: 1.75;
+  margin: 0 0 22px;
+}
+.note-body p:last-child { margin-bottom: 0; }
+.note-body em { font-style: italic; }
+.note-body a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+.note-body a:hover { border-bottom-color: var(--ink); }
+@media (max-width: 900px) { .nav-notes { display: none; } }

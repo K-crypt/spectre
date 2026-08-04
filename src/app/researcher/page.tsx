@@ -39,7 +39,7 @@ export default function ResearcherPage() {
       <section className="hairline-b" id="playground">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>01 · WHAT A PROGRAM LOOKS LIKE</Stamp>
+            <Stamp>WHAT A PROGRAM LOOKS LIKE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 24 }}>You receive a library, not a deck.</h2>
           </Reveal>
           <Reveal delay={80}>
@@ -51,7 +51,7 @@ export default function ResearcherPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
           <Reveal>
-            <Stamp>02 · THE CHAT LAYER</Stamp>
+            <Stamp>THE CHAT LAYER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>Ask it a real question.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "50ch" }}>
               A finished library keeps answering. It checks your own studies before it
@@ -68,7 +68,7 @@ export default function ResearcherPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>03 · THE METHOD</Stamp>
+            <Stamp>THE METHOD</Stamp>
             <p style={{ fontSize: 15, color: "var(--ghost)", maxWidth: "60ch", lineHeight: 1.8 }}>
               A real program runs like this: the ground truth is read first, from your
               documents. Then fleets of specialist agents research every chapter in
@@ -89,7 +89,7 @@ export default function ResearcherPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>04 · WHAT YOU RECEIVE</Stamp>
+            <Stamp>WHAT YOU RECEIVE</Stamp>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
             {[
@@ -113,7 +113,7 @@ export default function ResearcherPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>05 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <Stamp>THE OLD WAY, SIDE BY SIDE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
               Pick something you did last month, and compare.
@@ -128,7 +128,7 @@ export default function ResearcherPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>06 · EARLY ACCESS</Stamp>
+            <Stamp>EARLY ACCESS</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
             <WaitlistForm preselect="researcher" />
           </Reveal>

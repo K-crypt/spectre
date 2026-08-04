@@ -39,7 +39,7 @@ export default function CooPage() {
       <section className="hairline-b" id="playground">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>01 · THE OPERATING PICTURE</Stamp>
+            <Stamp>THE OPERATING PICTURE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 24 }}>A plant you can hold in one look.</h2>
           </Reveal>
           <Reveal delay={80}>
@@ -51,7 +51,7 @@ export default function CooPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, alignItems: "start" }}>
           <Reveal>
-            <Stamp>02 · THE CHAT LAYER</Stamp>
+            <Stamp>THE CHAT LAYER</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 16 }}>Ask it a real question.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "50ch" }}>
               The same picture you just explored also answers. On your live data it
@@ -68,7 +68,7 @@ export default function CooPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>03 · WHAT THE PILOT COVERS</Stamp>
+            <Stamp>WHAT THE PILOT COVERS</Stamp>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
             {[
@@ -91,7 +91,7 @@ export default function CooPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "64px 24px", maxWidth: 800 }}>
           <Reveal>
-            <Stamp>04 · THE HONEST PART</Stamp>
+            <Stamp>THE HONEST PART</Stamp>
             <p style={{ fontSize: 15, color: "var(--ghost)", maxWidth: "60ch" }}>
               A live picture needs live data. Most plants do not have it, so we build
               that too: the collection, the processing, and the plumbing into your ERP,
@@ -106,7 +106,7 @@ export default function CooPage() {
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>05 · THE OLD WAY, SIDE BY SIDE</Stamp>
+            <Stamp>THE OLD WAY, SIDE BY SIDE</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>The same task, three ways.</h2>
             <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 28 }}>
               Pick something you did last month, and compare.
@@ -121,7 +121,7 @@ export default function CooPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>06 · EARLY ACCESS</Stamp>
+            <Stamp>EARLY ACCESS</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
             <WaitlistForm preselect="coo" />
           </Reveal>

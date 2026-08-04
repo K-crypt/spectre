@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font/google";
+import { Spectral, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font/google";
 import "./globals.css";
 import { Nav, Footer } from "@/components/ui";
 import { ChatWidget } from "@/components/chat-widget";
 
-const fraunces = Fraunces({
+// Display serif swapped to Spectral 2026-08-04 (his call: Fraunces read
+// unprofessional). CSS var name kept for stability across globals.css.
+const spectral = Spectral({
   variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: "variable",
-  axes: ["opsz"],
+  weight: ["200", "300", "400", "500"],
 });
 
 const instrument = Instrument_Sans({
@@ -60,7 +61,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
+    <html lang="en" className={`${spectral.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Nav />

@@ -927,3 +927,59 @@ html.light .hero-photo-scrim {
 @media (max-width: 640px) {
   .hero-center { padding: 120px 18px 104px; }
 }
+
+
+/* ═══ LANDING v4 design layer (2026-08-04): instrument readout band ·
+   section stamp rails · ridge echo · heavier proof readouts. ═══ */
+.hero-readouts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 26px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ground) 46%, transparent);
+  backdrop-filter: blur(3px);
+  overflow: hidden;
+}
+.hero-readouts span {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  padding: 11px 18px;
+  border-left: 1px solid var(--hairline);
+  white-space: nowrap;
+}
+.hero-readouts span:first-child { border-left: none; }
+@media (max-width: 640px) {
+  .hero-readouts { flex-direction: column; align-items: stretch; }
+  .hero-readouts span { border-left: none; border-top: 1px solid var(--hairline); text-align: center; }
+  .hero-readouts span:first-child { border-top: none; }
+}
+
+/* section stamps on the landing carry a technical rail */
+main > section .wrap > .reveal > .stamp {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+main > section .wrap > .reveal > .stamp::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.why-sec { position: relative; overflow: hidden; }
+.ridge-echo {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 44%;
+  color: var(--ghost);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.exhibit .readout { font-size: 19px; letter-spacing: 0.05em; }

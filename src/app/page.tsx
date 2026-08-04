@@ -3,7 +3,7 @@ import { Reveal, Stamp, Status } from "@/components/ui";
 import { PRODUCTS_DATA as PRODUCTS } from "@/lib/products";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm } from "@/components/interactive";
-import { HeroPhoto } from "@/components/atmosphere";
+import { HeroPhoto, RidgeEcho } from "@/components/atmosphere";
 import { OpsFeed } from "@/components/ops-feed";
 import { RoundTable } from "@/components/roundtable";
 
@@ -22,23 +22,26 @@ export default function Home() {
           </Reveal>
           <Reveal delay={90}>
             <p className="hero-why">
-              Built by people who love one thing: solving business problems with
-              ingenious use of the newest tech.
+              Five AI specialists that make your executive team more powerful.
+              They prepare the work; your people make the calls.
             </p>
             <div style={{ display: "flex", gap: 12, alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginTop: 30 }}>
               <a href="#access" className="btn btn-hard">Request early access</a>
               <a href="#systems" className="btn btn-soft">See the systems</a>
             </div>
-            <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 18 }}>
-              One of these systems already runs a real company&apos;s entire marketing operation.
+            <div className="hero-readouts mono">
+              <span>5 SPECIALISTS</span>
+              <span>1 RULE — YOUR YES</span>
+              <span>3 LIVE OPERATIONS TODAY</span>
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* ── 01 · WHY — the belief, up front ── */}
-      <section className="hairline-b">
-        <div className="wrap" style={{ padding: "104px 24px" }}>
+      <section className="hairline-b why-sec">
+        <RidgeEcho />
+        <div className="wrap" style={{ padding: "104px 24px", position: "relative" }}>
           <Reveal>
             <Stamp>01 · WHY WE BUILD</Stamp>
             <p className="display" style={{ fontSize: "clamp(26px, 3.6vw, 38px)", lineHeight: 1.4, maxWidth: "34ch" }}>
@@ -50,66 +53,23 @@ export default function Home() {
               </span>
             </p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ── 02 · HOW — they propose, you decide ── */}
-      <section className="hairline-b">
-        <div className="wrap" style={{ padding: "88px 24px" }}>
-          <Reveal>
-            <Stamp>02 · HOW IT WORKS</Stamp>
-            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>They propose. You decide.</h2>
-            <p style={{ color: "var(--ghost)", maxWidth: "52ch", marginBottom: 36 }}>
-              Five specialists sit at your table. They prepare the work and wait.
-              Nothing leaves without your yes.
+          <Reveal delay={90}>
+            <p style={{ color: "var(--ghost)", fontSize: 15, marginTop: 40, maxWidth: "52ch" }}>
+              Built by people who love one thing: solving business problems with
+              ingenious use of the newest tech.
+            </p>
+            <p className="display" style={{ fontSize: "clamp(19px, 2.2vw, 24px)", marginTop: 10, maxWidth: "40ch" }}>
+              No good business is run alone. The best help just stopped being only human.
             </p>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 44, alignItems: "center" }}>
-            <Reveal delay={80}>
-              <RoundTable />
-            </Reveal>
-            <Reveal delay={140}>
-              <OpsFeed />
-            </Reveal>
-          </div>
         </div>
       </section>
 
-      {/* ── 03 · WHAT — the five systems ── */}
-      <section className="hairline-b" id="systems">
-        <div className="wrap" style={{ padding: "80px 24px" }}>
-          <Reveal>
-            <Stamp>03 · THE SYSTEMS</Stamp>
-            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Five specialists, one rule.</h2>
-            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 32 }}>
-              None of them acts without you.
-            </p>
-          </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 16 }}>
-            {PRODUCTS.map((p, idx) => (
-              <Reveal key={p.slug} delay={idx * 60}>
-                <Link href={`/${p.slug}/`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div className="card roster-card">
-                    <Motif kind={p.slug} size={150} className="motif-face" style={{ color: p.accent }} />
-                    <div className="r-name">
-                      <span className="dot" style={{ background: p.accent }} />
-                      {p.name}
-                    </div>
-                    <p className="r-claim">{p.claim}</p>
-                    <Status>{p.status}</Status>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 04 · PROOF — ledger exhibits ── */}
+      {/* ── 02 · PROOF — ledger exhibits ── */}
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>04 · PROOF</Stamp>
+            <Stamp>02 · PROOF</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 28 }}>Running today, not promised.</h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
@@ -159,6 +119,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 03 · HOW — your suite, amplified ── */}
+      <section className="hairline-b">
+        <div className="wrap" style={{ padding: "88px 24px" }}>
+          <Reveal>
+            <Stamp>03 · HOW IT WORKS</Stamp>
+            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Your suite, amplified.</h2>
+            <p style={{ color: "var(--ghost)", maxWidth: "52ch", marginBottom: 36 }}>
+              They propose. You decide. Five specialists prepare the work and wait,
+              and nothing leaves without your yes. They sit with your team, not
+              instead of it.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 44, alignItems: "center" }}>
+            <Reveal delay={80}>
+              <RoundTable />
+            </Reveal>
+            <Reveal delay={140}>
+              <OpsFeed />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 04 · WHAT — the five systems ── */}
+      <section className="hairline-b" id="systems">
+        <div className="wrap" style={{ padding: "80px 24px" }}>
+          <Reveal>
+            <Stamp>04 · THE SYSTEMS</Stamp>
+            <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>Five specialists, one rule.</h2>
+            <p style={{ color: "var(--ghost)", maxWidth: "56ch", marginBottom: 32 }}>
+              None of them acts without you.
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 16 }}>
+            {PRODUCTS.map((p, idx) => (
+              <Reveal key={p.slug} delay={idx * 60}>
+                <Link href={`/${p.slug}/`} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div className="card roster-card">
+                    <Motif kind={p.slug} size={150} className="motif-face" style={{ color: p.accent }} />
+                    <div className="r-name">
+                      <span className="dot" style={{ background: p.accent }} />
+                      {p.name}
+                    </div>
+                    <p className="r-claim">{p.claim}</p>
+                    <Status>{p.status}</Status>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
       {/* ── 05 · ACCESS ── */}
       <section id="access">
         <div className="wrap" style={{ padding: "88px 24px" }}>
@@ -172,7 +186,7 @@ export default function Home() {
           <Reveal delay={80}>
             <WaitlistForm />
             <div className="mono" style={{ fontSize: 11, color: "var(--ghost)", marginTop: 20 }}>
-              BUILT BY ONE FOUNDER TO RUN THREE VENTURES IN UNDER TEN HOURS A WEEK. NOW OPENING TO OTHERS.
+              BUILT AND PROVEN LIVE ON THREE REAL VENTURES. NOW OPENING TO OTHERS.
             </div>
           </Reveal>
         </div>

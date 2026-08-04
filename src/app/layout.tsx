@@ -44,10 +44,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${fraunces.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}
-      >
+    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
+      <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Nav />
         {children}

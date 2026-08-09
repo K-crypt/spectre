@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 type Seat = {
   slug: "pa" | "coo" | "cmo" | "researcher" | "hr";
   label: string;
@@ -179,7 +181,7 @@ export function RoundTable() {
       <div className="rt-sticky">
       <div className="rt-photo-stage" role="group" aria-label="The mountain view descending into a table of five AI specialists">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rt-photo rt-photo-base" src="/mountain-table-master-v4.webp" alt="Mountain peaks descending into a table of five seated AI specialists" />
+        <img className="rt-photo rt-photo-base" src={`${basePath}/mountain-table-master-v4.webp`} alt="Mountain peaks descending into a table of five seated AI specialists" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div key={activeSlug ?? "no-selection"} className="rt-selection-focus" aria-hidden />
         <div className="rt-photo-vignette" />

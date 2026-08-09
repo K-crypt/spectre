@@ -120,7 +120,7 @@ export function Nav() {
           Notes
         </Link>
         <ThemeToggle />
-        <a href="#access" className="btn btn-hard" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
+        <a href="#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
           Access
         </a>
         <button className="menu-btn" aria-label="Menu" onClick={() => setOpen(!open)}>
@@ -140,6 +140,9 @@ export function Nav() {
           <Link href="/data/" onClick={() => setOpen(false)}>
             Data practices
           </Link>
+          <a href="#access" onClick={() => setOpen(false)}>
+            Request early access
+          </a>
         </div>
       )}
     </nav>

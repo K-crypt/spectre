@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/base-path";
+
 /* Hero atmosphere. The homepage now begins inside the same mountain world as
    the interactive table below, so the table can emerge naturally on scroll. */
 
@@ -7,7 +9,7 @@ export function HeroPhoto() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="hero-table-camera"
-        src="/mountain-table-seated.webp"
+        src={withBasePath("/mountain-table-seated.webp")}
         sizes="100vw"
         alt=""
         fetchPriority="high"

@@ -2700,7 +2700,9 @@ html.light .hero-photo-scrim {
   inset: 0;
   z-index: -2;
   opacity: .23;
-  background: url("/mountain-table-master-v4.webp") center 27% / cover no-repeat;
+  background-position: center 27%;
+  background-size: cover;
+  background-repeat: no-repeat;
   filter: grayscale(.45) sepia(.15) saturate(.75) contrast(1.08);
   transform: scale(1.025);
 }

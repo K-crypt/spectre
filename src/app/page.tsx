@@ -3,6 +3,7 @@ import { WaitlistForm } from "@/components/interactive";
 import { RidgeEcho } from "@/components/atmosphere";
 import { RoundTable } from "@/components/roundtable";
 import { Day } from "@/components/day";
+import { withBasePath } from "@/lib/base-path";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
       {/* ── HERO — the business problem, before the product architecture ── */}
       <section className="mountain-hero hairline-b" aria-labelledby="hero-title">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/mountain-hero-scenery.webp" alt="A quiet mountain range rising through fog at first light" />
+        <img src={withBasePath("/mountain-hero-scenery.webp")} alt="A quiet mountain range rising through fog at first light" />
         <div className="mountain-hero-scrim" />
         <div className="mountain-hero-copy">
           <span className="mono rt-hero-kicker">SPECTRE · FOR FOUNDER-LED BUSINESSES</span>
@@ -140,7 +141,11 @@ export default function Home() {
 
       {/* ── FACTORY CASE STUDY — the strongest wedge ── */}
       <section className="lower-section factory-section" id="factory" aria-labelledby="factory-title">
-        <div className="factory-mountain" aria-hidden />
+        <div
+          className="factory-mountain"
+          style={{ backgroundImage: `url("${withBasePath("/mountain-table-master-v4.webp")}")` }}
+          aria-hidden
+        />
         <div className="wrap lower-wrap factory-wrap">
           <Reveal className="factory-copy">
             <Stamp>CASE STUDY · MANUFACTURING</Stamp>

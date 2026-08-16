@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { withBasePath } from "@/lib/base-path";
 
 type Seat = {
   slug: "pa" | "coo" | "cmo" | "researcher" | "hr";
@@ -28,8 +29,8 @@ const SEATS: Seat[] = [
     accent: "var(--ochre)",
     position: "9.5%",
     panelSide: "right",
-    risingImage: "/table-hr-rising-luxury.webp",
-    standingImage: "/table-hr-standing-sharp.webp",
+    risingImage: withBasePath("/table-hr-rising-luxury.webp"),
+    standingImage: withBasePath("/table-hr-standing-sharp.webp"),
     status: "TAKING DESIGN PARTNERS",
     claim: "I turn a leaving pattern into an early conversation.",
     prompt: "One employee needs you before Friday.",
@@ -44,8 +45,8 @@ const SEATS: Seat[] = [
     accent: "var(--archive)",
     position: "29.4%",
     panelSide: "right",
-    risingImage: "/table-researcher-rising-luxury.webp",
-    standingImage: "/table-researcher-standing-sharp.webp",
+    risingImage: withBasePath("/table-researcher-rising-luxury.webp"),
+    standingImage: withBasePath("/table-researcher-standing-sharp.webp"),
     status: "METHOD PROVEN",
     claim: "I check the study before you have to trust it.",
     prompt: "Chapter four has finished its verification pass.",
@@ -60,8 +61,8 @@ const SEATS: Seat[] = [
     accent: "var(--spectral)",
     position: "50.3%",
     panelSide: "right",
-    risingImage: "/table-pa-rising-luxury.webp",
-    standingImage: "/table-pa-standing-sharp.webp",
+    risingImage: withBasePath("/table-pa-rising-luxury.webp"),
+    standingImage: withBasePath("/table-pa-standing-sharp.webp"),
     status: "RUNNING IN PRODUCTION",
     claim: "I turn forty-one messages into three decisions.",
     prompt: "Your morning arrived before you did.",
@@ -76,8 +77,8 @@ const SEATS: Seat[] = [
     accent: "var(--steel)",
     position: "72%",
     panelSide: "left",
-    risingImage: "/table-coo-rising-luxury.webp",
-    standingImage: "/table-coo-standing-sharp.webp",
+    risingImage: withBasePath("/table-coo-rising-luxury.webp"),
+    standingImage: withBasePath("/table-coo-standing-sharp.webp"),
     status: "IN PILOT BUILD",
     claim: "I test the rush order before you accept it.",
     prompt: "120,000 units · due in six weeks",
@@ -92,8 +93,8 @@ const SEATS: Seat[] = [
     accent: "var(--clay)",
     position: "91%",
     panelSide: "left",
-    risingImage: "/table-cmo-rising-luxury.webp",
-    standingImage: "/table-cmo-standing-sharp.webp",
+    risingImage: withBasePath("/table-cmo-rising-luxury.webp"),
+    standingImage: withBasePath("/table-cmo-standing-sharp.webp"),
     status: "RUNNING IN PRODUCTION",
     claim: "I bring a week of marketing ready for judgment.",
     prompt: "Tomorrow's campaign is already assembled.",
@@ -238,7 +239,7 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
       <div className="rt-sticky">
       <div className="rt-photo-stage" role="group" aria-label="The mountain view descending into Spectre's operating layer">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rt-photo rt-photo-base" src={modulesOnly ? "/executive-table-master.webp" : "/mountain-table-master-v4.webp"} alt={modulesOnly ? "Five spectral figures seated around a walnut boardroom table above the same mountain range as the landing page" : "Mountain peaks descending into Spectre's operating table"} />
+        <img className="rt-photo rt-photo-base" src={withBasePath(modulesOnly ? "/executive-table-master.webp" : "/mountain-table-master-v4.webp")} alt={modulesOnly ? "Five spectral figures seated around a walnut boardroom table above the same mountain range as the landing page" : "Mountain peaks descending into Spectre's operating table"} />
         {modulesOnly && active && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}

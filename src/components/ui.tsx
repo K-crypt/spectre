@@ -114,9 +114,9 @@ export function Nav() {
           Notes
         </Link>
         <ThemeToggle />
-        <a href="/#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
+        <Link href="/#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
           Design partnership
-        </a>
+        </Link>
         <button className="menu-btn" aria-label="Menu" onClick={() => setOpen(!open)}>
           {open ? <X size={16} strokeWidth={1.5} /> : <Menu size={16} strokeWidth={1.5} />}
         </button>
@@ -139,9 +139,9 @@ export function Nav() {
           <Link href="/data/" onClick={() => setOpen(false)}>
             Data practices
           </Link>
-          <a href="/#access" onClick={() => setOpen(false)}>
+          <Link href="/#access" onClick={() => setOpen(false)}>
             Discuss a design partnership
-          </a>
+          </Link>
         </div>
       )}
     </nav>

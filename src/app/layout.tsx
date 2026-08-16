@@ -3,6 +3,7 @@ import { Spectral, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font
 import "./globals.css";
 import { Nav, Footer } from "@/components/ui";
 import { ChatWidget } from "@/components/chat-widget";
+import { withBasePath } from "@/lib/base-path";
 
 // Display serif swapped to Spectral 2026-08-04 (his call: Fraunces read
 // unprofessional). CSS var name kept for stability across globals.css.
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     "Spectre turns scattered business information into one operating picture, prepares the work, and keeps every material decision under human control.",
   robots: { index: true, follow: true }, // launched 2026-07-22 on thespectre.one
   metadataBase: new URL("https://thespectre.one"),
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: withBasePath("/favicon.svg") },
   openGraph: {
     title: "The Spectre — Your business in one operating picture",
     description:

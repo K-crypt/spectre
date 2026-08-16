@@ -10,16 +10,29 @@ type Seat = {
   name: string;
   accent: string;
   position: string;
-  panelSide: "left" | "right";
+  cameraPan: string;
   risingImage: string;
   standingImage: string;
   status: string;
   claim: string;
   prompt: string;
-  steps: [string, string, string];
-  result: string;
-  proof: string;
+  table: {
+    label: string;
+    recommendation: string;
+    signals: [
+      { label: string; value: string },
+      { label: string; value: string },
+      { label: string; value: string },
+    ];
+    rationale: string;
+    assumption: string;
+    sources: string;
+    uncertainty: string;
+    alternative: string;
+  };
 };
+
+type DecisionMode = "ready" | "approved" | "modify" | "why";
 
 const SEATS: Seat[] = [
   {
@@ -28,15 +41,26 @@ const SEATS: Seat[] = [
     name: "AI HR",
     accent: "var(--ochre)",
     position: "9.5%",
-    panelSide: "right",
+    cameraPan: "4px",
     risingImage: withBasePath("/table-hr-rising-luxury.webp"),
     standingImage: withBasePath("/table-hr-standing-sharp.webp"),
     status: "TAKING DESIGN PARTNERS",
     claim: "I turn a leaving pattern into an early conversation.",
     prompt: "One employee needs you before Friday.",
-    steps: ["Full-year record retrieved", "Overtime and pay drift cross-checked", "Conversation guide prepared"],
-    result: "The conversation is staged. No letter or people decision is automated.",
-    proof: "The people layer is now opening to design partners.",
+    table: {
+      label: "PEOPLE SIGNAL · RETENTION",
+      recommendation: "Hold a retention conversation before Friday; correct workload before discussing compensation.",
+      signals: [
+        { label: "OVERTIME DRIFT", value: "+40%" },
+        { label: "PAY TO BAND", value: "−9%" },
+        { label: "READINESS", value: "GUIDE PREPARED" },
+      ],
+      rationale: "Sustained overtime and pay-band drift appeared together before the employee raised the issue.",
+      assumption: "The employee has not already accepted another offer.",
+      sources: "Attendance record · pay band · overtime ledger · two reviews",
+      uncertainty: "Intent is not known until the conversation happens.",
+      alternative: "Open with workload only; defer compensation until the employee states the reason for leaving.",
+    },
   },
   {
     slug: "researcher",
@@ -44,15 +68,26 @@ const SEATS: Seat[] = [
     name: "AI Researcher",
     accent: "var(--archive)",
     position: "29.4%",
-    panelSide: "right",
+    cameraPan: "2px",
     risingImage: withBasePath("/table-researcher-rising-luxury.webp"),
     standingImage: withBasePath("/table-researcher-standing-sharp.webp"),
     status: "METHOD PROVEN",
     claim: "I check the study before you have to trust it.",
     prompt: "Chapter four has finished its verification pass.",
-    steps: ["47 sources mapped", "Every material claim challenged", "2 claims corrected and re-sourced"],
-    result: "The chapter is verified. Open questions remain visibly flagged.",
-    proof: "The method delivered a complete market-entry study in July 2026.",
+    table: {
+      label: "EVIDENCE DESK · VERIFICATION",
+      recommendation: "Release chapter four with two corrected claims and keep three open questions visible.",
+      signals: [
+        { label: "SOURCES", value: "47" },
+        { label: "CLAIMS RE-CHECKED", value: "18" },
+        { label: "OPEN QUESTIONS", value: "3" },
+      ],
+      rationale: "Two material claims failed the first verification pass and were replaced with stronger sources.",
+      assumption: "Distributor reporting is directionally comparable across the three markets.",
+      sources: "Primary filings · trade data · expert record · source map",
+      uncertainty: "Three market-size assumptions remain sensitive to distributor reporting.",
+      alternative: "Hold publication until the three open questions receive independent corroboration.",
+    },
   },
   {
     slug: "pa",
@@ -60,15 +95,26 @@ const SEATS: Seat[] = [
     name: "AI PA · Second Brain",
     accent: "var(--spectral)",
     position: "50.3%",
-    panelSide: "right",
+    cameraPan: "0px",
     risingImage: withBasePath("/table-pa-rising-v2.webp"),
     standingImage: withBasePath("/table-pa-standing-v2.webp"),
     status: "RUNNING IN PRODUCTION",
     claim: "I turn forty-one messages into three decisions.",
     prompt: "Your morning arrived before you did.",
-    steps: ["41 messages read", "2 replies drafted in your voice", "3 decisions routed to you"],
-    result: "The replies are staged. Your calendar fix is ready. Nothing has been sent.",
-    proof: "The memory layer already coordinates live operating work.",
+    table: {
+      label: "EXECUTIVE DESK · MORNING PRIORITIES",
+      recommendation: "Resolve the production clash first, approve two replies, and defer the vendor review to Thursday.",
+      signals: [
+        { label: "MESSAGES READ", value: "41" },
+        { label: "CONFLICTS", value: "1" },
+        { label: "AWAITING JUDGMENT", value: "3" },
+      ],
+      rationale: "The production meeting and buyer call share the same decision owner; the buyer deadline is earlier.",
+      assumption: "Neither meeting can move without changing the promised response time.",
+      sources: "Inbox · calendar · meeting record · priority rules",
+      uncertainty: "The vendor has not confirmed whether Thursday still holds.",
+      alternative: "Keep the production meeting and delegate the buyer call with a prepared briefing.",
+    },
   },
   {
     slug: "coo",
@@ -76,15 +122,26 @@ const SEATS: Seat[] = [
     name: "AI COO",
     accent: "var(--steel)",
     position: "72%",
-    panelSide: "left",
+    cameraPan: "-2px",
     risingImage: withBasePath("/table-coo-rising-luxury.webp"),
     standingImage: withBasePath("/table-coo-standing-sharp.webp"),
     status: "IN PILOT BUILD",
     claim: "I test the rush order before you accept it.",
     prompt: "120,000 units · due in six weeks",
-    steps: ["Bill of materials exploded", "Live capacity checked by cell", "1 bottleneck · purchase list staged"],
-    result: "The feasible plan is staged. No material has been ordered.",
-    proof: "Approximately 400 machines are being mapped into one operating picture.",
+    table: {
+      label: "FACTORY COMMAND · ORDER FEASIBILITY",
+      recommendation: "Accept the order only with two added machines and a protected week-three maintenance window.",
+      signals: [
+        { label: "ORDER", value: "120K UNITS" },
+        { label: "BOTTLENECK", value: "LINE 2" },
+        { label: "FEASIBILITY", value: "CONDITIONAL" },
+      ],
+      rationale: "Current finishing capacity misses the promised date; two machines recover the gap without overtime dependency.",
+      assumption: "Machine delivery and staffing follow the current supplier plan.",
+      sources: "BOM · live cell capacity · maintenance plan · supplier lead times",
+      uncertainty: "Supplier commissioning is estimated within a five-day range.",
+      alternative: "Accept 90,000 units on the original date and stage the balance for the following cycle.",
+    },
   },
   {
     slug: "cmo",
@@ -92,15 +149,26 @@ const SEATS: Seat[] = [
     name: "AI CMO",
     accent: "var(--clay)",
     position: "91%",
-    panelSide: "left",
+    cameraPan: "-4px",
     risingImage: withBasePath("/table-cmo-rising-luxury.webp"),
     standingImage: withBasePath("/table-cmo-standing-sharp.webp"),
     status: "RUNNING IN PRODUCTION",
     claim: "I bring a week of marketing ready for judgment.",
     prompt: "Tomorrow's campaign is already assembled.",
-    steps: ["Content checked against brand rules", "Ad spend tested against its kill rule", "4 verdicts routed to you"],
-    result: "The post, replies, and ad decision are logged and ready to ship.",
-    proof: "This operating rhythm runs Carpetstory's marketing today.",
+    table: {
+      label: "MARKET DESK · CAMPAIGN READINESS",
+      recommendation: "Ship the campaign, restore stories to 20:00, and pause North-2 if its cost rule breaches again.",
+      signals: [
+        { label: "CUSTOMER SIGNAL", value: "SAVES +12%" },
+        { label: "CAMPAIGN", value: "READY" },
+        { label: "OUTREACH", value: "12 DRAFTS" },
+      ],
+      rationale: "Demand signals held; the weakness follows a timing change, while one ad set alone shows cost drift.",
+      assumption: "The timing change, not a demand shift, caused the click decline.",
+      sources: "Four-week performance · campaign rules · reply history · content calendar",
+      uncertainty: "Weekend conversion cannot be known until the first buying window closes.",
+      alternative: "Ship organic content only and hold paid spend until Monday's conversion readout.",
+    },
   },
 ];
 
@@ -109,9 +177,9 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
   const riseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeSlug, setActiveSlug] = useState<Seat["slug"] | null>(null);
   const [risePhase, setRisePhase] = useState<"idle" | "rising" | "standing">("idle");
-  const [approved, setApproved] = useState(false);
+  const [decisionMode, setDecisionMode] = useState<DecisionMode>("ready");
+  const [alternativeSelected, setAlternativeSelected] = useState(false);
   const [boardReady, setBoardReady] = useState(modulesOnly);
-  const [detailsOpen, setDetailsOpen] = useState(false);
   const active = SEATS.find((seat) => seat.slug === activeSlug) ?? null;
 
   useEffect(() => {
@@ -195,8 +263,8 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
       if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
       setActiveSlug(null);
       setRisePhase("idle");
-      setApproved(false);
-      setDetailsOpen(false);
+      setDecisionMode("ready");
+      setAlternativeSelected(false);
     };
 
     document.addEventListener("keydown", dismissWithKeyboard);
@@ -209,16 +277,16 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
     if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
     setActiveSlug(null);
     setRisePhase("idle");
-    setApproved(false);
-    setDetailsOpen(false);
+    setDecisionMode("ready");
+    setAlternativeSelected(false);
   };
 
   const choose = (slug: Seat["slug"]) => {
     if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
     setActiveSlug(slug);
     setRisePhase("rising");
-    setApproved(false);
-    setDetailsOpen(false);
+    setDecisionMode("ready");
+    setAlternativeSelected(false);
     riseTimerRef.current = setTimeout(() => setRisePhase("standing"), 520);
   };
 
@@ -230,6 +298,7 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
         "--rt-accent": active?.accent ?? "var(--spectral)",
         "--active-x": active?.position ?? "50%",
         "--camera-focus-x": active?.position ?? "50%",
+        "--room-camera-pan": active?.cameraPan ?? "0px",
         "--camera-scale": modulesOnly ? 1 : 1.56,
         "--camera-y": "0%",
         "--hero-copy-opacity": modulesOnly ? 0 : 1,
@@ -275,37 +344,96 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
           </div>
         </div>}
 
-        <div className="rt-photo-intro" aria-live="polite">
-          <span className="mono">SHARED CONTEXT · SPECIALIST VIEWS</span>
-          <strong className="display">Choose who takes the floor.</strong>
-          <p>Each module prepares a different part of the same operating picture.</p>
-          <em className="mono">SELECT A ROLE BELOW</em>
-        </div>
+        {!active && (
+          <div className="rt-room-invitation" aria-live="polite">
+            <span className="mono">THE EXECUTIVE ROOM · FICTIONAL DEMONSTRATION</span>
+            <strong className="display">Summon the specialist the decision requires.</strong>
+            <p>Spectre prepares. The human decides.</p>
+          </div>
+        )}
 
-        {SEATS.map((seat) => {
-          const selected = seat.slug === activeSlug;
-          return (
-            <button
-              key={seat.slug}
-              type="button"
-              className={`rt-person rt-person-${seat.slug} ${selected ? "is-active" : ""}`}
-              style={{
-                left: seat.position,
-                top: "46%",
-                "--seat-accent": seat.accent,
-              } as CSSProperties}
-              onClick={() => choose(seat.slug)}
-              aria-pressed={selected}
-              aria-label={`Ask ${seat.name} to introduce itself`}
-            >
-              <span className="rt-person-pulse" aria-hidden />
-              <span>{seat.label}</span>
-            </button>
-          );
-        })}
+        {active && (
+          <>
+            <article className="rt-executive-brief" aria-live="polite">
+              <button type="button" className="rt-room-close" onClick={dismiss} aria-label="Close specialist view">×</button>
+              <div className="rt-brief-meta mono">
+                <span>{active.status}</span>
+                <span>{String(SEATS.indexOf(active) + 1).padStart(2, "0")} / 05</span>
+              </div>
+              <h3 className="display">{active.claim}</h3>
+              <p>{active.prompt}</p>
+              <Link href={`/${active.slug}/`}>Explore {active.name} <span aria-hidden>→</span></Link>
+            </article>
+
+            <section className={`rt-table-interface mode-${decisionMode}`} aria-label={`${active.name} prepared decision`}>
+              <header className="rt-table-header mono">
+                <span>{active.table.label}</span>
+                <span>FICTIONAL DEMO DATA · HUMAN APPROVAL REQUIRED</span>
+              </header>
+
+              <div className="rt-table-readout">
+                <div className="rt-table-recommendation">
+                  <span className="mono">PREPARED RECOMMENDATION</span>
+                  <p>{alternativeSelected ? active.table.alternative : active.table.recommendation}</p>
+                </div>
+                <dl className="rt-table-signals">
+                  {active.table.signals.map((signal) => (
+                    <div key={signal.label}>
+                      <dt className="mono">{signal.label}</dt>
+                      <dd>{signal.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              <div className="rt-table-detail" aria-live="polite">
+                {decisionMode === "approved" && (
+                  <div className="rt-table-confirmation">
+                    <span className="mono">APPROVED BY YOU · EXECUTED · LOGGED</span>
+                    <p>The selected instruction has been released. The decision and evidence trail are now attributable.</p>
+                  </div>
+                )}
+
+                {decisionMode === "modify" && (
+                  <fieldset className="rt-table-alternatives">
+                    <legend className="mono">MODIFY THE STAGED INSTRUCTION</legend>
+                    <label>
+                      <input type="radio" name={`${active.slug}-instruction`} checked={!alternativeSelected} onChange={() => setAlternativeSelected(false)} />
+                      <span><b>Prepared</b>{active.table.recommendation}</span>
+                    </label>
+                    <label>
+                      <input type="radio" name={`${active.slug}-instruction`} checked={alternativeSelected} onChange={() => setAlternativeSelected(true)} />
+                      <span><b>Lower-risk alternative</b>{active.table.alternative}</span>
+                    </label>
+                  </fieldset>
+                )}
+
+                {decisionMode === "why" && (
+                  <dl className="rt-table-rationale">
+                    <div><dt className="mono">WHY THIS</dt><dd>{active.table.rationale}</dd></div>
+                    <div><dt className="mono">ASSUMPTION</dt><dd>{active.table.assumption}</dd></div>
+                    <div><dt className="mono">EVIDENCE</dt><dd>{active.table.sources}</dd></div>
+                    <div><dt className="mono">UNCERTAINTY</dt><dd>{active.table.uncertainty}</dd></div>
+                  </dl>
+                )}
+              </div>
+
+              <div className="rt-decision-rail" role="group" aria-label="Decision actions">
+                <span className="mono rt-decision-boundary">
+                  {decisionMode === "approved" ? "DECISION RELEASED BY YOU" : "PREPARED · NOTHING HAS EXECUTED"}
+                </span>
+                <div>
+                  <button type="button" onClick={() => setDecisionMode("approved")} disabled={decisionMode === "approved"}>Approve</button>
+                  <button type="button" aria-pressed={decisionMode === "modify"} disabled={decisionMode === "approved"} onClick={() => setDecisionMode(decisionMode === "modify" ? "ready" : "modify")}>Modify</button>
+                  <button type="button" aria-pressed={decisionMode === "why"} disabled={decisionMode === "approved"} onClick={() => setDecisionMode(decisionMode === "why" ? "ready" : "why")}>Ask why</button>
+                </div>
+              </div>
+            </section>
+          </>
+        )}
       </div>
 
-      <div className="rt-mobile-picker" aria-label="Choose a specialist">
+      <div className="rt-role-selector" aria-label="Choose a specialist">
         {SEATS.map((seat) => (
           <button
             key={seat.slug}
@@ -319,78 +447,6 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
           </button>
         ))}
       </div>
-
-      <article className={`rt-story ${active ? `has-profile side-${active.panelSide}` : ""} ${detailsOpen ? "is-expanded" : "is-compact"}`} aria-live="polite">
-        {active ? (
-          <div key={active.slug} className="rt-profile">
-            <button type="button" className="rt-story-close" onClick={dismiss} aria-label="Close specialist briefing">×</button>
-            <div className="rt-story-switcher" aria-label="Change specialist">
-              {SEATS.map((seat) => (
-                <button
-                  key={seat.slug}
-                  type="button"
-                  className={seat.slug === active.slug ? "is-active" : ""}
-                  onClick={() => choose(seat.slug)}
-                >
-                  {seat.label}
-                </button>
-              ))}
-            </div>
-            <div className="rt-story-top">
-              <span className="stamp">{active.status}</span>
-              <span className="mono rt-story-count">{String(SEATS.indexOf(active) + 1).padStart(2, "0")} / 05</span>
-            </div>
-            <h3 className="display">{active.claim}</h3>
-            <p className="rt-story-prompt">{active.prompt}</p>
-
-            <div className="rt-story-actions">
-              <button type="button" className="btn rt-details-toggle" onClick={() => setDetailsOpen((open) => !open)}>
-                {detailsOpen ? "Close briefing" : "Open briefing"}
-              </button>
-              <Link href={`/${active.slug}/`}>Explore {active.name} <span aria-hidden>→</span></Link>
-            </div>
-
-            <div className="rt-steps">
-              {active.steps.map((step, index) => (
-                <div className="rt-step" key={step} style={{ "--step-delay": `${index * 90}ms` } as CSSProperties}>
-                  <span className="rt-step-mark">{index + 1}</span>
-                  <span>{step}</span>
-                  <span className="mono rt-step-state">DONE</span>
-                </div>
-              ))}
-            </div>
-
-            <div className={`rt-decision ${approved ? "is-approved" : ""}`}>
-              <div className="mono rt-decision-label">
-                {approved ? "APPROVED BY YOU · EXECUTED · LOGGED" : "READY · NOTHING MOVES WITHOUT YOU"}
-              </div>
-              <p>{active.result}</p>
-              {!approved ? (
-                <button type="button" className="btn rt-approve" onClick={() => setApproved(true)}>
-                  Approve the staged work
-                </button>
-              ) : (
-                <button type="button" className="rt-reset" onClick={() => setApproved(false)}>
-                  Replay this decision
-                </button>
-              )}
-            </div>
-
-            <div className="rt-proof">
-              <span className="stamp">PROOF</span>
-              <p>{active.proof}</p>
-              <Link href={`/${active.slug}/`}>Explore {active.name} <span aria-hidden>→</span></Link>
-            </div>
-          </div>
-        ) : (
-          <div className="rt-story-empty">
-            <span className="stamp">THE EXECUTIVE TABLE</span>
-            <h3 className="display">Choose who takes the floor.</h3>
-            <p>Select a role to see its prepared work and the decision waiting for you.</p>
-            <span className="mono">THE MACHINE PROPOSES · THE HUMAN DECIDES</span>
-          </div>
-        )}
-      </article>
       </div>
     </div>
   );

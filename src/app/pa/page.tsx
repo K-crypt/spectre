@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 };
 
 const RETURNS = [
-  ["It remembers everything you tell it", "Tell it something once and it is known forever, retrieved at the right moment, and richer every time you use it."],
+  ["It builds durable, retrievable context", "Information you choose to provide can be retrieved at the right moment and refined as the working context changes."],
   ["It takes the repeatable work off your plate", "The recurring operations of your world run as standing systems instead of tasks you have to push uphill."],
   ["It writes in your voice, and gets it right", "It works from your context and your standards, so what reaches your desk is a decision to make, not a draft to rescue."],
-  ["It never bluffs, and never acts alone", "Every number is computed in code, so it is true. Nothing is published, sent, or spent until you approve it."],
+  ["It shows its work, and never acts alone", "Material figures are calculated through defined tools, with assumptions and sources visible. Nothing is published, sent, or spent until you approve it."],
   ["It gets smarter every single week", "Everything it does is filed back into its memory, so the system you use in month six is better than the one you started with."],
 ] as const;
 
@@ -144,7 +144,7 @@ export default function PaPage() {
             <ApproveCard
               accent="var(--spectral)"
               payloads={[
-                "Morning brief compiled overnight: 2 decisions, 3 drafts in your voice, numbers computed in code.",
+                "Morning brief compiled overnight: 2 decisions, 3 drafts in your voice, figures calculated through defined tools.",
                 "Post staged in your voice, graded against your own rules. One tap publishes; none has ever gone out without it.",
               ]}
             />
@@ -208,12 +208,12 @@ export default function PaPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>EARLY ACCESS</Stamp>
+            <Stamp>DESIGN PARTNERSHIP</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>
-              Everyone gets a second self. Yours starts here.
+              Bring one consequential workflow. Build the second brain around it.
             </h2>
             <p style={{ color: "var(--ghost)", maxWidth: "52ch", marginBottom: 24 }}>
-              Opening to a first cohort as onboarding capacity allows.
+              We map it, configure Spectre, run it against real work, and measure what changes.
             </p>
           </Reveal>
           <Reveal delay={80}>

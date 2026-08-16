@@ -110,7 +110,7 @@ export const PERSONAS: Record<string, Persona> = {
     qa: [
       {
         q: "What can it run for my brand?",
-        a: "Content ideas and drafts, outreach plans with written messages, ad campaigns with honest kill rules, and a weekly digest of your numbers computed in code. You review one staged queue instead of running five tools.",
+        a: "Content ideas and drafts, outreach plans with written messages, ad campaigns with honest kill rules, and a weekly digest of metrics calculated through defined tools. You review one staged queue instead of running five tools.",
       },
       {
         q: "Will it sound like us?",

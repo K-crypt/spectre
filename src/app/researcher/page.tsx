@@ -128,7 +128,7 @@ export default function ResearcherPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>EARLY ACCESS</Stamp>
+            <Stamp>DESIGN PARTNERSHIP</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Design the research program around your decision.</h2>
             <WaitlistForm preselect="researcher" />
           </Reveal>

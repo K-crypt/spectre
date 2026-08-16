@@ -206,7 +206,8 @@ export const NOTES: Note[] = [
           close. Close is worthless in operations.
         </p>
         <p>
-          So our systems run one strict rule: every figure is computed in code.
+          So our systems run one strict rule: every material figure must have a
+          defined calculation and visible provenance.
           Revenue, reach, feasibility, anomalies — each is the output of a
           query or a program that can be read, tested, and rerun. The language
           model&apos;s job begins after the number exists: it narrates. It says

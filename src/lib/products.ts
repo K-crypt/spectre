@@ -49,7 +49,7 @@ export const PRODUCTS_DATA: Product[] = [
     bullets: [
       "Content ideas and drafts calibrated to your brand's voice",
       "Outreach plans and ad campaigns with staged approvals",
-      "The numbers computed in code, narrated weekly",
+      "Metrics calculated through defined tools, narrated weekly",
     ],
   },
   {

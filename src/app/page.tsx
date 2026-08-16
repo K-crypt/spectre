@@ -15,8 +15,8 @@ export default function Home() {
         <div className="mountain-hero-scrim" />
         <div className="mountain-hero-copy">
           <span className="mono rt-hero-kicker">SPECTRE · FOR FOUNDER-LED BUSINESSES</span>
-          <h1 className="display hero-line" id="hero-title"><span>Automate what can be.</span><span>Focus on what can&apos;t.</span></h1>
-          <p className="hero-positioning-note"><b>Your business has more information than one executive can hold.</b><span>Spectre learns how your company works, connects that context, and prepares the decisions that follow.</span></p>
+          <h1 className="display hero-line" id="hero-title">Automate what can be. Focus on what can&apos;t.</h1>
+          <p className="hero-positioning-note">Spectre learns how your company works, connects the context across it, and prepares the decisions that follow.</p>
           <strong className="display">They prepare. You decide.</strong>
           <div className="rt-hero-actions">
             <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
@@ -43,8 +43,8 @@ export default function Home() {
             <Reveal delay={50}>
               <a className="signal-item signal-item-lead" href="#factory">
                 <span className="mono signal-index">01 · MANUFACTURING PILOT</span>
-                <strong className="display">≈400</strong>
-                <span>machines being mapped into one operating picture</span>
+                <strong className="display">A capacity decision, prepared before commitment.</strong>
+                <span>≈400 machines mapped so management can test constraints, purchases, and order promises together.</span>
                 <em>View the case study →</em>
               </a>
             </Reveal>
@@ -73,8 +73,8 @@ export default function Home() {
         <div className="wrap modules-heading">
           <Reveal>
             <Stamp>THE EXECUTIVE TEAM</Stamp>
-            <h2 className="display lower-title" id="modules-title">Five specialists. One Spectre.</h2>
-            <p className="lower-deck">PA, COO, CMO, Researcher, and HR are not disconnected bots. They are specialist modules working from the same company context—each preparing its part of the work for your judgment.</p>
+            <h2 className="display lower-title" id="modules-title">Meet the table.</h2>
+            <p className="lower-deck">Specialist modules working from one shared company context. Choose a role to see what it prepares—and where human authority begins.</p>
           </Reveal>
         </div>
         <section className="mountain-journey modules-journey" id="table">
@@ -87,9 +87,7 @@ export default function Home() {
         <div className="wrap lower-wrap">
           <Reveal>
             <Stamp>ONE TUESDAY WITH SPECTRE</Stamp>
-            <h2 className="display lower-title">
-              Five specialists. One executive rhythm.
-            </h2>
+            <h2 className="display lower-title">A day of prepared work. One point of judgment.</h2>
           </Reveal>
           <Reveal delay={80}>
             <Day />
@@ -102,15 +100,16 @@ export default function Home() {
         <div className="wrap lower-wrap">
           <Reveal>
             <Stamp>HOW SPECTRE LEARNS THE BUSINESS</Stamp>
-            <h2 className="display lower-title" id="how-title">It learns the business before it earns a place in it.</h2>
-            <p className="lower-deck">Every deployment begins as a design partnership. We map the real operating rhythm, configure Spectre around company data and permissions, and keep authority where it belongs.</p>
+            <h2 className="display lower-title" id="how-title">It understands before it acts.</h2>
+            <p className="lower-deck">Context, evidence, permissions, and a visible boundary between prepared work and human authority.</p>
           </Reveal>
           <div className="how-grid">
             {[
-              ["01", "Understand", "We map the decisions, workflows, tools, language, and exceptions that make your business yours."],
-              ["02", "Train + configure", "Your context, rules, and data sources become one private operating picture—not a generic chatbot prompt."],
-              ["03", "Prepare", "Spectre monitors the work, tests scenarios, and assembles recommendations with the evidence attached."],
-              ["04", "You decide", "Sending, spending, publishing, and material operating changes wait at a visible human approval gate."],
+              ["01", "Understand", "Map the workflow, data, rules, language, exceptions, and decision owner."],
+              ["02", "Prepare", "Monitor the work, test scenarios, and assemble a recommendation."],
+              ["03", "Explain", "Show the evidence, assumptions, uncertainty, and consequences."],
+              ["04", "Stage", "Hold consequential work in a visible, reviewable queue."],
+              ["05", "Human decides", "Sending, spending, publishing, and operating changes wait for approval."],
             ].map(([number, title, copy], index) => (
               <Reveal delay={60 + index * 55} key={number}>
                 <article className="how-step">
@@ -121,14 +120,6 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <Reveal delay={250}>
-            <div className="core-stack" aria-label="Spectre operating layer architecture">
-              <div className="core-inputs mono"><span>WORKFLOWS</span><span>DATA</span><span>RULES</span><span>PEOPLE</span><span>GOALS</span></div>
-              <div className="core-engine"><span className="mono">SPECTRE CORE</span><strong className="display">Company context · memory · permissions</strong><small>One shared picture of how the business actually operates</small></div>
-              <div className="core-output"><span className="mono">PREPARED WORK</span><strong>Recommendations, drafts, scenarios, alerts</strong></div>
-              <div className="core-human"><span className="mono">HUMAN AUTHORITY</span><strong className="display">Your judgment remains the final system.</strong></div>
-            </div>
-          </Reveal>
           <Reveal delay={260}>
             <div className="trust-line">
               <span className="mono">THE OPERATING RULE</span>
@@ -149,9 +140,9 @@ export default function Home() {
         <div className="wrap lower-wrap factory-wrap">
           <Reveal className="factory-copy">
             <Stamp>CASE STUDY · MANUFACTURING</Stamp>
-            <h2 className="display factory-title" id="factory-title">From 400 separate machines to one legible operation.</h2>
-            <p className="factory-lede">A founder should not need to mentally reconcile production, inventory, schedules, and order promises every time a buyer calls.</p>
-            <p className="factory-body">Spectre is being configured around a live manufacturing environment: mapping machine-level reality, testing new orders against capacity, and preparing the decisions that follow. The result is not another dashboard. It is a shared operating picture the business can reason from.</p>
+            <h2 className="display factory-title" id="factory-title">From machine data to a decision management could verify.</h2>
+            <p className="factory-lede">The pilot maps roughly 400 machines so an order can be tested against capacity before the business commits.</p>
+            <p className="factory-body">In one capacity exercise, Spectre surfaced a two-machine requirement that management had independently reached. It is an encouraging pilot result—not a claim of universal accuracy—and the recommendation still waited for human judgment.</p>
             <div className="factory-guardrail mono">PILOT BUILD · CLIENT NAMED ON PERMISSION · NO PURCHASE OR SCHEDULE CHANGE EXECUTES WITHOUT HUMAN APPROVAL</div>
           </Reveal>
           <Reveal delay={100} className="factory-system">
@@ -176,8 +167,8 @@ export default function Home() {
         <div className="wrap lower-wrap carpet-wrap">
           <Reveal>
             <Stamp>CASE STUDY · EXPORT</Stamp>
-            <h2 className="display lower-title" id="carpet-title">A live export business, coordinated through one context.</h2>
-            <p className="lower-deck">Carpetstory is Spectre&apos;s proving ground: a real operating environment where brand memory, content, outreach, ad review, and performance reporting meet in one weekly rhythm.</p>
+            <h2 className="display lower-title" id="carpet-title">A live export business, coordinated through shared context.</h2>
+            <p className="lower-deck">Carpetstory tests brand memory, content, outreach, ad review, and reporting in real weekly work.</p>
             <a href="https://carpetstory.one" className="mono carpet-link">VISIT CARPETSTORY ↗</a>
           </Reveal>
           <Reveal delay={100}>
@@ -207,10 +198,6 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal delay={90}>
-            <p className="why-note">
-              Built by people who love one thing: solving business problems with
-              ingenious use of the newest tech.
-            </p>
             <p className="display why-close">
               No good business is run alone. The best help just stopped being only human.
             </p>
@@ -224,10 +211,17 @@ export default function Home() {
           <div>
           <Reveal>
             <Stamp>DESIGN PARTNERSHIPS</Stamp>
-            <h2 className="display lower-title">Start with one operation that matters.</h2>
-            <p className="lower-deck">
-              Spectre is not plug-and-play yet—and that is the point. We work closely with a small number of founder-led businesses, configure the first operating layer together, and turn what works into a system that compounds.
-            </p>
+            <h2 className="display lower-title">Bring one consequential workflow.</h2>
+            <p className="lower-deck">A focused engagement, measured against real work—not a generic software rollout.</p>
+            <div className="partnership-steps" aria-label="Design partnership process">
+              {[
+                ["01", "Bring it"],
+                ["02", "Map it"],
+                ["03", "Configure Spectre"],
+                ["04", "Run real work"],
+                ["05", "Measure the outcome"],
+              ].map(([number, label]) => <span key={number}><b className="mono">{number}</b>{label}</span>)}
+            </div>
           </Reveal>
           </div>
           <Reveal delay={80}>

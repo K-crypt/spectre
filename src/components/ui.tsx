@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /* ── Reveal: the single motion signature (IntersectionObserver + CSS).
    Content is visible by default; we hide with .pending only once JS is live
@@ -94,21 +94,10 @@ export function Nav() {
           <span className="wordmark">THE&nbsp;SPECTRE</span>
         </Link>
         <div style={{ flex: 1 }} />
-        <div style={{ display: "flex", gap: 18, alignItems: "center" }} className="nav-products">
-          {PRODUCTS.map((product) => {
-            const active = pathname === `/${product.slug}` || pathname.startsWith(`/${product.slug}/`);
-            return (
-              <Link
-                key={product.slug}
-                href={`/${product.slug}/`}
-                className={active ? "is-active" : ""}
-                style={{ "--nav-accent": product.accent } as CSSProperties}
-              >
-                <span className="nav-product-dot" aria-hidden />
-                {product.short}
-              </Link>
-            );
-          })}
+        <div style={{ display: "flex", gap: 18, alignItems: "center" }} className="nav-products nav-buyer">
+          <Link href="/#how">How it works</Link>
+          <Link href="/#proof">Proof</Link>
+          <Link href="/#modules">Executive team</Link>
         </div>
         <Link href="/notes/" className="nav-notes" style={{ textDecoration: "none", color: "var(--ghost)", fontSize: 13 }}>
           Notes
@@ -123,10 +112,10 @@ export function Nav() {
       </div>
       {open && (
         <div className="sheet">
-          <Link href="/#proof" onClick={() => setOpen(false)}>Real-world proof</Link>
-          <Link href="/#modules" onClick={() => setOpen(false)}>The executive team</Link>
+          <Link href="/#how" onClick={() => setOpen(false)}>How it works</Link>
+          <Link href="/#proof" onClick={() => setOpen(false)}>Proof</Link>
+          <Link href="/#modules" onClick={() => setOpen(false)}>Executive team</Link>
           <Link href="/#day" onClick={() => setOpen(false)}>One Tuesday</Link>
-          <Link href="/#how" onClick={() => setOpen(false)}>How Spectre learns</Link>
           <span className="sheet-label">SPECIALIST PAGES</span>
           {PRODUCTS.map((product) => (
             <Link key={product.slug} href={`/${product.slug}/`} onClick={() => setOpen(false)}>

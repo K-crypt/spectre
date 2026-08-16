@@ -3708,7 +3708,7 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   gap: 0;
   margin: 0;
   padding: 6px;
-  overflow: visible;
+  overflow: hidden;
   border: 1px solid rgba(193, 158, 106, .3);
   border-radius: 12px;
   background:
@@ -3843,4 +3843,151 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 @media (prefers-reduced-motion: reduce) {
   .modules-only .rt-photo-rise { display: none !important; }
   .modules-only.phase-standing .rt-photo-standing { opacity: 1 !important; animation: none !important; }
+}
+
+/* ═══ AUDIT REFINEMENT — SAME HOUSE, CLEARER BUYER JOURNEY ═══ */
+.nav-buyer a { letter-spacing: .01em; }
+
+.mountain-hero-copy .hero-brand-line {
+  max-width: none;
+  margin-top: 18px;
+  color: rgba(245, 240, 235, .94);
+  font-size: clamp(20px, 2.25vw, 29px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -.012em;
+}
+.mountain-hero-copy .hero-positioning-note { margin-top: 18px; }
+
+/* The boardroom is a full-width cinematic chapter, never a card or modal. */
+.modules-journey {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100svh - 60px);
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.rt-experience.modules-only {
+  height: calc(100svh - 60px);
+  min-height: 720px;
+}
+.modules-only .rt-sticky {
+  height: 100%;
+  min-height: inherit;
+}
+.modules-only .rt-story.has-profile {
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--rt-accent) 58%, #8d7251) transparent;
+}
+.modules-only .rt-story.has-profile::-webkit-scrollbar { width: 5px; }
+.modules-only .rt-story.has-profile::-webkit-scrollbar-track { background: transparent; }
+.modules-only .rt-story.has-profile::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rt-accent) 58%, #8d7251);
+}
+
+/* The introduction and briefing read as editorial titles over the film plate. */
+.modules-only:not(.has-active) .rt-photo-intro {
+  width: min(920px, calc(100% - 64px)) !important;
+  padding: 22px 30px 20px !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(202, 170, 116, .72) !important;
+  border-radius: 0 !important;
+  background: linear-gradient(90deg, transparent, rgba(18, 9, 11, .84) 16%, rgba(18, 9, 11, .84) 84%, transparent) !important;
+  box-shadow: none !important;
+}
+.modules-only .rt-story.has-profile,
+.modules-only .rt-story.is-expanded {
+  border: 0 !important;
+  border-top: 1px solid color-mix(in srgb, var(--rt-accent) 72%, #c7a86f) !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(15, 7, 9, .91) 10%, rgba(15, 7, 9, .91) 90%, transparent 100%) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px) saturate(1.04) !important;
+}
+
+/* PA uses the exact shared camera geometry and timing; only its historical crop
+   needed neutralising. The four already-correct executives are untouched. */
+.modules-only.active-pa .rt-photo-rise,
+.modules-only.active-pa .rt-photo-standing {
+  object-position: center center !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+}
+
+/* Never blend a standing figure over its seated self. Selection swaps to the
+   supported-rise plate at full opacity; only rise → stand is dissolved. */
+.modules-only.has-active .rt-photo-base { opacity: 0 !important; }
+.modules-only.phase-rising .rt-photo-rise {
+  opacity: 1 !important;
+  animation: none !important;
+}
+.modules-only.phase-standing .rt-photo-rise { opacity: 1 !important; }
+.modules-only.phase-standing .rt-photo-standing {
+  opacity: 1 !important;
+  animation: rt-clean-final-frame 340ms ease-out both !important;
+}
+@keyframes rt-clean-final-frame {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* A denser editorial rhythm removes length without losing the narrative. */
+.lower-wrap {
+  padding-top: clamp(68px, 7.5vw, 104px);
+  padding-bottom: clamp(68px, 7.5vw, 104px);
+}
+.signal-wrap {
+  padding-top: clamp(62px, 7vw, 88px);
+  padding-bottom: clamp(66px, 7vw, 94px);
+}
+.modules-section { padding-top: clamp(70px, 8vw, 104px); }
+.modules-heading { padding-bottom: clamp(38px, 5vw, 62px); }
+.how-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: 40px; }
+.how-step { min-height: 258px; padding: 24px 18px; }
+.how-step h3 { margin-top: 56px; font-size: clamp(23px, 2.25vw, 32px); }
+.why-sec { min-height: 72svh; }
+.partnership-steps {
+  margin-top: 30px;
+  border-top: 1px solid var(--lower-line);
+}
+.partnership-steps > span {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--lower-line);
+  color: var(--lower-ink);
+  font-size: 13px;
+}
+.partnership-steps b {
+  color: #a78e61;
+  font-size: 9px;
+  font-weight: 400;
+}
+
+@media (max-width: 760px) {
+  .mountain-hero-copy .hero-brand-line { font-size: clamp(19px, 5.8vw, 25px); }
+  .modules-journey { width: 100%; border-radius: 0; }
+  .rt-experience.modules-only { min-height: 680px; }
+  .modules-only:not(.has-active) .rt-photo-intro {
+    width: calc(100% - 20px) !important;
+    padding: 16px 18px 15px !important;
+    border-radius: 0 !important;
+  }
+  .modules-only .rt-story.has-profile,
+  .modules-only .rt-story.is-expanded {
+    right: 8px !important;
+    left: 8px !important;
+    background: linear-gradient(90deg, transparent, rgba(15, 7, 9, .94) 5%, rgba(15, 7, 9, .94) 95%, transparent) !important;
+  }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-step { min-height: 190px; }
+  .how-step h3 { margin-top: 36px; }
+  .lower-wrap { padding-top: 62px; padding-bottom: 62px; }
 }

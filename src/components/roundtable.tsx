@@ -61,8 +61,8 @@ const SEATS: Seat[] = [
     accent: "var(--spectral)",
     position: "50.3%",
     panelSide: "right",
-    risingImage: withBasePath("/table-pa-rising-luxury.webp"),
-    standingImage: withBasePath("/table-pa-standing-sharp.webp"),
+    risingImage: withBasePath("/table-pa-rising-v2.webp"),
+    standingImage: withBasePath("/table-pa-standing-v2.webp"),
     status: "RUNNING IN PRODUCTION",
     claim: "I turn forty-one messages into three decisions.",
     prompt: "Your morning arrived before you did.",
@@ -225,7 +225,7 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
   return (
     <div
       ref={journeyRef}
-      className={`rt-experience ${modulesOnly ? "modules-only" : ""} ${boardReady ? "is-boardroom-ready" : ""} ${active ? "has-active" : ""} phase-${risePhase}`}
+      className={`rt-experience ${modulesOnly ? "modules-only" : ""} ${boardReady ? "is-boardroom-ready" : ""} ${active ? `has-active active-${active.slug}` : ""} phase-${risePhase}`}
       style={{
         "--rt-accent": active?.accent ?? "var(--spectral)",
         "--active-x": active?.position ?? "50%",
@@ -276,10 +276,10 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
         </div>}
 
         <div className="rt-photo-intro" aria-live="polite">
-          <span className="mono">THE EXECUTIVE TEAM · ONE OPERATING LAYER</span>
-          <strong className="display">Five specialists. One Spectre.</strong>
-          <p>PA, COO, CMO, Researcher, and HR work from the same company context. Choose a specialist below to bring its prepared work to the table.</p>
-          <em className="mono">CHOOSE A SPECIALIST BELOW</em>
+          <span className="mono">SHARED CONTEXT · SPECIALIST VIEWS</span>
+          <strong className="display">Choose who takes the floor.</strong>
+          <p>Each module prepares a different part of the same operating picture.</p>
+          <em className="mono">SELECT A ROLE BELOW</em>
         </div>
 
         {SEATS.map((seat) => {
@@ -384,9 +384,9 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
           </div>
         ) : (
           <div className="rt-story-empty">
-            <span className="stamp">THE MODULES</span>
-            <h3 className="display">Five modules. One operating layer. One chair is yours.</h3>
-            <p>Choose a label over the table. That module will show the work it has prepared from the same shared business context.</p>
+            <span className="stamp">THE EXECUTIVE TABLE</span>
+            <h3 className="display">Choose who takes the floor.</h3>
+            <p>Select a role to see its prepared work and the decision waiting for you.</p>
             <span className="mono">THE MACHINE PROPOSES · THE HUMAN DECIDES</span>
           </div>
         )}

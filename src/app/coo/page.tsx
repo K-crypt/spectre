@@ -121,7 +121,7 @@ export default function CooPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>EARLY ACCESS</Stamp>
+            <Stamp>DESIGN PARTNERSHIP</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Build the first operating picture with us.</h2>
             <WaitlistForm preselect="coo" />
           </Reveal>

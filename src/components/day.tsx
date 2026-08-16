@@ -70,7 +70,7 @@ function ApproveMoment() {
             Approve
           </button>
           <div className="mono" style={{ fontSize: 10, color: "var(--ghost)", marginTop: 12 }}>
-            THIS BUTTON IS THE ENTIRE PRODUCT.
+            THIS IS WHERE SPECTRE STOPS AND YOUR JUDGMENT STARTS.
           </div>
         </>
       ) : (
@@ -127,16 +127,8 @@ export function Day() {
         </p>
       </Beat>
 
-      <Beat time="13:30" who="AI PA" slug="pa" title="The afternoon queue, drafted.">
-        <p className="beat-note">12 replies staged in your voice. The one that needs your actual opinion is flagged, not faked.</p>
-      </Beat>
-
       <Beat time="15:00" who="AI HR" slug="hr" title="People work, remembered.">
-        <p className="beat-note">Two appraisal summaries drafted from a full year of notes — not from last week&apos;s impression.</p>
-      </Beat>
-
-      <Beat time="16:40" who="AI CMO" slug="cmo" title="Tomorrow, prepared.">
-        <p className="beat-note">Next post drafted. Ad spend checked against its tripwire. Everything waits.</p>
+        <p className="beat-note">Two appraisal summaries staged from the available record, with gaps flagged for review.</p>
       </Beat>
 
       <Beat time="18:45" you title="The only tap of the day.">

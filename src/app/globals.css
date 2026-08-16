@@ -2,13 +2,13 @@
 
 /* ── The Spectre design tokens (DESIGN.md is the spec; this file is canonical) ── */
 :root {
-  --ground: #0a0a0a;
-  --surface: #111111;
-  --surface-2: #161616;
-  --ink: #f5f5f3;
-  --ghost: #9a9a9a;
-  --hairline: rgba(255, 255, 255, 0.08);
-  --brass: #b8944c;
+  --ground: #0d0b0c;
+  --surface: #151213;
+  --surface-2: #1b1718;
+  --ink: #f1ede7;
+  --ghost: #a49b94;
+  --hairline: rgba(231, 218, 204, 0.1);
+  --brass: #aa8b59;
 
   --spectral: #a9a3c9;
   --steel: #7c9cbf;
@@ -25,16 +25,16 @@
   --font-wordmark: var(--font-michroma), sans-serif;
 }
 
-/* manual theme switcher: the pre-paint script in layout.tsx sets html.light
-   from localStorage `spectre.site.theme`, falling back to the system scheme. */
+/* Retained print/reference palette. The public presentation is intentionally
+   locked to the dark executive theme and does not apply this class. */
 html.light {
-  --ground: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #fafafa;
-  --ink: #111111;
-  --ghost: #6b6b6b;
-  --hairline: rgba(0, 0, 0, 0.1);
-  --brass: #8c6f37;
+  --ground: #f3f0ea;
+  --surface: #f8f5ef;
+  --surface-2: #ebe6df;
+  --ink: #201c1b;
+  --ghost: #706862;
+  --hairline: rgba(55, 45, 40, 0.14);
+  --brass: #80633d;
 
   --spectral: #5b5488;
   --steel: #3e608c;
@@ -66,8 +66,8 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(50% 60% at 70% 20%, color-mix(in srgb, var(--brass) 7%, transparent), transparent 70%),
-    radial-gradient(45% 55% at 20% 10%, color-mix(in srgb, var(--ink) 5%, transparent), transparent 70%);
+    radial-gradient(50% 60% at 70% 20%, color-mix(in srgb, var(--brass) 4%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 20% 10%, color-mix(in srgb, var(--ink) 3%, transparent), transparent 70%);
   animation: breathe 9s ease-in-out infinite;
 }
 @keyframes breathe {
@@ -796,26 +796,21 @@ html.light .chat-scrim { background: rgba(0, 0, 0, 0.28); }
   letter-spacing: 0.02em;
   line-height: 1; /* uniform height across variants — never inherit body leading */
   padding: 14px 22px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid var(--hairline);
   cursor: pointer;
   text-decoration: none;
   justify-content: center;
 }
-.btn {
-  transition: opacity 180ms ease-out, transform 180ms ease-out, box-shadow 180ms ease-out;
-}
+.btn { transition: opacity 180ms ease-out, transform 180ms ease-out, border-color 180ms ease-out, background-color 180ms ease-out; }
 .btn:hover { opacity: 0.92; transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
 .btn-hard {
   background: var(--accent);
   color: var(--ground);
-  border-color: transparent;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 55%);
+  border-color: color-mix(in srgb, var(--accent) 78%, transparent);
 }
-.btn-hard:hover {
-  box-shadow: 0 6px 22px -8px color-mix(in srgb, var(--accent) 55%, transparent);
-}
+.btn-hard:hover { box-shadow: none; }
 .btn-soft {
   background: transparent;
   color: var(--ink);
@@ -3128,8 +3123,8 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   font-size: clamp(19px, 2vw, 28px);
   font-weight: 300;
 }
-.mountain-hero .btn-hard { border-color: #f1f4f5; background: #f1f4f5; color: #11171c; text-shadow: none; }
-.mountain-hero .btn-soft { border-color: rgba(234,241,244,.34); background: rgba(7,13,18,.3); color: #f1f4f5; text-shadow: none; }
+.mountain-hero .btn-hard { border-color: #e7ded2; background: #e7ded2; color: #191415; text-shadow: none; }
+.mountain-hero .btn-soft { border-color: rgba(231,222,210,.26); background: rgba(18,13,14,.42); color: #eee7de; text-shadow: none; }
 .mountain-hero .hero-readouts { border-color: rgba(234,241,244,.22); }
 .mountain-hero .hero-readouts span { border-color: rgba(234,241,244,.22); color: rgba(244,247,248,.9); }
 
@@ -3285,7 +3280,6 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 /* ═══ FINAL PRODUCT + HCI REFINEMENT ═══ */
 .site-nav-home { border-color: rgba(230, 237, 239, .12); color: #eef2f2; }
 .site-nav-home .nav-notes { color: rgba(232, 238, 239, .62) !important; }
-.site-nav-home .theme-btn { color: rgba(239, 244, 244, .78); }
 .nav-products a {
   display: inline-flex;
   align-items: center;
@@ -3608,31 +3602,31 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 /* ═══ BORDEAUX HOUSE PALETTE + EXECUTIVE COMMAND RAIL ═══ */
 .landing-lower {
   --lower-ink: #eee8df;
-  --lower-muted: #a79d96;
-  --lower-line: rgba(198, 173, 137, .14);
-  background: #090708;
+  --lower-muted: #aaa19a;
+  --lower-line: rgba(205, 190, 172, .13);
+  background: #0d0b0c;
 }
-.mountain-hero { background: #080607; }
+.mountain-hero { background: #0c090a; }
 .mountain-hero > img { filter: sepia(.1) saturate(.66) contrast(1.08) brightness(.91); }
 .mountain-hero-scrim {
   background:
-    linear-gradient(180deg, rgba(10,5,7,.42), rgba(27,7,12,.1) 46%, rgba(12,5,7,.68)),
-    radial-gradient(ellipse at 72% 52%, transparent 20%, rgba(35,7,13,.2) 64%, rgba(5,3,4,.45) 100%);
+    linear-gradient(180deg, rgba(13,9,10,.46), rgba(31,17,20,.08) 46%, rgba(14,9,10,.7)),
+    radial-gradient(ellipse at 72% 52%, transparent 20%, rgba(54,20,27,.13) 64%, rgba(8,6,7,.46) 100%);
 }
 .signal-section {
   background:
-    radial-gradient(58% 120% at 0% 0%, rgba(104, 24, 39, .24), transparent 70%),
-    linear-gradient(180deg, #0d090a, #090708);
+    radial-gradient(58% 120% at 0% 0%, rgba(104, 24, 39, .13), transparent 70%),
+    linear-gradient(180deg, #110e0f, #0d0b0c);
 }
-.signal-item-lead { background: linear-gradient(150deg, rgba(105, 25, 40, .2), rgba(255,255,255,.012) 72%); }
-.signal-item-lead:hover { background: linear-gradient(150deg, rgba(118, 30, 47, .28), rgba(255,255,255,.022) 72%); }
+.signal-item-lead { background: linear-gradient(150deg, rgba(105, 25, 40, .11), rgba(255,255,255,.012) 72%); }
+.signal-item-lead:hover { background: linear-gradient(150deg, rgba(118, 30, 47, .17), rgba(255,255,255,.02) 72%); transform: translateY(-1px); }
 .signal-item em,
 .carpet-link { color: #bda06a; }
 .modules-section {
   isolation: isolate;
   background:
-    radial-gradient(75% 110% at 100% 0%, rgba(87, 18, 31, .2), transparent 66%),
-    #090708;
+    radial-gradient(75% 110% at 100% 0%, rgba(87, 18, 31, .1), transparent 66%),
+    #0e0b0c;
 }
 .modules-section::before {
   content: "";
@@ -3655,7 +3649,7 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   border-radius: 24px;
   box-shadow: 0 42px 120px rgba(0,0,0,.58), 0 0 0 1px rgba(255,255,255,.025) inset;
 }
-.rt-experience.modules-only { background: #080607; }
+.rt-experience.modules-only { background: #0b090a; }
 .modules-only .rt-photo-base,
 .modules-only .rt-photo-standing { filter: saturate(.92) contrast(1.035) brightness(.92) !important; }
 .modules-only .rt-photo-vignette {
@@ -3679,8 +3673,8 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   border-top: 2px solid #b99a62;
   border-radius: 16px;
   background:
-    radial-gradient(90% 170% at 0 0, rgba(105, 25, 40, .16), transparent 68%),
-    linear-gradient(145deg, rgba(31, 12, 17, .94), rgba(10, 7, 8, .95));
+    radial-gradient(90% 170% at 0 0, rgba(105, 25, 40, .1), transparent 68%),
+    linear-gradient(145deg, rgba(25, 19, 20, .95), rgba(12, 9, 10, .96));
   box-shadow: 0 26px 78px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.025) inset;
   backdrop-filter: blur(20px);
   transform: translateX(-50%) !important;
@@ -3712,8 +3706,8 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   border: 1px solid rgba(193, 158, 106, .3);
   border-radius: 12px;
   background:
-    linear-gradient(180deg, rgba(42, 16, 21, .96), rgba(13, 8, 9, .97)),
-    #0d090a;
+    linear-gradient(180deg, rgba(28, 21, 22, .97), rgba(14, 11, 12, .98)),
+    #0e0b0c;
   box-shadow: 0 18px 54px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.05) inset;
   backdrop-filter: blur(18px);
   transform: translateX(-50%);
@@ -3753,10 +3747,10 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 }
 .modules-only .rt-mobile-picker button.is-active {
   color: #fff8ef;
-  background: color-mix(in srgb, var(--seat-accent) 13%, rgba(27, 10, 14, .92));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--seat-accent) 35%, transparent) inset;
+  background: color-mix(in srgb, var(--seat-accent) 8%, rgba(22, 17, 18, .96));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--seat-accent) 24%, transparent) inset;
 }
-.modules-only .rt-mobile-picker button.is-active::before { height: 2px; opacity: 1; box-shadow: 0 0 12px var(--seat-accent); }
+.modules-only .rt-mobile-picker button.is-active::before { height: 2px; opacity: .82; box-shadow: none; }
 
 /* One stable full-plate dissolve. No half-rise frame, blur or geometry jump. */
 .modules-only .rt-photo-transition { opacity: 0 !important; animation: none !important; transition: none !important; }
@@ -3775,23 +3769,23 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   border-color: color-mix(in srgb, var(--rt-accent) 34%, rgba(193,158,106,.24));
   border-top-color: color-mix(in srgb, var(--rt-accent) 70%, #c7a86f);
   background:
-    radial-gradient(90% 190% at 0 0, color-mix(in srgb, var(--rt-accent) 11%, transparent), transparent 68%),
-    linear-gradient(145deg, rgba(31, 12, 17, .95), rgba(10, 7, 8, .96));
+    radial-gradient(90% 190% at 0 0, color-mix(in srgb, var(--rt-accent) 7%, transparent), transparent 68%),
+    linear-gradient(145deg, rgba(24, 18, 19, .96), rgba(12, 9, 10, .97));
   box-shadow: 0 26px 78px rgba(0,0,0,.58), 0 0 0 1px rgba(255,255,255,.025) inset;
 }
 .day-section {
   background:
-    radial-gradient(70% 110% at 100% 0%, rgba(89, 19, 32, .16), transparent 70%),
-    #0b0809;
+    radial-gradient(70% 110% at 100% 0%, rgba(89, 19, 32, .08), transparent 70%),
+    #100d0e;
 }
 .how-section,
-.carpet-section { background: linear-gradient(145deg, #100a0c, #090708 70%); }
-.factory-section { background: #090708; }
+.carpet-section { background: linear-gradient(145deg, #141112, #0d0b0c 70%); }
+.factory-section { background: #0f0c0d; }
 .factory-section::after {
-  background: linear-gradient(90deg, rgba(9,6,7,.98), rgba(15,8,10,.88) 48%, rgba(9,6,7,.72)), linear-gradient(180deg, #090708, transparent 25%, #090708);
+  background: linear-gradient(90deg, rgba(14,11,12,.98), rgba(24,16,18,.86) 48%, rgba(14,11,12,.72)), linear-gradient(180deg, #0f0c0d, transparent 25%, #0f0c0d);
 }
-.why-sec { background: radial-gradient(70% 90% at 50% 0%, rgba(91,19,32,.14), transparent 68%), #0a0809; }
-.access-section { background: radial-gradient(70% 120% at 0% 100%, rgba(112,28,44,.24), transparent 66%), #0d090a; }
+.why-sec { background: radial-gradient(70% 90% at 50% 0%, rgba(91,19,32,.08), transparent 68%), #110e0f; }
+.access-section { background: radial-gradient(70% 120% at 0% 100%, rgba(112,28,44,.12), transparent 66%), #120f10; }
 
 @media (max-width: 760px) {
   .modules-journey { width: calc(100% - 20px); border-radius: 16px; }

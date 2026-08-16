@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /* ── Reveal: the single motion signature (IntersectionObserver + CSS).
    Content is visible by default; we hide with .pending only once JS is live
@@ -48,31 +48,10 @@ export function Reveal({
 /* ── product registry: canonical data lives in @/lib/products.
       Server components must import it from there directly — data re-exported
       through this "use client" module crosses the boundary as a reference. ── */
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { PRODUCTS_DATA as PRODUCTS } from "@/lib/products";
 import { Mark } from "@/components/mark";
-
-/* ── theme toggle (html.light + localStorage; pre-paint script in layout) ── */
-function ThemeToggle() {
-  const [light, setLight] = useState<boolean | null>(null);
-  useEffect(() => {
-    setLight(document.documentElement.classList.contains("light"));
-  }, []);
-  const flip = () => {
-    const next = !document.documentElement.classList.contains("light");
-    document.documentElement.classList.toggle("light", next);
-    try {
-      localStorage.setItem("spectre.site.theme", next ? "light" : "dark");
-    } catch {}
-    setLight(next);
-  };
-  return (
-    <button className="theme-btn" onClick={flip} aria-label="Switch theme" title="Switch theme">
-      {light === null ? <Sun size={15} strokeWidth={1.5} style={{ opacity: 0.5 }} /> : light ? <Moon size={15} strokeWidth={1.5} /> : <Sun size={15} strokeWidth={1.5} />}
-    </button>
-  );
-}
 
 /* ── Nav ── */
 export function Nav() {
@@ -82,12 +61,12 @@ export function Nav() {
   return (
     <nav
       className={`hairline-b site-nav ${onHome ? "site-nav-home" : ""}`}
-      style={{ position: "sticky", top: 0, zIndex: 70, background: onHome ? "rgba(6, 10, 12, .9)" : "color-mix(in srgb, var(--ground) 88%, transparent)", backdropFilter: "blur(12px)" }}
+      style={{ position: "sticky", top: 0, zIndex: 70, background: onHome ? "rgba(13, 10, 11, .92)" : "color-mix(in srgb, var(--ground) 90%, transparent)", backdropFilter: "blur(12px)" }}
     >
       <div className="wrap" style={{ display: "flex", alignItems: "center", gap: 16, height: 60 }}>
         <Link
           href="/"
-          style={{ textDecoration: "none", color: onHome ? "#f0f3f3" : "var(--ink)", display: "flex", alignItems: "center", gap: 10 }}
+          style={{ textDecoration: "none", color: onHome ? "#eee8df" : "var(--ink)", display: "flex", alignItems: "center", gap: 10 }}
           onClick={() => setOpen(false)}
         >
           <Mark height={12} style={{ position: "relative", top: 0.5 }} />
@@ -102,7 +81,6 @@ export function Nav() {
         <Link href="/notes/" className="nav-notes" style={{ textDecoration: "none", color: "var(--ghost)", fontSize: 13 }}>
           Notes
         </Link>
-        <ThemeToggle />
         <Link href="/#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
           Design partnership
         </Link>

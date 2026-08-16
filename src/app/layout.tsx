@@ -56,15 +56,12 @@ export const metadata: Metadata = {
   },
 };
 
-const themeScript = `try{var t=localStorage.getItem("spectre.site.theme");var l=t?t==="light":true;if(l)document.documentElement.classList.add("light")}catch(e){}`; // white-first (his call 2026-08-04): light is the default for everyone; dark is the stored toggle
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning lang="en" className={`${spectral.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Nav />
         {children}
         <Footer />

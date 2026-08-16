@@ -29,7 +29,7 @@ export default function CmoPage() {
               for one approval pass.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Request early access</a>
+              <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
               <a href="#playground" className="btn btn-soft">Open the playground</a>
             </div>
           </Reveal>
@@ -128,7 +128,7 @@ export default function CmoPage() {
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
             <Stamp>EARLY ACCESS</Stamp>
-            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
+            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Configure the first operating rhythm with us.</h2>
             <WaitlistForm preselect="cmo" />
           </Reveal>
         </div>

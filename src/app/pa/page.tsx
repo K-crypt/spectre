@@ -47,7 +47,7 @@ export default function PaPage() {
               approves what goes out.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Request early access</a>
+              <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
               <a href="#playground" className="btn btn-soft">Try the idea</a>
             </div>
           </Reveal>

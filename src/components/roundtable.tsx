@@ -10,6 +10,8 @@ type Seat = {
   accent: string;
   position: string;
   panelSide: "left" | "right";
+  risingImage: string;
+  standingImage: string;
   status: string;
   claim: string;
   prompt: string;
@@ -26,6 +28,8 @@ const SEATS: Seat[] = [
     accent: "var(--ochre)",
     position: "9.5%",
     panelSide: "right",
+    risingImage: "/table-hr-rising-luxury.webp",
+    standingImage: "/table-hr-standing-sharp.webp",
     status: "TAKING DESIGN PARTNERS",
     claim: "I turn a leaving pattern into an early conversation.",
     prompt: "One employee needs you before Friday.",
@@ -40,6 +44,8 @@ const SEATS: Seat[] = [
     accent: "var(--archive)",
     position: "29.4%",
     panelSide: "right",
+    risingImage: "/table-researcher-rising-luxury.webp",
+    standingImage: "/table-researcher-standing-sharp.webp",
     status: "METHOD PROVEN",
     claim: "I check the study before you have to trust it.",
     prompt: "Chapter four has finished its verification pass.",
@@ -54,6 +60,8 @@ const SEATS: Seat[] = [
     accent: "var(--spectral)",
     position: "50.3%",
     panelSide: "right",
+    risingImage: "/table-pa-rising-luxury.webp",
+    standingImage: "/table-pa-standing-sharp.webp",
     status: "RUNNING IN PRODUCTION",
     claim: "I turn forty-one messages into three decisions.",
     prompt: "Your morning arrived before you did.",
@@ -68,6 +76,8 @@ const SEATS: Seat[] = [
     accent: "var(--steel)",
     position: "72%",
     panelSide: "left",
+    risingImage: "/table-coo-rising-luxury.webp",
+    standingImage: "/table-coo-standing-sharp.webp",
     status: "IN PILOT BUILD",
     claim: "I test the rush order before you accept it.",
     prompt: "120,000 units · due in six weeks",
@@ -82,6 +92,8 @@ const SEATS: Seat[] = [
     accent: "var(--clay)",
     position: "91%",
     panelSide: "left",
+    risingImage: "/table-cmo-rising-luxury.webp",
+    standingImage: "/table-cmo-standing-sharp.webp",
     status: "RUNNING IN PRODUCTION",
     claim: "I bring a week of marketing ready for judgment.",
     prompt: "Tomorrow's campaign is already assembled.",
@@ -91,17 +103,36 @@ const SEATS: Seat[] = [
   },
 ];
 
-export function RoundTable() {
+export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
   const journeyRef = useRef<HTMLDivElement>(null);
+  const riseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeSlug, setActiveSlug] = useState<Seat["slug"] | null>(null);
+  const [risePhase, setRisePhase] = useState<"idle" | "rising" | "standing">("idle");
   const [approved, setApproved] = useState(false);
-  const [boardReady, setBoardReady] = useState(false);
+  const [boardReady, setBoardReady] = useState(modulesOnly);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const active = SEATS.find((seat) => seat.slug === activeSlug) ?? null;
 
   useEffect(() => {
+    SEATS.flatMap((seat) => [seat.risingImage, seat.standingImage]).forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
+    return () => {
+      if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     const journey = journeyRef.current;
     if (!journey) return;
+
+    if (modulesOnly) {
+      journey.style.setProperty("--camera-scale", "1");
+      journey.style.setProperty("--hero-copy-opacity", "0");
+      journey.style.setProperty("--board-controls-opacity", "1");
+      return;
+    }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
@@ -153,62 +184,101 @@ export function RoundTable() {
       reducedMotion.removeEventListener("change", requestPaint);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [modulesOnly]);
 
-  const choose = (slug: Seat["slug"]) => {
-    if (slug === activeSlug) return;
-    setActiveSlug(slug);
+  useEffect(() => {
+    if (!modulesOnly || !activeSlug) return;
+
+    const dismissWithKeyboard = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
+      setActiveSlug(null);
+      setRisePhase("idle");
+      setApproved(false);
+      setDetailsOpen(false);
+    };
+
+    document.addEventListener("keydown", dismissWithKeyboard);
+    return () => {
+      document.removeEventListener("keydown", dismissWithKeyboard);
+    };
+  }, [activeSlug, modulesOnly]);
+
+  const dismiss = () => {
+    if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
+    setActiveSlug(null);
+    setRisePhase("idle");
     setApproved(false);
     setDetailsOpen(false);
+  };
+
+  const choose = (slug: Seat["slug"]) => {
+    if (riseTimerRef.current) clearTimeout(riseTimerRef.current);
+    setActiveSlug(slug);
+    setRisePhase("rising");
+    setApproved(false);
+    setDetailsOpen(false);
+    riseTimerRef.current = setTimeout(() => setRisePhase("standing"), 520);
   };
 
   return (
     <div
       ref={journeyRef}
-      className={`rt-experience ${boardReady ? "is-boardroom-ready" : ""} ${active ? "has-active" : ""}`}
+      className={`rt-experience ${modulesOnly ? "modules-only" : ""} ${boardReady ? "is-boardroom-ready" : ""} ${active ? "has-active" : ""} phase-${risePhase}`}
       style={{
         "--rt-accent": active?.accent ?? "var(--spectral)",
         "--active-x": active?.position ?? "50%",
         "--camera-focus-x": active?.position ?? "50%",
-        "--camera-scale": 1.56,
+        "--camera-scale": modulesOnly ? 1 : 1.56,
         "--camera-y": "0%",
-        "--hero-copy-opacity": 1,
-        "--board-controls-opacity": 0,
+        "--hero-copy-opacity": modulesOnly ? 0 : 1,
+        "--board-controls-opacity": modulesOnly ? 1 : 0,
       } as CSSProperties}
     >
       <div className="rt-sticky">
-      <div className="rt-photo-stage" role="group" aria-label="The mountain view descending into a table of five AI specialists">
+      <div className="rt-photo-stage" role="group" aria-label="The mountain view descending into Spectre's operating layer">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rt-photo rt-photo-base" src="/mountain-table-master-v4.webp" alt="Mountain peaks descending into a table of five seated AI specialists" />
+        <img className="rt-photo rt-photo-base" src={modulesOnly ? "/executive-table-master.webp" : "/mountain-table-master-v4.webp"} alt={modulesOnly ? "Five spectral figures seated around a walnut boardroom table above the same mountain range as the landing page" : "Mountain peaks descending into Spectre's operating table"} />
+        {modulesOnly && active && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img key={`${active.slug}-rising`} className="rt-photo rt-photo-transition rt-photo-rise" src={active.risingImage} alt="" aria-hidden />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img key={`${active.slug}-standing`} className="rt-photo rt-photo-transition rt-photo-standing" src={active.standingImage} alt="" aria-hidden />
+            <span className="rt-role-hue" aria-hidden />
+          </>
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div key={activeSlug ?? "no-selection"} className="rt-selection-focus" aria-hidden />
         <div className="rt-photo-vignette" />
 
-        <div className="rt-hero-copy">
+        {!modulesOnly && <div className="rt-hero-copy">
+          <span className="mono rt-hero-kicker">AN AI OPERATING LAYER FOR FOUNDER-LED BUSINESSES</span>
           <h1 className="display hero-line">
-            <span>Automate what can be.</span>
-            <span>Focus on what can&apos;t.</span>
+            <span>Your business, finally</span>
+            <span>in one operating picture.</span>
           </h1>
           <p className="hero-why">
-            Five AI specialists that make your executive team more powerful.
-            They prepare the work; your people make the calls.
+            Spectre is built around your workflows, trained on your context, and
+            designed to turn scattered business information into prepared decisions.
+            They prepare. You decide.
           </p>
           <div className="rt-hero-actions">
-            <a href="#access" className="btn btn-hard">Request early access</a>
-            <a href="#day" className="btn btn-soft">Watch one day</a>
+            <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
+            <a href="#factory" className="btn btn-soft">See the 400-machine pilot</a>
           </div>
           <div className="hero-readouts mono">
-            <span>5 SPECIALISTS</span>
-            <span>1 RULE — YOUR YES</span>
-            <span>3 LIVE OPERATIONS TODAY</span>
+            <span>BUILT AROUND YOUR WORKFLOWS</span>
+            <span>TRAINED ON YOUR CONTEXT</span>
+            <span>NOTHING MOVES WITHOUT YOUR YES</span>
           </div>
-        </div>
+        </div>}
 
         <div className="rt-photo-intro" aria-live="polite">
-          <span className="mono">{active ? `${active.label} · SELECTED` : "THE TABLE"}</span>
-          <strong className="display">Your suite, amplified.</strong>
-          <p>Five specialists prepare the work and wait. They sit with your team, not instead of it — and only one line ever leaves the table.</p>
-          <em className="mono">{active ? "ONE SPECIALIST HAS THE FLOOR" : "CHOOSE A SPECIALIST"}</em>
+          <span className="mono">THE EXECUTIVE TEAM · ONE OPERATING LAYER</span>
+          <strong className="display">Five specialists. One Spectre.</strong>
+          <p>PA, COO, CMO, Researcher, and HR work from the same company context. Choose a specialist below to bring its prepared work to the table.</p>
+          <em className="mono">CHOOSE A SPECIALIST BELOW</em>
         </div>
 
         {SEATS.map((seat) => {
@@ -220,7 +290,7 @@ export function RoundTable() {
               className={`rt-person rt-person-${seat.slug} ${selected ? "is-active" : ""}`}
               style={{
                 left: seat.position,
-                top: selected ? "43%" : "46%",
+                top: "46%",
                 "--seat-accent": seat.accent,
               } as CSSProperties}
               onClick={() => choose(seat.slug)}
@@ -252,6 +322,7 @@ export function RoundTable() {
       <article className={`rt-story ${active ? `has-profile side-${active.panelSide}` : ""} ${detailsOpen ? "is-expanded" : "is-compact"}`} aria-live="polite">
         {active ? (
           <div key={active.slug} className="rt-profile">
+            <button type="button" className="rt-story-close" onClick={dismiss} aria-label="Close specialist briefing">×</button>
             <div className="rt-story-switcher" aria-label="Change specialist">
               {SEATS.map((seat) => (
                 <button
@@ -312,9 +383,9 @@ export function RoundTable() {
           </div>
         ) : (
           <div className="rt-story-empty">
-            <span className="stamp">THE CAST</span>
-            <h3 className="display">Five specialists. One chair is yours.</h3>
-            <p>Choose a label over the table. That specialist will stand, introduce its role, and show the work it has prepared for your decision.</p>
+            <span className="stamp">THE MODULES</span>
+            <h3 className="display">Five modules. One operating layer. One chair is yours.</h3>
+            <p>Choose a label over the table. That module will show the work it has prepared from the same shared business context.</p>
             <span className="mono">THE MACHINE PROPOSES · THE HUMAN DECIDES</span>
           </div>
         )}

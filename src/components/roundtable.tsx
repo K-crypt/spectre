@@ -176,11 +176,13 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
   const journeyRef = useRef<HTMLDivElement>(null);
   const riseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeSlug, setActiveSlug] = useState<Seat["slug"] | null>(null);
+  const [hoveredSlug, setHoveredSlug] = useState<Seat["slug"] | null>(null);
   const [risePhase, setRisePhase] = useState<"idle" | "rising" | "standing">("idle");
   const [decisionMode, setDecisionMode] = useState<DecisionMode>("ready");
   const [alternativeSelected, setAlternativeSelected] = useState(false);
   const [boardReady, setBoardReady] = useState(modulesOnly);
   const active = SEATS.find((seat) => seat.slug === activeSlug) ?? null;
+  const hovered = SEATS.find((seat) => seat.slug === hoveredSlug) ?? null;
 
   useEffect(() => {
     SEATS.flatMap((seat) => [seat.risingImage, seat.standingImage]).forEach((src) => {
@@ -293,12 +295,14 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
   return (
     <div
       ref={journeyRef}
-      className={`rt-experience ${modulesOnly ? "modules-only" : ""} ${boardReady ? "is-boardroom-ready" : ""} ${active ? `has-active active-${active.slug}` : ""} phase-${risePhase}`}
+      className={`rt-experience ${modulesOnly ? "modules-only" : ""} ${boardReady ? "is-boardroom-ready" : ""} ${active ? `has-active active-${active.slug}` : ""} ${hovered ? `has-hover hover-${hovered.slug}` : ""} phase-${risePhase}`}
       style={{
         "--rt-accent": active?.accent ?? "var(--spectral)",
         "--active-x": active?.position ?? "50%",
         "--camera-focus-x": active?.position ?? "50%",
         "--room-camera-pan": active?.cameraPan ?? "0px",
+        "--hover-accent": hovered?.accent ?? "transparent",
+        "--hover-x": hovered?.position ?? "50%",
         "--camera-scale": modulesOnly ? 1 : 1.56,
         "--camera-y": "0%",
         "--hero-copy-opacity": modulesOnly ? 0 : 1,
@@ -320,7 +324,29 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
         )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div key={activeSlug ?? "no-selection"} className="rt-selection-focus" aria-hidden />
+        {modulesOnly && <span className="rt-hover-glow" aria-hidden />}
         <div className="rt-photo-vignette" />
+
+        {modulesOnly && (
+          <div className="rt-figure-hotspots" aria-label="Choose an executive from the table">
+            {SEATS.map((seat) => (
+              <button
+                key={seat.slug}
+                type="button"
+                style={{ "--figure-x": seat.position, "--seat-accent": seat.accent } as CSSProperties}
+                onClick={() => choose(seat.slug)}
+                onMouseEnter={() => setHoveredSlug(seat.slug)}
+                onMouseLeave={() => setHoveredSlug(null)}
+                onFocus={() => setHoveredSlug(seat.slug)}
+                onBlur={() => setHoveredSlug(null)}
+                aria-label={`Select ${seat.name} from the executive table`}
+                aria-pressed={seat.slug === activeSlug}
+              >
+                <span>{seat.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
 
         {!modulesOnly && <div className="rt-hero-copy">
           <span className="mono rt-hero-kicker">AN AI OPERATING LAYER FOR FOUNDER-LED BUSINESSES</span>
@@ -441,6 +467,10 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
             className={seat.slug === activeSlug ? "is-active" : ""}
             style={{ "--seat-accent": seat.accent } as CSSProperties}
             onClick={() => choose(seat.slug)}
+            onMouseEnter={() => setHoveredSlug(seat.slug)}
+            onMouseLeave={() => setHoveredSlug(null)}
+            onFocus={() => setHoveredSlug(seat.slug)}
+            onBlur={() => setHoveredSlug(null)}
             aria-pressed={seat.slug === activeSlug}
           >
             {seat.label}

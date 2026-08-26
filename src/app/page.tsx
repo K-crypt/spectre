@@ -14,13 +14,14 @@ export default function Home() {
         <img src={withBasePath("/mountain-hero-scenery.webp")} alt="A quiet mountain range rising through fog at first light" />
         <div className="mountain-hero-scrim" />
         <div className="mountain-hero-copy">
-          <span className="mono rt-hero-kicker">SPECTRE · FOR FOUNDER-LED BUSINESSES</span>
-          <h1 className="display hero-line" id="hero-title">Automate what can be. Focus on what can&apos;t.</h1>
-          <p className="hero-positioning-note">Spectre learns how your company works, connects the context across it, and prepares the decisions that follow.</p>
+          <span className="mono rt-hero-kicker">PRIVATE OPERATING INTELLIGENCE</span>
+          <h1 className="display hero-line" id="hero-title">Your business already has the answers. They are scattered.</h1>
+          <p className="display hero-brand-line">Automate what can be. Focus on what can&apos;t.</p>
+          <p className="hero-positioning-note">Spectre connects the context across orders, capacity, inventory, messages, and people—then prepares the next decision for your approval.</p>
           <strong className="display">They prepare. You decide.</strong>
           <div className="rt-hero-actions">
-            <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
-            <a href="#proof" className="btn btn-soft">See the proof</a>
+            <a href="#access" className="btn btn-hard">Request a private working session</a>
+            <a href="#factory" className="btn btn-soft">See the manufacturing proof</a>
           </div>
           <div className="hero-compact-signal mono">YOUR WORKFLOWS · YOUR CONTEXT · YOUR FINAL YES</div>
         </div>
@@ -34,9 +35,9 @@ export default function Home() {
             <div className="signal-heading">
               <div>
                 <Stamp>OPERATING IN THE REAL WORLD</Stamp>
-                <h2 className="display lower-title" id="signal-title">Built inside businesses, not in a demo lab.</h2>
+                <h2 className="display lower-title" id="signal-title">Proof before promise.</h2>
               </div>
-              <p className="lower-deck">Three working environments. One principle: understand the business before asking AI to act inside it.</p>
+              <p className="lower-deck">Spectre is being shaped inside real operating environments: manufacturing, export, and research. Context comes before automation.</p>
             </div>
           </Reveal>
           <div className="signal-ledger">
@@ -72,9 +73,9 @@ export default function Home() {
       <section className="lower-section modules-section" id="modules" aria-labelledby="modules-title">
         <div className="wrap modules-heading">
           <Reveal>
-            <Stamp>THE EXECUTIVE TEAM</Stamp>
-            <h2 className="display lower-title" id="modules-title">Meet the table.</h2>
-            <p className="lower-deck">Specialist modules working from one shared company context. Choose a role to see what it prepares—and where human authority begins.</p>
+            <Stamp>ONE CONTEXT · FIVE SPECIALIST VIEWS</Stamp>
+            <h2 className="display lower-title" id="modules-title">The company stays whole.</h2>
+            <p className="lower-deck">Operations, research, marketing, people, and the founder&apos;s own priorities read from the same operating context. Select an executive—or the figure itself—to see the decision it prepares.</p>
           </Reveal>
         </div>
         <section className="mountain-journey modules-journey" id="table">
@@ -87,7 +88,7 @@ export default function Home() {
         <div className="wrap lower-wrap">
           <Reveal>
             <Stamp>ONE TUESDAY WITH SPECTRE</Stamp>
-            <h2 className="display lower-title">A day of prepared work. One point of judgment.</h2>
+            <h2 className="display lower-title">The work moves. Judgment stays with you.</h2>
           </Reveal>
           <Reveal delay={80}>
             <Day />
@@ -100,7 +101,7 @@ export default function Home() {
         <div className="wrap lower-wrap">
           <Reveal>
             <Stamp>HOW SPECTRE LEARNS THE BUSINESS</Stamp>
-            <h2 className="display lower-title" id="how-title">It understands before it acts.</h2>
+            <h2 className="display lower-title" id="how-title">Context first. Action second.</h2>
             <p className="lower-deck">Context, evidence, permissions, and a visible boundary between prepared work and human authority.</p>
           </Reveal>
           <div className="how-grid">
@@ -210,9 +211,9 @@ export default function Home() {
         <div className="wrap lower-wrap access-grid">
           <div>
           <Reveal>
-            <Stamp>DESIGN PARTNERSHIPS</Stamp>
-            <h2 className="display lower-title">Bring one consequential workflow.</h2>
-            <p className="lower-deck">A focused engagement, measured against real work—not a generic software rollout.</p>
+            <Stamp>PRIVATE WORKING SESSION</Stamp>
+            <h2 className="display lower-title">Start with one serious decision.</h2>
+            <p className="lower-deck">Bring a consequential workflow. We map the context, identify the decision boundary, and test whether a private Spectre deployment is justified.</p>
             <div className="partnership-steps" aria-label="Design partnership process">
               {[
                 ["01", "Bring it"],

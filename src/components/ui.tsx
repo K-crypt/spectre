@@ -82,7 +82,7 @@ export function Nav() {
           Notes
         </Link>
         <Link href="/#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
-          Design partnership
+          Private working session
         </Link>
         <button className="menu-btn" aria-label="Menu" onClick={() => setOpen(!open)}>
           {open ? <X size={16} strokeWidth={1.5} /> : <Menu size={16} strokeWidth={1.5} />}
@@ -107,7 +107,7 @@ export function Nav() {
             Data practices
           </Link>
           <Link href="/#access" onClick={() => setOpen(false)}>
-            Discuss a design partnership
+            Request a private working session
           </Link>
         </div>
       )}

@@ -3,6 +3,7 @@ import { Spectral, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font
 import "./globals.css";
 import { Nav, Footer } from "@/components/ui";
 import { ChatWidget } from "@/components/chat-widget";
+import { PremiumScroll } from "@/components/premium-scroll";
 import { withBasePath } from "@/lib/base-path";
 
 // Display serif swapped to Spectral 2026-08-04 (his call: Fraunces read
@@ -32,16 +33,16 @@ const michroma = Michroma({
 });
 
 export const metadata: Metadata = {
-  title: "The Spectre — AI operating layer for founder-led businesses",
+  title: "The Spectre — Private operating intelligence",
   description:
-    "Spectre turns scattered business information into one operating picture, prepares the work, and keeps every material decision under human control.",
+    "Spectre connects scattered business context, prepares consequential decisions, and keeps every material action under human control.",
   robots: { index: true, follow: true }, // launched 2026-07-22 on thespectre.one
   metadataBase: new URL("https://thespectre.one"),
   icons: { icon: withBasePath("/favicon.svg") },
   openGraph: {
-    title: "The Spectre — Your business in one operating picture",
+    title: "The Spectre — Your business already has the answers",
     description:
-      "An AI operating layer for founder-led businesses. Built around your workflows, trained on your context, and always under human control.",
+      "Private operating intelligence built around your workflows, your context, and human approval.",
     url: "https://thespectre.one",
     siteName: "The Spectre",
     images: [{ url: "/og.jpg", width: 1200, height: 630 }],
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Spectre — Your business in one operating picture",
+    title: "The Spectre — Your business already has the answers",
     description:
       "An AI operating layer for founder-led businesses. They prepare. You decide.",
     images: ["/og.jpg"],
@@ -62,6 +63,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en" className={`${spectral.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
       <body>
+        <PremiumScroll />
         <Nav />
         {children}
         <Footer />

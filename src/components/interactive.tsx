@@ -151,32 +151,23 @@ export function WaitlistForm({ preselect }: { preselect?: string }) {
         ))}
       </div>
       <input type="hidden" name="products" value={picked.join(", ")} />
-      <input
-        type="text"
-        name="company"
-        required
-        placeholder="Company or website"
-        style={{ marginBottom: 10 }}
-      />
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <label className="field-label" htmlFor="design-company">Company or website</label>
+      <input id="design-company" type="text" name="company" required autoComplete="organization" placeholder="Company name" />
+      <label className="field-label" htmlFor="design-email">Work email</label>
+      <input id="design-email" type="email" name="email" required autoComplete="email" placeholder="you@company.com" />
+      <label className="field-label" htmlFor="design-first">Which operation should we understand first?</label>
+      <input id="design-first" type="text" name="first" required placeholder="For example: order feasibility before commitment" />
+      <div className="form-submit-row">
+        <span className="mono form-submit-note">ALL REQUIRED FIELDS COMPLETE BEFORE SUBMISSION</span>
         <input
-          type="email"
-          name="email"
-          required
-          placeholder="you@company.com"
-          style={{ flex: "1 1 260px" }}
+          type="hidden"
+          name="source"
+          value="website-private-working-session"
         />
         <button className="btn btn-hard" type="submit" disabled={state === "sending"}>
-          {state === "sending" ? "Sending…" : "Discuss a design partnership"}
+          {state === "sending" ? "Sending…" : "Request a private working session"}
         </button>
       </div>
-      <input
-        type="text"
-        name="first"
-        required
-        placeholder="Which operation should we understand first?"
-        style={{ marginTop: 10 }}
-      />
       <div className="mono" style={{ fontSize: 10.5, color: "var(--ghost)", marginTop: 12 }}>
         No automated sales sequence. We reply within 48 hours, personally.
         {state === "error" && " · Something failed — email us instead: access@thespectre.one"}

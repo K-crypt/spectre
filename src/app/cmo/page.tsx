@@ -29,7 +29,7 @@ export default function CmoPage() {
               for one approval pass.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Request early access</a>
+              <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
               <a href="#playground" className="btn btn-soft">Open the playground</a>
             </div>
           </Reveal>
@@ -79,7 +79,7 @@ export default function CmoPage() {
             {[
               ["Content, in your voice", "Ideas, drafts, and visuals calibrated to your brand's rules, graded against your own standards before you ever see them."],
               ["Outreach and ads", "Prospect lists, message drafts, and campaign plans with staged approvals and honest kill rules."],
-              ["Numbers you can trust", "Metrics computed in code on a schedule, anomalies flagged, one narrated digest a week. No dashboard babysitting."],
+              ["Numbers with provenance", "Metrics calculated through defined tools on a schedule, assumptions visible, anomalies flagged, and one narrated digest a week."],
             ].map(([t, d], i) => (
               <Reveal key={t} delay={i * 60}>
                 <div className="card" style={{ padding: 20 }}>
@@ -127,8 +127,8 @@ export default function CmoPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>EARLY ACCESS</Stamp>
-            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
+            <Stamp>DESIGN PARTNERSHIP</Stamp>
+            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Configure the first operating rhythm with us.</h2>
             <WaitlistForm preselect="cmo" />
           </Reveal>
         </div>

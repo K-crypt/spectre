@@ -29,7 +29,7 @@ export default function CooPage() {
               lands: what to buy, what shifts, what blocks, and whether to say yes.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Request early access</a>
+              <a href="#access" className="btn btn-hard">Discuss a manufacturing pilot</a>
               <a href="#playground" className="btn btn-soft">Open the playground</a>
             </div>
           </Reveal>
@@ -121,8 +121,8 @@ export default function CooPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>EARLY ACCESS</Stamp>
-            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Access opens in order of readiness.</h2>
+            <Stamp>DESIGN PARTNERSHIP</Stamp>
+            <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Build the first operating picture with us.</h2>
             <WaitlistForm preselect="coo" />
           </Reveal>
         </div>

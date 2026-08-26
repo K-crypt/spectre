@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /* ── Reveal: the single motion signature (IntersectionObserver + CSS).
    Content is visible by default; we hide with .pending only once JS is live
@@ -48,90 +48,56 @@ export function Reveal({
 /* ── product registry: canonical data lives in @/lib/products.
       Server components must import it from there directly — data re-exported
       through this "use client" module crosses the boundary as a reference. ── */
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Menu, X } from "lucide-react";
 import { PRODUCTS_DATA as PRODUCTS } from "@/lib/products";
 import { Mark } from "@/components/mark";
-
-/* ── theme toggle (html.light + localStorage; pre-paint script in layout) ── */
-function ThemeToggle() {
-  const [light, setLight] = useState<boolean | null>(null);
-  useEffect(() => {
-    setLight(document.documentElement.classList.contains("light"));
-  }, []);
-  const flip = () => {
-    const next = !document.documentElement.classList.contains("light");
-    document.documentElement.classList.toggle("light", next);
-    try {
-      localStorage.setItem("spectre.site.theme", next ? "light" : "dark");
-    } catch {}
-    setLight(next);
-  };
-  return (
-    <button className="theme-btn" onClick={flip} aria-label="Switch theme" title="Switch theme">
-      {light === null ? <Sun size={15} strokeWidth={1.5} style={{ opacity: 0.5 }} /> : light ? <Moon size={15} strokeWidth={1.5} /> : <Sun size={15} strokeWidth={1.5} />}
-    </button>
-  );
-}
 
 /* ── Nav ── */
 export function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const onHome = pathname === "/";
   return (
     <nav
-      className="hairline-b"
-      style={{ position: "sticky", top: 0, zIndex: 70, background: "color-mix(in srgb, var(--ground) 88%, transparent)", backdropFilter: "blur(8px)" }}
+      className={`hairline-b site-nav ${onHome ? "site-nav-home" : ""}`}
+      style={{ position: "sticky", top: 0, zIndex: 70, background: onHome ? "rgba(13, 10, 11, .92)" : "color-mix(in srgb, var(--ground) 90%, transparent)", backdropFilter: "blur(12px)" }}
     >
       <div className="wrap" style={{ display: "flex", alignItems: "center", gap: 16, height: 60 }}>
         <Link
           href="/"
-          style={{ textDecoration: "none", color: "var(--ink)", display: "flex", alignItems: "center", gap: 10 }}
+          style={{ textDecoration: "none", color: onHome ? "#eee8df" : "var(--ink)", display: "flex", alignItems: "center", gap: 10 }}
           onClick={() => setOpen(false)}
         >
           <Mark height={12} style={{ position: "relative", top: 0.5 }} />
           <span className="wordmark">THE&nbsp;SPECTRE</span>
         </Link>
         <div style={{ flex: 1 }} />
-        <div style={{ display: "flex", gap: 18, alignItems: "center" }} className="nav-products">
-          {PRODUCTS.map((p) => {
-            const active = pathname === `/${p.slug}` || pathname.startsWith(`/${p.slug}/`);
-            return (
-              <Link
-                key={p.slug}
-                href={`/${p.slug}/`}
-                style={{
-                  textDecoration: "none",
-                  color: active ? "var(--ink)" : "var(--ghost)",
-                  fontSize: 13,
-                  fontWeight: active ? 600 : 400,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                {active && <span className="dot" style={{ background: p.accent, width: 6, height: 6 }} />}
-                {p.short}
-              </Link>
-            );
-          })}
+        <div style={{ display: "flex", gap: 18, alignItems: "center" }} className="nav-products nav-buyer">
+          <Link href="/#how">How it works</Link>
+          <Link href="/#proof">Proof</Link>
+          <Link href="/#modules">Executive team</Link>
         </div>
         <Link href="/notes/" className="nav-notes" style={{ textDecoration: "none", color: "var(--ghost)", fontSize: 13 }}>
           Notes
         </Link>
-        <ThemeToggle />
-        <a href="#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
-          Access
-        </a>
+        <Link href="/#access" className="btn btn-hard nav-access" style={{ padding: "10px 16px" }} onClick={() => setOpen(false)}>
+          Private working session
+        </Link>
         <button className="menu-btn" aria-label="Menu" onClick={() => setOpen(!open)}>
           {open ? <X size={16} strokeWidth={1.5} /> : <Menu size={16} strokeWidth={1.5} />}
         </button>
       </div>
       {open && (
         <div className="sheet">
-          {PRODUCTS.map((p) => (
-            <Link key={p.slug} href={`/${p.slug}/`} onClick={() => setOpen(false)}>
-              {p.name}
+          <Link href="/#how" onClick={() => setOpen(false)}>How it works</Link>
+          <Link href="/#proof" onClick={() => setOpen(false)}>Proof</Link>
+          <Link href="/#modules" onClick={() => setOpen(false)}>Executive team</Link>
+          <Link href="/#day" onClick={() => setOpen(false)}>One Tuesday</Link>
+          <span className="sheet-label">SPECIALIST PAGES</span>
+          {PRODUCTS.map((product) => (
+            <Link key={product.slug} href={`/${product.slug}/`} onClick={() => setOpen(false)}>
+              {product.name}
             </Link>
           ))}
           <Link href="/notes/" onClick={() => setOpen(false)}>
@@ -140,9 +106,9 @@ export function Nav() {
           <Link href="/data/" onClick={() => setOpen(false)}>
             Data practices
           </Link>
-          <a href="#access" onClick={() => setOpen(false)}>
-            Request early access
-          </a>
+          <Link href="/#access" onClick={() => setOpen(false)}>
+            Request a private working session
+          </Link>
         </div>
       )}
     </nav>

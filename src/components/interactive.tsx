@@ -79,14 +79,14 @@ export function Comparison() {
           an invoice, or a system that keeps getting better.
         </p>
         <a href="#access" className="btn btn-hard" style={{ padding: "11px 18px" }}>
-          Start with early access
+          Discuss a design partnership
         </a>
       </div>
     </div>
   );
 }
 
-/* ── the waitlist form (Netlify Forms; static-export friendly) ── */
+/* ── design-partner enquiry (Netlify Forms; static-export friendly) ── */
 export function WaitlistForm({ preselect }: { preselect?: string }) {
   const [picked, setPicked] = useState<string[]>(preselect ? [preselect] : []);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -118,25 +118,26 @@ export function WaitlistForm({ preselect }: { preselect?: string }) {
       <div className="card" style={{ padding: 24, maxWidth: 560 }}>
         <div className="stamp" style={{ marginBottom: 8 }}>RECEIVED</div>
         <p style={{ fontSize: 14 }}>
-          You're on the list. We reply within 48 hours, personally.
+          Thank you. We&apos;ll review the operation you described and reply personally within 48 hours.
         </p>
       </div>
     );
 
   return (
     <form
-      name="access"
+      name="design-partner"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={submit}
       style={{ maxWidth: 560 }}
     >
-      <input type="hidden" name="form-name" value="access" />
+      <input type="hidden" name="form-name" value="design-partner" />
       <p style={{ display: "none" }}>
         <label>Don&apos;t fill this out: <input name="bot-field" /></label>
       </p>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+      <div className="mono form-label">WHERE SHOULD THE OPERATING LAYER START?</div>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 18 }}>
         {PRODUCTS.map((p) => (
           <button
             key={p.slug}
@@ -150,26 +151,25 @@ export function WaitlistForm({ preselect }: { preselect?: string }) {
         ))}
       </div>
       <input type="hidden" name="products" value={picked.join(", ")} />
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <label className="field-label" htmlFor="design-company">Company or website</label>
+      <input id="design-company" type="text" name="company" required autoComplete="organization" placeholder="Company name" />
+      <label className="field-label" htmlFor="design-email">Work email</label>
+      <input id="design-email" type="email" name="email" required autoComplete="email" placeholder="you@company.com" />
+      <label className="field-label" htmlFor="design-first">Which operation should we understand first?</label>
+      <input id="design-first" type="text" name="first" required placeholder="For example: order feasibility before commitment" />
+      <div className="form-submit-row">
+        <span className="mono form-submit-note">ALL REQUIRED FIELDS COMPLETE BEFORE SUBMISSION</span>
         <input
-          type="email"
-          name="email"
-          required
-          placeholder="you@company.com"
-          style={{ flex: "1 1 260px" }}
+          type="hidden"
+          name="source"
+          value="website-private-working-session"
         />
         <button className="btn btn-hard" type="submit" disabled={state === "sending"}>
-          {state === "sending" ? "Sending…" : "Request early access"}
+          {state === "sending" ? "Sending…" : "Request a private working session"}
         </button>
       </div>
-      <input
-        type="text"
-        name="first"
-        placeholder="Optional: what would you automate first?"
-        style={{ marginTop: 10 }}
-      />
       <div className="mono" style={{ fontSize: 10.5, color: "var(--ghost)", marginTop: 12 }}>
-        We reply within 48 hours, personally.
+        No automated sales sequence. We reply within 48 hours, personally.
         {state === "error" && " · Something failed — email us instead: access@thespectre.one"}
       </div>
     </form>

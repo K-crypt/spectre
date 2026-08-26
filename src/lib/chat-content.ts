@@ -13,7 +13,7 @@ export type Persona = {
 };
 
 const FREE_TEXT_REPLY =
-  "In this preview I answer the set questions below; the live version runs on the real model with real context. Pick one of the questions, or join early access to try the full thing.";
+  "In this preview I answer the set questions below; a live Spectre deployment is configured around a real business and its context. Pick a question, or discuss a design partnership with us.";
 
 export const FREE_TEXT = FREE_TEXT_REPLY;
 
@@ -24,19 +24,19 @@ export const PERSONAS: Record<string, Persona> = {
     subtitle: "Studio guide · preview",
     accent: "var(--brass)",
     greeting:
-      "Hello. I can tell you about the studio, the five products, and how early access works. In the live version I would also know your business.",
+      "Hello. I can explain Spectre's operating layer, its five modules, and how a design partnership works. A live deployment would be configured around your business.",
     qa: [
       {
         q: "What exactly does The Spectre do?",
-        a: "We build AI operating teams for businesses: five specialists that run operations, marketing, research, people work, and a second brain that coordinates them. They do the repeatable work, and nothing goes out without your approval.",
+        a: "Spectre is an AI operating layer for founder-led businesses. It connects scattered operational context, prepares decisions and repeatable work through five specialist modules, and keeps every outward or material action behind a human approval gate.",
       },
       {
-        q: "Which product should I start with?",
-        a: "It depends on where your week goes. If you run a factory, start with the AI COO. If you own a brand, the AI CMO is live today. If you are the bottleneck yourself, the Second Brain is the one built for you.",
+        q: "Where should a deployment start?",
+        a: "Start with one expensive operating problem. For a factory, that may be order feasibility and live capacity. For a brand, it may be the marketing rhythm. The module is the entry point; the long-term value is the shared operating context beneath it.",
       },
       {
-        q: "How does early access work?",
-        a: "You leave your email and pick the products that interest you. Each one opens to its list in order of readiness, and we reply to every request within 48 hours, personally.",
+        q: "How does a design partnership work?",
+        a: "We first map one real workflow, its data, exceptions, decisions, and approval boundaries. Then we configure a focused pilot around it with the founder and operating team. We reply to every serious enquiry within 48 hours, personally.",
       },
       {
         q: "Is my data safe with you?",
@@ -44,7 +44,7 @@ export const PERSONAS: Record<string, Persona> = {
       },
       {
         q: "Who is behind this?",
-        a: "The Spectre's systems already run three real operations end to end: a live company's entire marketing, a manufacturing pilot, and a delivered research program. The proof pages on this site show the real work.",
+        a: "Spectre is already being proven across a live export company's marketing operation, a manufacturing pilot covering approximately 400 machines, and a delivered, re-verified research program.",
       },
     ],
   },
@@ -110,7 +110,7 @@ export const PERSONAS: Record<string, Persona> = {
     qa: [
       {
         q: "What can it run for my brand?",
-        a: "Content ideas and drafts, outreach plans with written messages, ad campaigns with honest kill rules, and a weekly digest of your numbers computed in code. You review one staged queue instead of running five tools.",
+        a: "Content ideas and drafts, outreach plans with written messages, ad campaigns with honest kill rules, and a weekly digest of metrics calculated through defined tools. You review one staged queue instead of running five tools.",
       },
       {
         q: "Will it sound like us?",

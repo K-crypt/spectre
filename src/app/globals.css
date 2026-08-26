@@ -4263,15 +4263,10 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 
 .mountain-hero-copy { width: min(930px, calc(100% - 44px)); }
 .mountain-hero-copy h1 {
-  max-width: 18ch;
-  font-size: clamp(46px, 5.7vw, 78px);
-  line-height: .98;
-  letter-spacing: -.034em;
-}
-.mountain-hero-copy .hero-brand-line {
-  margin: 21px auto 0;
-  color: rgba(246, 240, 233, .94);
-  font-size: clamp(19px, 2vw, 27px);
+  max-width: 23ch;
+  font-size: clamp(40px, 4.8vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -.025em;
 }
 .mountain-hero-copy .hero-positioning-note {
   max-width: 60ch;
@@ -4325,8 +4320,8 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   letter-spacing: .1em;
 }
 
-/* The photographic figures are real controls. The hit areas stay invisible
-   until hover/focus, when a restrained role-colour pool identifies the seat. */
+/* The photographic figures are real controls. Hover colour sits on the figure
+   itself; the full standing image remains reserved for selection. */
 .rt-figure-hotspots {
   position: absolute;
   inset: 0;
@@ -4347,21 +4342,23 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   pointer-events: auto;
   transform: translateX(-50%);
 }
-.rt-figure-hotspots button::after {
-  content: "";
+.rt-hover-color {
   position: absolute;
-  inset: 10% 16% 5%;
-  border: 1px solid transparent;
-  border-radius: 48% 48% 16px 16px;
-  transition: border-color 220ms ease, box-shadow 260ms ease, background 260ms ease;
+  z-index: 9;
+  top: 17%;
+  bottom: 33%;
+  left: var(--hover-x);
+  width: clamp(52px, 7vw, 112px);
+  border-radius: 48% 48% 24% 24%;
+  background: var(--hover-accent);
+  clip-path: polygon(36% 0, 64% 0, 72% 13%, 70% 24%, 86% 37%, 96% 100%, 4% 100%, 14% 37%, 30% 24%, 28% 13%);
+  mix-blend-mode: color;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: left 160ms ease, opacity 160ms ease;
 }
-.rt-figure-hotspots button:hover::after,
-.rt-figure-hotspots button:focus-visible::after,
-.rt-figure-hotspots button[aria-pressed="true"]::after {
-  border-color: color-mix(in srgb, var(--seat-accent) 34%, transparent);
-  background: radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--seat-accent) 13%, transparent), transparent 68%);
-  box-shadow: 0 0 48px color-mix(in srgb, var(--seat-accent) 18%, transparent);
-}
+.rt-experience.modules-only.has-hover .rt-hover-color { opacity: .88; }
 .rt-figure-hotspots button > span {
   position: absolute;
   right: 10%;
@@ -4379,18 +4376,6 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 .rt-figure-hotspots button:hover > span,
 .rt-figure-hotspots button:focus-visible > span { opacity: .9; }
 .rt-figure-hotspots button:focus-visible { outline: 1px solid var(--seat-accent); outline-offset: -8px; }
-.rt-hover-glow {
-  position: absolute;
-  inset: 0;
-  z-index: 9;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(ellipse 14% 38% at var(--hover-x) 47%, color-mix(in srgb, var(--hover-accent) 30%, transparent), color-mix(in srgb, var(--hover-accent) 9%, transparent) 44%, transparent 76%);
-  mix-blend-mode: screen;
-  transition: opacity 240ms ease, background 300ms ease;
-}
-.rt-experience.modules-only.has-hover .rt-hover-glow { opacity: .72; }
-
 /* A proper command rail: darker, taller and colour-coded on hover. */
 .rt-role-selector {
   bottom: 20px;
@@ -4425,8 +4410,7 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
 .rt-table-interface { bottom: 88px; }
 
 @media (max-width: 760px) {
-  .mountain-hero-copy h1 { max-width: 16ch; font-size: clamp(38px, 10.6vw, 53px); }
-  .mountain-hero-copy .hero-brand-line { font-size: clamp(18px, 5.4vw, 23px); }
+  .mountain-hero-copy h1 { max-width: 16ch; font-size: clamp(33px, 9.2vw, 47px); }
   .mountain-hero-copy .hero-positioning-note { font-size: 14px; }
   .lower-title { font-size: clamp(37px, 11vw, 52px); }
   .rt-figure-hotspots { display: none; }
@@ -4442,7 +4426,6 @@ main[style*="--accent"] input { background: rgba(0,0,0,.22); }
   .mountain-hero::after { display: none; }
   .mountain-hero > img,
   .mountain-hero-copy { animation: none; }
-  .rt-hover-glow,
-  .rt-figure-hotspots button::after,
+  .rt-hover-color,
   .rt-role-selector button { transition: none; }
 }

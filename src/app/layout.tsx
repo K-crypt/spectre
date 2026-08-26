@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Spectral, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { Nav, Footer } from "@/components/ui";
 import { ChatWidget } from "@/components/chat-widget";
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://thespectre.one"),
   icons: { icon: withBasePath("/favicon.svg") },
   openGraph: {
-    title: "The Spectre — Your business already has the answers",
+    title: "The Spectre — Private operating intelligence",
     description:
       "Private operating intelligence built around your workflows, your context, and human approval.",
     url: "https://thespectre.one",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Spectre — Your business already has the answers",
+    title: "The Spectre — Private operating intelligence",
     description:
       "An AI operating layer for founder-led businesses. They prepare. You decide.",
     images: ["/og.jpg"],

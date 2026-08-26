@@ -15,13 +15,12 @@ export default function Home() {
         <div className="mountain-hero-scrim" />
         <div className="mountain-hero-copy">
           <span className="mono rt-hero-kicker">PRIVATE OPERATING INTELLIGENCE</span>
-          <h1 className="display hero-line" id="hero-title">Your business already has the answers. They are scattered.</h1>
-          <p className="display hero-brand-line">Automate what can be. Focus on what can&apos;t.</p>
-          <p className="hero-positioning-note">Spectre connects the context across orders, capacity, inventory, messages, and people—then prepares the next decision for your approval.</p>
+          <h1 className="display hero-line" id="hero-title">Automate what can be.<br />Focus on what can&apos;t.</h1>
+          <p className="hero-positioning-note">Spectre learns how your company works, connects the context across it, and prepares the decisions that follow.</p>
           <strong className="display">They prepare. You decide.</strong>
           <div className="rt-hero-actions">
-            <a href="#access" className="btn btn-hard">Request a private working session</a>
-            <a href="#factory" className="btn btn-soft">See the manufacturing proof</a>
+            <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
+            <a href="#proof" className="btn btn-soft">See the proof</a>
           </div>
           <div className="hero-compact-signal mono">YOUR WORKFLOWS · YOUR CONTEXT · YOUR FINAL YES</div>
         </div>
@@ -35,9 +34,9 @@ export default function Home() {
             <div className="signal-heading">
               <div>
                 <Stamp>OPERATING IN THE REAL WORLD</Stamp>
-                <h2 className="display lower-title" id="signal-title">Proof before promise.</h2>
+                <h2 className="display lower-title" id="signal-title">Built inside businesses, not in a demo lab.</h2>
               </div>
-              <p className="lower-deck">Spectre is being shaped inside real operating environments: manufacturing, export, and research. Context comes before automation.</p>
+              <p className="lower-deck">Three working environments. One principle: understand the business before asking AI to act inside it.</p>
             </div>
           </Reveal>
           <div className="signal-ledger">

@@ -324,7 +324,7 @@ export function RoundTable({ modulesOnly = false }: { modulesOnly?: boolean }) {
         )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div key={activeSlug ?? "no-selection"} className="rt-selection-focus" aria-hidden />
-        {modulesOnly && <span className="rt-hover-glow" aria-hidden />}
+        {modulesOnly && <span className="rt-hover-color" aria-hidden />}
         <div className="rt-photo-vignette" />
 
         {modulesOnly && (

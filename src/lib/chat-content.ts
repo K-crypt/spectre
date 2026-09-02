@@ -13,7 +13,7 @@ export type Persona = {
 };
 
 const FREE_TEXT_REPLY =
-  "In this preview I answer the set questions below; a live Spectre deployment is configured around a real business and its context. Pick a question, or discuss a design partnership with us.";
+  "In this preview I answer the set questions below; a live Spectre deployment is configured around a real business and its context. Pick a question, or ask us for a private working session.";
 
 export const FREE_TEXT = FREE_TEXT_REPLY;
 
@@ -22,9 +22,9 @@ export const PERSONAS: Record<string, Persona> = {
     id: "home",
     title: "The Spectre",
     subtitle: "Studio guide · preview",
-    accent: "var(--brass)",
+    accent: "var(--ruby)",
     greeting:
-      "Hello. I can explain Spectre's operating layer, its five modules, and how a design partnership works. A live deployment would be configured around your business.",
+      "Hello. I can explain Spectre's operating layer, its five modules, and how a private working session works. A live deployment would be configured around your business.",
     qa: [
       {
         q: "What exactly does The Spectre do?",
@@ -35,7 +35,7 @@ export const PERSONAS: Record<string, Persona> = {
         a: "Start with one expensive operating problem. For a factory, that may be order feasibility and live capacity. For a brand, it may be the marketing rhythm. The module is the entry point; the long-term value is the shared operating context beneath it.",
       },
       {
-        q: "How does a design partnership work?",
+        q: "How does a private working session work?",
         a: "We first map one real workflow, its data, exceptions, decisions, and approval boundaries. Then we configure a focused pilot around it with the founder and operating team. We reply to every serious enquiry within 48 hours, personally.",
       },
       {

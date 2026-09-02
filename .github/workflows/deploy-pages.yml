@@ -36,6 +36,13 @@ jobs:
       - name: Build with Next.js
         run: npm run build
 
+      # A missing /<repo> prefix on one asset still builds, still returns 200,
+      # and simply renders without the photograph. Fail here instead.
+      - name: Check every asset carries the base path
+        run: node scripts/check-base-path.mjs
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -97,8 +97,10 @@ let a visitor drive the product's logic before anyone gets on a call.
     </td>
     <td width="50%">
       <img src="docs/readme/home-hero-light.png" alt="Light theme"><br>
-      <sub><b>Both themes are first-class.</b> Dark is the default; the
-      light theme is resolved before first paint, so there is no flash.</sub>
+      <sub><b>One register.</b> Warm paper is the ground; the hero, the
+      Executive Room and One Tuesday are full-bleed dark islands inside it.
+      The light/dark toggle described in earlier revisions no longer
+      exists.</sub>
     </td>
   </tr>
 </table>
@@ -146,7 +148,8 @@ ends with actions staged for approval.
 - **Next.js 16 static export** (`output: "export"`), React 19, Tailwind 4.
   The `next build --webpack` pin in `package.json` is load-bearing.
 - **No backend, no keys, no third-party requests at runtime.** Fonts are
-  self-hosted through `next/font`; there are no analytics scripts. The
+  self-hosted through `@fontsource`, so the build has no network dependency
+  and there is no font-loading flash; there are no analytics scripts. The
   waitlist is a Netlify Form; replies are written personally within 48 hours.
 - **Everything interactive is deterministic simulation.** State machines,
   seeded hashes and compositional logic, so demos are impressive without
@@ -157,7 +160,7 @@ ends with actions staged for approval.
   misses the journey.
 - **Design tokens** live in `src/app/globals.css` and nowhere else: near-black
   and warm-paper grounds, one hairline, brass reserved for the house, and one
-  accent per product (Spectral, Steel, Clay, Archive, Ochre). Fraunces for
+  accent per product (Spectral, Steel, Clay, Archive, Ochre). Cormorant Garamond for
   display, Instrument Sans for text, Spline Sans Mono for data, Michroma for
   the wordmark.
 

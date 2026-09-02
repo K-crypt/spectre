@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function CooPage() {
   return (
-    <main style={{ ["--accent" as string]: "var(--steel)" }}>
+    <main id="main" data-accent style={{ ["--accent" as string]: "var(--steel)" }}>
       <section className="hairline-b" style={{ position: "relative", overflow: "hidden" }}>
         <Motif kind="coo" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--steel)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
@@ -29,7 +29,7 @@ export default function CooPage() {
               lands: what to buy, what shifts, what blocks, and whether to say yes.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Discuss a manufacturing pilot</a>
+              <a href="#access" className="btn btn-hard">Private working session</a>
               <a href="#playground" className="btn btn-soft">Open the playground</a>
             </div>
           </Reveal>
@@ -121,7 +121,7 @@ export default function CooPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>DESIGN PARTNERSHIP</Stamp>
+            <Stamp>PRIVATE WORKING SESSION</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Build the first operating picture with us.</h2>
             <WaitlistForm preselect="coo" />
           </Reveal>

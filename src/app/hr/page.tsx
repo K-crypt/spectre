@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function HrPage() {
   return (
-    <main style={{ ["--accent" as string]: "var(--ochre)" }}>
+    <main id="main" data-accent style={{ ["--accent" as string]: "var(--ochre)" }}>
       <section className="hairline-b" style={{ position: "relative", overflow: "hidden" }}>
         <Motif kind="hr" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--ochre)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>

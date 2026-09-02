@@ -4,6 +4,7 @@ import { Queue } from "@/components/queue";
 import { Day } from "@/components/day";
 import { Hero, TuesdayGround, Dawn } from "@/components/chapters";
 import { PlantGrid } from "@/components/plant";
+import { withBasePath } from "@/lib/base-path";
 import { DeskChat } from "@/components/desk-chat";
 
 /* Five chapters. Eleven desktop screens became eight, then five.
@@ -82,8 +83,8 @@ export default function Home() {
         <div className="dawn-art" aria-hidden>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/crossing-1920.webp"
-            srcSet="/crossing-1280.webp 1280w, /crossing-1920.webp 1920w, /crossing-2560.webp 2560w"
+            src={withBasePath("/crossing-1920.webp")}
+            srcSet={`${withBasePath("/crossing-1280.webp")} 1280w, ${withBasePath("/crossing-1920.webp")} 1920w, ${withBasePath("/crossing-2560.webp")} 2560w`}
             sizes="100vw"
             width={1920}
             height={791}

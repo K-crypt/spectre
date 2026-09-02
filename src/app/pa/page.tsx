@@ -29,7 +29,7 @@ const MOATS = [
 
 export default function PaPage() {
   return (
-    <main style={{ ["--accent" as string]: "var(--spectral)" }}>
+    <main id="main" data-accent style={{ ["--accent" as string]: "var(--spectral)" }}>
       {/* HERO */}
       <section className="hairline-b" style={{ position: "relative", overflow: "hidden" }}>
         <Motif kind="pa" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--spectral)", opacity: 0.1 }} />
@@ -47,7 +47,7 @@ export default function PaPage() {
               approves what goes out.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Discuss a design partnership</a>
+              <a href="#access" className="btn btn-hard">Private working session</a>
               <a href="#playground" className="btn btn-soft">Try the idea</a>
             </div>
           </Reveal>
@@ -208,7 +208,7 @@ export default function PaPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "80px 24px" }}>
           <Reveal>
-            <Stamp>DESIGN PARTNERSHIP</Stamp>
+            <Stamp>PRIVATE WORKING SESSION</Stamp>
             <h2 className="display" style={{ fontSize: 34, marginBottom: 8 }}>
               Bring one consequential workflow. Build the second brain around it.
             </h2>

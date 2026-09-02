@@ -25,7 +25,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
   if (!note) notFound();
   const others = NOTES.filter((n) => n.slug !== note.slug).slice(0, 2);
   return (
-    <main>
+    <main id="main">
       <article>
         <section className="hairline-b">
           <div className="wrap note-measure" style={{ padding: "80px 24px 48px" }}>

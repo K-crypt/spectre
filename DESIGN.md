@@ -2,20 +2,42 @@
 
 Governing plan: `brain/outputs/2026-07-22-spectre-website-plan.md` (round-1 verdicts applied).
 Trust research applied throughout: `brain/outputs/2026-07-22-landing-page-trust-research.md` (laws L1–L12).
-Preview: open `design-preview.html` in a browser (dark + light strips, accents in context).
+Preview: open `design-preview.html` in a browser (accents in context).
 
-## 1. Base (mono, ghost-coded)
+> **Updated 2026-09-02.** The palette and type below are current. The previous
+> version of this section described a dark-default site with a light theme and
+> a nav toggle; that toggle was removed some time ago and the site now has a
+> single register. §9b's theme-switcher note is likewise historical.
 
-| Token | Dark (default) | Light | Role |
+## 1. Base — the house palette
+
+Paper is the ground; the dark passages are islands inside it, and each one
+carries `.on-dark`, which re-declares the same token names rather than adding
+new ones. The palette is shared with the studio's other venture, so anything
+built for either sits correctly alongside the other.
+
+| Token | Paper (ground) | On dark (islands) | Role |
 |---|---|---|---|
-| `--ground` | `#0A0A0A` | `#F7F5F0` (warm paper) | page ground |
-| `--surface` | `#111111` | `#FFFFFF` | cards, panels |
-| `--ink` | `#F5F5F3` | `#111111` | primary text |
-| `--ghost` | `#9A9A9A` | `#6B6B6B` | secondary text (the only neutral, per brand) |
-| `--hairline` | `#FFFFFF14` | `#00000012` | 1px rules — the structural line language |
-| `--brass` | `#B8944C` | `#8C6F37` | HOUSE signature only: footer sigil, wordmark hover. Never a UI accent. |
+| `--ground` | `#F5F1EA` | `#1A1817` | page ground |
+| `--surface` | `#FAF7F1` | `#221F1D` | raised surfaces (rarely used — see below) |
+| `--ink` | `#1A1817` | `#F5F1EA` | primary text |
+| `--ghost` | `#56524E` | `#A8A098` | secondary text (the only neutral) |
+| `--hairline` | `rgba(26,24,23,.13)` | `rgba(201,184,154,.16)` | 1px rules — the structural line language |
+| `--ruby` | `#6E1F23` | `#8A2D31` | the house maroon: rules, plate numerals, the sigil |
+| `--accent-text` | `#6E1F23` | `#C9B89A` (wool) | the accent where it has to carry type |
 
-Flat matte everywhere. No gradients, no glow, no glass, no shadows beyond 1px hairlines (Linear-look exit, dossier §7.3). Dark is default; light is first-class (warm paper, not clinical white).
+The maroon is an accent, never a fill: it carries hairline rules, numerals and
+initial capitals. Across large areas it reads heavy and cheapens the effect.
+On the dark islands it cannot carry small type at 4.5:1 without turning pink,
+so wool takes the accent's typographic role there and maroon stays a rule.
+
+**Hairlines, not boxes.** Cards, panels and bordered containers were doing work
+that white space and a single 1px rule do better. Surfaces are effectively
+unused: `.card`, `.access-panel`, the plant readout and the comparison table
+are all a top rule and nothing else.
+
+Flat matte everywhere. No gradients, no glow, no glass, no shadows beyond 1px
+hairlines (Linear-look exit, dossier §7.3).
 
 ## 2. The accent family (per-product, his round-1 call)
 
@@ -39,7 +61,7 @@ One narrow band — all five sit at similar saturation/lightness so they read as
 
 | Register | Face | Use | Sizes |
 |---|---|---|---|
-| Authority | **Fraunces** (300–500, optical) | display headlines, the manifesto, pull quotes | 64 / 44 / 32 |
+| Authority | **Cormorant Garamond** (300–400, italic for claims) | display headlines, the manifesto, pull quotes | 88 / 50 / 34 |
 | Clarity | **Instrument Sans** | body, UI, nav, forms | 17 / 15 / 13 |
 | Instrument | **Spline Sans Mono** | data, numbers, stamps, status badges, footnote markers | 13 / 11, tabular figures ALWAYS |
 | Wordmark | Bicubik (Michroma stand-in) | THE SPECTRE lockup only | — |
@@ -82,9 +104,13 @@ WCAG AA on all text (accents are non-text elements; where accent text is unavoid
 
 His call: "a little animations and relevant glossiness would not hurt." Approved gloss layer, applied site-wide:
 - **Ambient sheen:** one fixed, breathing radial ghost-glow behind every page (`body::before`, brass+ink at ≤7%, 9s cycle; killed under reduced-motion). Never per-section, never colored loud.
-- **Headline sheen:** `h1.display` ink fades down via background-clip. Both themes.
-- **Button gloss:** `.btn-hard` carries a top-light gradient; hover = 1px lift + accent-tinted soft shadow.
-- **Card hovers:** linked cards lift 2px with border-lighten + soft shadow.
+- ~~**Headline sheen:**~~ removed 2026-09-02. It broke on headlines longer than
+  two lines — the last line read as disabled — and it put gradient-filled
+  transparent text over variable-luminance photography.
+- ~~**Button gloss:**~~ removed with the boxes. `.btn` is a rule or a fill, and
+  `.btn-hard` on a dark island is a fine border so the photograph shows through.
+- ~~**Card hovers:**~~ removed with the boxes. A linked block warms its top rule
+  to maroon instead of lifting.
 - Still banned: glassmorphism, neon glow, gradient text in accents, decorative loops.
 - **Cursor-follow effects: tried and retired (2026-07-23, his call — "becoming a distraction"). Do not re-add in any form.** The ambient breathe + hover states are the complete gloss-motion set.
 

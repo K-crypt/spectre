@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { UserRound, Clock3, Brain, Coins, Hand, TrendingUp } from "lucide-react";
 import { PRODUCTS_DATA as PRODUCTS } from "@/lib/products";
+import { CTA } from "@/components/ui";
 
 /* ── the comparison centerpiece: pick a task, three columns fill.
-      The Spectre column is the raised, brass-marked highlight. ── */
+      The Spectre column is the raised, ruby-marked highlight. ── */
 const TASKS = {
   "a weekly performance report": {
     you: ["You do it yourself, after hours", "Your next free evening", "It lives in your head", "Your evenings, every week", "Total, because it is you", "Mostly your fatigue"],
@@ -78,8 +79,8 @@ export function Comparison() {
           It is the same task every time. The difference is what you are left holding:
           an invoice, or a system that keeps getting better.
         </p>
-        <a href="#access" className="btn btn-hard" style={{ padding: "11px 18px" }}>
-          Discuss a design partnership
+        <a href="#access" className="btn btn-hard">
+          {CTA}
         </a>
       </div>
     </div>
@@ -136,7 +137,7 @@ export function WaitlistForm({ preselect }: { preselect?: string }) {
       <p style={{ display: "none" }}>
         <label>Don&apos;t fill this out: <input name="bot-field" /></label>
       </p>
-      <div className="mono form-label">WHERE SHOULD THE OPERATING LAYER START?</div>
+      <div className="field-label" style={{ marginTop: 0 }}>Where should the operating layer start?</div>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 18 }}>
         {PRODUCTS.map((p) => (
           <button
@@ -151,33 +152,24 @@ export function WaitlistForm({ preselect }: { preselect?: string }) {
         ))}
       </div>
       <input type="hidden" name="products" value={picked.join(", ")} />
-      <input
-        type="text"
-        name="company"
-        required
-        placeholder="Company or website"
-        style={{ marginBottom: 10 }}
-      />
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="you@company.com"
-          style={{ flex: "1 1 260px" }}
-        />
+
+      <label className="field-label" htmlFor="ws-company">Company or website</label>
+      <input id="ws-company" type="text" name="company" required autoComplete="organization" placeholder="Company name" />
+
+      <label className="field-label" htmlFor="ws-email">Work email</label>
+      <input id="ws-email" type="email" name="email" required autoComplete="email" placeholder="you@company.com" />
+
+      <label className="field-label" htmlFor="ws-first">Which operation should we understand first?</label>
+      <input id="ws-first" type="text" name="first" required placeholder="For example: order feasibility before commitment" />
+
+      <input type="hidden" name="source" value="website-private-working-session" />
+      <div className="form-submit-row">
+        <span className="mono form-submit-note">ALL FIELDS REQUIRED BEFORE SUBMISSION</span>
         <button className="btn btn-hard" type="submit" disabled={state === "sending"}>
-          {state === "sending" ? "Sending…" : "Discuss a design partnership"}
+          {state === "sending" ? "Sending…" : `Request a ${CTA.toLowerCase()}`}
         </button>
       </div>
-      <input
-        type="text"
-        name="first"
-        required
-        placeholder="Which operation should we understand first?"
-        style={{ marginTop: 10 }}
-      />
-      <div className="mono" style={{ fontSize: 10.5, color: "var(--ghost)", marginTop: 12 }}>
+      <div className="mono" style={{ fontSize: 10.5, color: "var(--ghost)", marginTop: 16, letterSpacing: ".06em" }}>
         No automated sales sequence. We reply within 48 hours, personally.
         {state === "error" && " · Something failed — email us instead: access@thespectre.one"}
       </div>

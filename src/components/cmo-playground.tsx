@@ -277,7 +277,7 @@ export function CmoPlayground() {
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 2 }}>
                       {GRID.map((g, i) => (
                         <div key={i} style={{ aspectRatio: "1", background: g.tone, position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          {g.text && <span className="mono" style={{ fontSize: 8.5, color: "#c9b99a", letterSpacing: ".08em", textAlign: "center" }}>{g.label}</span>}
+                          {g.text && <span className="mono" style={{ fontSize: 8.5, color: "var(--ghost)", letterSpacing: ".08em", textAlign: "center" }}>{g.label}</span>}
                           <span className="mono" style={{ position: "absolute", top: 4, left: 4, fontSize: 7, background: "rgba(0,0,0,.55)", color: "#fff", padding: "2px 4px", borderRadius: 3 }}>{g.date}</span>
                         </div>
                       ))}
@@ -345,7 +345,7 @@ export function CmoPlayground() {
                   <button key={x.key} onClick={() => setKpi(i)} className="card" style={{ position: "relative", padding: 10, background: "var(--surface-2)", textAlign: "left", cursor: "pointer", border: i === kpi ? `1px solid ${A}` : "1px solid var(--hairline)" }}>
                     <div className="mono" style={{ fontSize: 16, color: i === kpi ? A : "var(--ink)" }}>{x.value}</div>
                     <div className="stamp" style={{ fontSize: 7.5, marginBottom: 2 }}>{x.label}</div>
-                    <div className="mono" style={{ fontSize: 9.5, color: "#c96a4a" }}>↓ {x.delta}</div>
+                    <div className="mono" style={{ fontSize: 9.5, color: "var(--clay)" }}>↓ {x.delta}</div>
                     {i === 2 && spot("click a tile", true)}
                   </button>
                 ))}
@@ -365,7 +365,7 @@ export function CmoPlayground() {
               <div className="stamp" style={{ fontSize: 9, marginBottom: 8 }}>WHAT TO WORK ON · REGENERATED FROM THE DATA ON EVERY REFRESH</div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
                 <div className="card" style={{ padding: 12, background: "var(--surface-2)" }}>
-                  <span className="badge" style={{ color: "#c96a4a", fontSize: 8.5 }}>DO FIRST</span>
+                  <span className="badge" style={{ color: "var(--clay)", fontSize: 8.5 }}>DO FIRST</span>
                   <div style={{ fontSize: 12.5, fontWeight: 600, margin: "6px 0 4px" }}>92% of traffic is Direct — attribution is largely blind</div>
                   <p style={{ fontSize: 11.5, color: "var(--ghost)" }}>Put UTM tags on every published link; the engine generates them per post, so this fixes itself going forward.</p>
                   <div className="mono" style={{ fontSize: 9, background: "var(--ground)", border: "1px solid var(--hairline)", borderRadius: 5, padding: "5px 7px", marginTop: 6, overflowX: "auto" }}>
@@ -373,7 +373,7 @@ export function CmoPlayground() {
                   </div>
                 </div>
                 <div className="card" style={{ padding: 12, background: "var(--surface-2)" }}>
-                  <span className="badge" style={{ color: "#c96a4a", fontSize: 8.5 }}>DO FIRST</span>
+                  <span className="badge" style={{ color: "var(--clay)", fontSize: 8.5 }}>DO FIRST</span>
                   <div style={{ fontSize: 12.5, fontWeight: 600, margin: "6px 0 4px" }}>Average rank 29 — page three, where nobody looks</div>
                   <p style={{ fontSize: 11.5, color: "var(--ghost)" }}>Pick one page and one honest query, and make that page genuinely the best answer. One page ranking beats twenty that do not.</p>
                 </div>

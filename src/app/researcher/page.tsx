@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ResearcherPage() {
   return (
-    <main style={{ ["--accent" as string]: "var(--archive)" }}>
+    <main id="main" data-accent style={{ ["--accent" as string]: "var(--archive)" }}>
       <section className="hairline-b" style={{ position: "relative", overflow: "hidden" }}>
         <Motif kind="researcher" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--archive)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
@@ -29,7 +29,7 @@ export default function ResearcherPage() {
               sourced, checked, and corrected before you read it.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#access" className="btn btn-hard">Discuss a research program</a>
+              <a href="#access" className="btn btn-hard">Private working session</a>
               <a href="#playground" className="btn btn-soft">Browse a library</a>
             </div>
           </Reveal>
@@ -128,7 +128,7 @@ export default function ResearcherPage() {
       <section id="access">
         <div className="wrap" style={{ padding: "72px 24px" }}>
           <Reveal>
-            <Stamp>DESIGN PARTNERSHIP</Stamp>
+            <Stamp>PRIVATE WORKING SESSION</Stamp>
             <h2 className="display" style={{ fontSize: 30, marginBottom: 24 }}>Design the research program around your decision.</h2>
             <WaitlistForm preselect="researcher" />
           </Reveal>

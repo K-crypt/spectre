@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function DataPage() {
   return (
-    <main>
+    <main id="main">
       <section>
         <div className="wrap" style={{ padding: "96px 24px", maxWidth: 760 }}>
           <Reveal>

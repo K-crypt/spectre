@@ -34,7 +34,7 @@ const CHAT_QA = {
 } as const;
 
 function Pill({ s }: { s: string }) {
-  const map: Record<string, string> = { "AT RISK": "#c96a4a", "REVIEW DUE": A, "DAY 30": A, OK: "var(--ghost)", "ON LEAVE": "var(--ghost)", "CONVERSATION SET": A, DRAFTED: A, ADVANCED: A };
+  const map: Record<string, string> = { "AT RISK": "var(--clay)", "REVIEW DUE": A, "DAY 30": A, OK: "var(--ghost)", "ON LEAVE": "var(--ghost)", "CONVERSATION SET": A, DRAFTED: A, ADVANCED: A };
   return <span className="badge" style={{ color: map[s] ?? "var(--ghost)", fontSize: 9 }}>{s}</span>;
 }
 
@@ -171,7 +171,7 @@ export function HrPlayground() {
                   <div className="mono" style={{ fontSize: 9.5, color: "var(--ghost)", marginBottom: 8 }}>{sel.role.toUpperCase()} · ATTENDANCE {sel.att} · LEAVE {sel.leave}</div>
                   <div className="mono" style={{ fontSize: 9, color: "var(--ghost)", marginBottom: 3 }}>PAY · POSITION IN BAND</div>
                   <div style={{ height: 4, background: "var(--hairline)", borderRadius: 2, marginBottom: 8, position: "relative" }}>
-                    <div style={{ position: "absolute", left: `${sel.band * 100}%`, top: -3, width: 2, height: 10, background: sel.id === "rehan" ? "#c96a4a" : A }} />
+                    <div style={{ position: "absolute", left: `${sel.band * 100}%`, top: -3, width: 2, height: 10, background: sel.id === "rehan" ? "var(--clay)" : A }} />
                   </div>
                   <div className="mono" style={{ fontSize: 9, color: "var(--ghost)", marginBottom: 3 }}>ATTENDANCE · 12 WEEKS</div>
                   <svg viewBox="0 0 100 20" style={{ width: "100%", height: 34 }} aria-hidden>
@@ -179,7 +179,7 @@ export function HrPlayground() {
                   </svg>
                   <p style={{ fontSize: 12, color: "var(--ghost)", marginTop: 6 }}>Last review: {sel.last}</p>
                   {sel.id === "rehan" && !talkSet && (
-                    <p style={{ fontSize: 11.5, color: "#c96a4a", marginTop: 6 }}>Pattern: overtime +40% · pay slipped to the 34th percentile of the band · classic pre-resignation shape.</p>
+                    <p style={{ fontSize: 11.5, color: "var(--clay)", marginTop: 6 }}>Pattern: overtime +40% · pay slipped to the 34th percentile of the band · classic pre-resignation shape.</p>
                   )}
                   {sel.id === "rehan" && talkSet && (
                     <p className="mono" style={{ fontSize: 10, color: A, marginTop: 6 }}>CONVERSATION SET · FRIDAY 9:00 · GUIDE PREPARED</p>

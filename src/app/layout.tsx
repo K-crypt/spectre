@@ -1,35 +1,21 @@
 import type { Metadata } from "next";
-import { Spectral, Instrument_Sans, Spline_Sans_Mono, Michroma } from "next/font/google";
+/* The house stack, shared with the studio's other venture: Cormorant
+   Garamond for display — fine, high-contrast, italic for names — and Poppins
+   for body and the wide-tracked small-caps labels. */
+import "@fontsource/cormorant-garamond/latin-300.css";
+import "@fontsource/cormorant-garamond/latin-300-italic.css";
+import "@fontsource/cormorant-garamond/latin-400.css";
+import "@fontsource/cormorant-garamond/latin-400-italic.css";
+import "@fontsource/poppins/latin-300.css";
+import "@fontsource/poppins/latin-400.css";
+import "@fontsource/poppins/latin-500.css";
+import "@fontsource/spline-sans-mono/latin-400.css";
+import "@fontsource/michroma/latin-400.css";
 import "./globals.css";
 import { Nav, Footer } from "@/components/ui";
 import { ChatWidget } from "@/components/chat-widget";
+import { SmoothScroll } from "@/components/scroll";
 import { withBasePath } from "@/lib/base-path";
-
-// Display serif swapped to Spectral 2026-08-04 (his call: Fraunces read
-// unprofessional). CSS var name kept for stability across globals.css.
-const spectral = Spectral({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500"],
-});
-
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const splineMono = Spline_Sans_Mono({
-  variable: "--font-spline-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const michroma = Michroma({
-  variable: "--font-michroma",
-  subsets: ["latin"],
-  weight: "400",
-});
 
 export const metadata: Metadata = {
   title: "The Spectre — AI operating layer for founder-led businesses",
@@ -60,8 +46,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={`${spectral.variable} ${instrument.variable} ${splineMono.variable} ${michroma.variable}`}>
+    <html suppressHydrationWarning lang="en">
       <body>
+        <SmoothScroll />
+        <a className="skip-link" href="#main">Skip to content</a>
         <Nav />
         {children}
         <Footer />

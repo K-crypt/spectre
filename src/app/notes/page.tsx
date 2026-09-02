@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotesIndex() {
   return (
-    <main>
+    <main id="main">
       <section className="hairline-b">
         <div className="wrap" style={{ padding: "88px 24px 56px" }}>
           <Reveal>

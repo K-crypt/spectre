@@ -17,6 +17,19 @@ import { ChatWidget } from "@/components/chat-widget";
 import { SmoothScroll } from "@/components/scroll";
 import { withBasePath } from "@/lib/base-path";
 
+/* The preview image has to be an absolute URL, and which host that is
+   depends on where the build is going. Production is thespectre.one; a
+   GitHub Pages build serves from /<repo> on k-crypt.github.io, and pointing
+   a card there at thespectre.one would show whatever that host happens to
+   have rather than this build's image. Derived from the same variable as
+   the base path, so it is right for either without anyone remembering to
+   switch it. */
+const OG_HOST =
+  process.env.GITHUB_ACTIONS === "true" && process.env.GITHUB_REPOSITORY
+    ? `https://k-crypt.github.io/${process.env.GITHUB_REPOSITORY.split("/")[1]}`
+    : "https://thespectre.one";
+const OG_IMAGE = `${OG_HOST}/og-v2.jpg`;
+
 export const metadata: Metadata = {
   title: "The Spectre — AI operating layer for founder-led businesses",
   description:
@@ -30,7 +43,7 @@ export const metadata: Metadata = {
       "An AI operating layer for founder-led businesses. Built around your workflows, trained on your context, and always under human control.",
     url: "https://thespectre.one",
     siteName: "The Spectre",
-    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
@@ -38,7 +51,7 @@ export const metadata: Metadata = {
     title: "The Spectre — Your business in one operating picture",
     description:
       "An AI operating layer for founder-led businesses. They prepare. You decide.",
-    images: ["/og.jpg"],
+    images: [OG_IMAGE],
   },
 };
 

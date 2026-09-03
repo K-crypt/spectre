@@ -1,8 +1,12 @@
 name: Deploy Next.js site to Pages
 
 on:
+  # Both branches deploy. main is where the work happens now; the merge that
+  # brought the rebuild across resolved this file in favour of the redesign
+  # branch's copy, so every push to main since has built nothing and needed a
+  # manual dispatch to reach Pages.
   push:
-    branches: ["website-redesign"]
+    branches: ["main", "website-redesign"]
   workflow_dispatch:
 
 permissions:

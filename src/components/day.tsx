@@ -57,6 +57,14 @@ function Beat({
         <span className="beat-dot" />
       </div>
       <div className="beat-body">
+        {/* Context gathering into this beat, for as long as it takes the
+            beat to become the current one. Three hairlines, no repeat. */}
+        <svg className="beat-trace" viewBox="0 0 240 60" aria-hidden fill="none">
+          <path className="bt" d="M0 8 C 90 8, 132 30, 216 30" />
+          <path className="bt" style={{ animationDelay: "120ms" }} d="M0 30 L216 30" />
+          <path className="bt" style={{ animationDelay: "240ms" }} d="M0 52 C 90 52, 132 30, 216 30" />
+          <circle className="bt-node" cx="220" cy="30" r="2.4" />
+        </svg>
         <p className="beat-title">{title}</p>
         {children}
       </div>

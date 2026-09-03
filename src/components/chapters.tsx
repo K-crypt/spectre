@@ -40,6 +40,35 @@ export function Hero() {
       </div>
       <div className="hero-scrim" />
 
+      {/* Something is already reading the landscape. Four points in the
+          mist, one connection drawn between them, and it is gone before it
+          becomes a graphic — about two seconds, once, and never again. It
+          should be easy to miss and hard to un-notice. */}
+      <svg
+        className="hero-trace"
+        viewBox="0 0 1440 820"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden
+        fill="none"
+      >
+        <path className="ht-link" d="M262 512 L548 430 L906 468 L1214 372" />
+        {[
+          [262, 512],
+          [548, 430],
+          [906, 468],
+          [1214, 372],
+        ].map(([x, y], i) => (
+          <circle
+            key={i}
+            className="ht-point"
+            cx={x}
+            cy={y}
+            r="2.5"
+            style={{ animationDelay: `${1900 + i * 190}ms` }}
+          />
+        ))}
+      </svg>
+
       {/* One statement, one supporting line, one cue. The kicker, the note
           and the second control are gone — three of the five things on this
           screen were saying versions of the same thing. */}

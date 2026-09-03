@@ -61,6 +61,9 @@ export default function Home() {
               className="scene-title"
               lines={["Five systems.", "One operating memory."]}
             />
+            {/* The only place the name is explained, and it is explained by
+                the thing underneath it rather than by an adjective. */}
+            <p className="scene-line">Present everywhere. Visible when it matters.</p>
           </Reveal>
           <Suite />
         </div>

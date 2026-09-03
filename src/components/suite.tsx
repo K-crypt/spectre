@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* ── The suite ────────────────────────────────────────────────────────────
    One house, five specialist systems, one shared context, one human
@@ -92,152 +92,218 @@ const SYSTEMS: System[] = [
   },
 ];
 
-/* ── The operating diagrams ───────────────────────────────────────────────
-   Five drawings of five different kinds of work. They are deliberately the
-   same size, the same weight and the same palette, because they belong to
-   one system; what changes is the shape of the reasoning.
+/* ── The field ────────────────────────────────────────────────────────────
+   One intelligence, changing specialist form.
 
-   All motion is a one-shot on arrival — nothing here loops. The diagram
-   plays once when its system becomes active, then holds its resolved state,
-   which is also the state a reduced-motion visitor sees immediately.
+   The five drawings used to be five drawings. They are now one field with
+   five configurations: the same frame, the same substrate of faint context
+   beneath it, the same gold point where intelligence resolves, and the same
+   oxblood boundary at the same x — fixed, in every specialist, because that
+   is the one thing about this system that never moves.
+
+   What changes is the structure on the left: which fragments exist and how
+   they connect. Switching specialist does not cross-fade two pictures; the
+   boundary and the resolving point stay exactly where they were while the
+   context reorganises around them, and the configuration you left behind
+   remains for a fifth of a second as an echo before it goes.
    ───────────────────────────────────────────────────────────────────────── */
-function Diagram({ slug }: { slug: string }) {
-  const common = {
-    viewBox: "0 0 320 200",
-    className: "sys-diagram",
-    "aria-hidden": true as const,
-    fill: "none" as const,
-  };
 
+/* The frame every configuration shares. */
+const NODE_X = 238;
+const NODE_Y = 100;
+const EDGE_X = 272;
+
+/* The substrate: context that is always there and almost never visible. It
+   lifts a little while the system is preparing and settles back after. */
+function Substrate() {
+  const pts: [number, number][] = [];
+  for (let r = 0; r < 7; r++) {
+    for (let c = 0; c < 11; c++) {
+      pts.push([14 + c * 21, 18 + r * 28]);
+    }
+  }
+  return (
+    <g className="d-substrate">
+      {pts.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="0.8" style={{ animationDelay: `${(i % 13) * 40}ms` }} />
+      ))}
+    </g>
+  );
+}
+
+/* The two marks that never move. */
+function Frame() {
+  return (
+    <g className="d-frame">
+      <circle className="d-node d-node-gold" cx={NODE_X} cy={NODE_Y} r="4" />
+      <path className="d-stop" d={`M${EDGE_X} 58 L${EDGE_X} 142`} />
+      <circle className="d-node d-node-ox" cx={EDGE_X} cy={NODE_Y} r="3.5" />
+    </g>
+  );
+}
+
+/* The structure of the reasoning, per specialist. Everything here resolves
+   toward NODE_X/NODE_Y; nothing crosses the boundary. */
+function Structure({ slug }: { slug: string }) {
   if (slug === "pa") {
-    /* Threads of context quietly converging on one point. */
+    /* Threads of context converging on one point. */
     return (
-      <svg {...common}>
+      <g>
         {[26, 58, 90, 122, 154, 186].map((y, i) => (
           <path
             key={y}
             className="d-line"
-            style={{ animationDelay: `${i * 90}ms` }}
-            d={`M8 ${y} C 110 ${y}, 150 ${100 + (y - 100) * 0.18}, 232 100`}
+            style={{ animationDelay: `${i * 80}ms` }}
+            d={`M10 ${y} C 108 ${y}, 150 ${NODE_Y + (y - NODE_Y) * 0.16}, ${NODE_X} ${NODE_Y}`}
           />
         ))}
-        <circle className="d-node d-node-gold" cx="232" cy="100" r="4" />
-        <path className="d-stop" d="M262 66 L262 134" />
-        <circle className="d-node d-node-ox" cx="262" cy="100" r="3.5" />
-      </svg>
+      </g>
     );
   }
 
   if (slug === "coo") {
-    /* Capacity blocks resolving around one constraint. */
+    /* Capacity resolving around a constraint, then feeding the point. */
     return (
-      <svg {...common}>
-        {Array.from({ length: 24 }, (_, i) => {
-          const col = i % 8;
-          const row = Math.floor(i / 8);
-          const blocked = i === 10 || i === 11 || i === 18;
+      <g>
+        {Array.from({ length: 21 }, (_, i) => {
+          const col = i % 7;
+          const row = Math.floor(i / 7);
+          const blocked = i === 9 || i === 10 || i === 16;
           return (
             <rect
               key={i}
               className={`d-block ${blocked ? "is-constraint" : ""}`}
-              style={{ animationDelay: `${i * 26}ms` }}
-              x={12 + col * 26}
-              y={40 + row * 34}
-              width={20}
-              height={26}
+              style={{ animationDelay: `${i * 24}ms` }}
+              x={12 + col * 25}
+              y={44 + row * 34}
+              width={19}
+              height={25}
               rx={1}
             />
           );
         })}
-        <path className="d-stop" d="M262 46 L262 154" />
-        <circle className="d-node d-node-ox" cx="262" cy="100" r="3.5" />
-      </svg>
+        <path className="d-line" style={{ animationDelay: "520ms" }} d={`M190 100 L${NODE_X} ${NODE_Y}`} />
+      </g>
     );
   }
 
   if (slug === "cmo") {
-    /* Scattered audience signals gathering into one prepared campaign. */
+    /* Scattered signals gathering into one prepared campaign. */
     return (
-      <svg {...common}>
+      <g>
         {[
-          [24, 42], [52, 96], [30, 150], [78, 30], [92, 128], [66, 168],
-          [116, 62], [130, 112], [104, 92],
+          [22, 44], [50, 96], [28, 148], [74, 30], [88, 128], [62, 168],
+          [110, 64], [124, 112], [100, 92],
         ].map(([x, y], i) => (
           <circle
             key={i}
             className="d-dot"
-            style={{ animationDelay: `${i * 70}ms` }}
+            style={{ animationDelay: `${i * 64}ms` }}
             cx={x}
             cy={y}
-            r="2.5"
+            r="2.6"
           />
         ))}
-        <path className="d-sweep" d="M150 100 L226 100" />
-        <rect className="d-plate" x="188" y="76" width="44" height="48" rx="2" />
-        <path className="d-stop" d="M262 66 L262 134" />
-        <circle className="d-node d-node-ox" cx="262" cy="100" r="3.5" />
-      </svg>
+        <rect className="d-plate" x="152" y="76" width="46" height="48" rx="2" />
+        <path className="d-sweep" style={{ animationDelay: "700ms" }} d={`M198 100 L${NODE_X} ${NODE_Y}`} />
+      </g>
     );
   }
 
   if (slug === "researcher") {
     /* Claims connecting to the sources that verify them. */
     return (
-      <svg {...common}>
+      <g>
         {[54, 100, 146].map((y, i) => (
           <g key={y}>
             <rect
               className="d-claim"
-              style={{ animationDelay: `${i * 130}ms` }}
+              style={{ animationDelay: `${i * 120}ms` }}
               x="14"
               y={y - 11}
-              width="58"
+              width="56"
               height="22"
               rx="1"
             />
             <path
               className="d-link"
-              style={{ animationDelay: `${i * 130 + 160}ms` }}
-              d={`M72 ${y} C 118 ${y}, 132 ${y === 100 ? y : 100}, 178 100`}
+              style={{ animationDelay: `${i * 120 + 150}ms` }}
+              d={`M70 ${y} C 130 ${y}, 170 ${NODE_Y}, ${NODE_X} ${NODE_Y}`}
             />
           </g>
         ))}
-        <circle className="d-node d-node-gold" cx="178" cy="100" r="4" />
-        <path className="d-stop" d="M262 66 L262 134" />
-        <circle className="d-node d-node-ox" cx="262" cy="100" r="3.5" />
-      </svg>
+      </g>
     );
   }
 
-  /* HR — role and history signals resolving into one decision brief. */
+  /* HR — role and history resolving into one decision brief. */
   return (
-    <svg {...common}>
-      {[
-        [18, 46, 78], [18, 82, 54], [18, 118, 92], [18, 154, 40],
-      ].map(([x, y, w], i) => (
+    <g>
+      {[[46, 74], [82, 52], [118, 88], [154, 38]].map(([y, w], i) => (
         <rect
           key={y}
           className="d-bar"
-          style={{ animationDelay: `${i * 110}ms`, ["--w" as string]: `${w}` }}
-          x={x}
+          style={{ animationDelay: `${i * 100}ms` }}
+          x={16}
           y={y - 6}
           width={w}
           height={12}
           rx={1}
         />
       ))}
-      <path className="d-brief-line" d="M132 100 L186 100" />
-      <rect className="d-brief" x="186" y="64" width="46" height="72" rx="2" />
-      <path className="d-stop" d="M262 66 L262 134" />
-      <circle className="d-node d-node-ox" cx="262" cy="100" r="3.5" />
+      <rect className="d-brief" x="150" y="66" width="44" height="68" rx="2" />
+      <path className="d-brief-line" style={{ animationDelay: "560ms" }} d={`M194 100 L${NODE_X} ${NODE_Y}`} />
+    </g>
+  );
+}
+
+function Field({ slug, echo }: { slug: string; echo: string | null }) {
+  return (
+    <svg
+      viewBox="0 0 320 200"
+      className="sys-diagram"
+      aria-hidden
+      fill="none"
+    >
+      <Substrate />
+      {/* What you were looking at, on its way out. */}
+      {echo && echo !== slug && (
+        <g className="d-echo" key={`echo-${echo}`}>
+          <Structure slug={echo} />
+        </g>
+      )}
+      <g className="d-structure" key={slug}>
+        <Structure slug={slug} />
+      </g>
+      <Frame />
     </svg>
   );
 }
 
 export function Suite() {
   const [active, setActive] = useState(0);
+  /* The configuration you just left, kept for a fifth of a second so the
+     change reads as one field reorganising rather than two pictures
+     swapping. */
+  const [echo, setEcho] = useState<string | null>(null);
+  const echoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const sys = SYSTEMS[active];
+
+  useEffect(
+    () => () => {
+      if (echoTimer.current) clearTimeout(echoTimer.current);
+    },
+    [],
+  );
+
+  const select = (next: number) => {
+    if (next === active) return;
+    setEcho(SYSTEMS[active].slug);
+    if (echoTimer.current) clearTimeout(echoTimer.current);
+    echoTimer.current = setTimeout(() => setEcho(null), 240);
+    setActive(next);
+  };
 
   /* Arrow keys move along the rail once it has focus, the way a set of
      instrument presets would. */
@@ -247,7 +313,7 @@ export function Suite() {
     if (!back && !fwd) return;
     e.preventDefault();
     const next = (active + (fwd ? 1 : -1) + SYSTEMS.length) % SYSTEMS.length;
-    setActive(next);
+    select(next);
     railRef.current
       ?.querySelectorAll<HTMLButtonElement>("button")
       [next]?.focus();
@@ -272,7 +338,7 @@ export function Suite() {
             aria-controls="sys-stage"
             tabIndex={i === active ? 0 : -1}
             className={`suite-tab ${i === active ? "is-active" : ""}`}
-            onClick={() => setActive(i)}
+            onClick={() => select(i)}
           >
             <span className="mono suite-tab-index">{s.index}</span>
             <span className="suite-tab-name">{s.name}</span>
@@ -302,7 +368,7 @@ export function Suite() {
           <h3 className="display suite-outcome">{sys.outcome}</h3>
 
           <div className="suite-visual">
-            <Diagram slug={sys.slug} />
+            <Field slug={sys.slug} echo={echo} />
           </div>
 
           <dl className="suite-signals">

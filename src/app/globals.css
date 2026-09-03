@@ -8449,3 +8449,210 @@ select:focus-visible {
     white-space: normal;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   98. THE SUBSTRATE — WHAT MAKES THIS SPECTRE
+   ──────────────────────────────────────────────────────────────────────────
+   The site had the darkness and the mist and could still have belonged to
+   any premium operating company. What it lacked was a behaviour that could
+   only belong to something called Spectre.
+
+   The behaviour is this, and it is the same everywhere: a field of context
+   exists beneath the surface at all times and is almost never visible. When
+   the system prepares something, faint signals emerge, fragments connect,
+   one outcome resolves — and then the traces recede, leaving only what was
+   prepared. It never crosses the boundary where a person decides.
+
+   The substrate is drawn at 3.5% opacity: present, essentially unreadable,
+   and it lifts to 14% only while something is being prepared. If you notice
+   it consciously it is too strong. What you should notice is that the room
+   was never quite empty.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.d-substrate circle {
+  fill: var(--spectre-ivory);
+  opacity: 0.035;
+  animation: substrate-lift 2600ms var(--ease-spectre) both;
+}
+@keyframes substrate-lift {
+  0% { opacity: 0.035; }
+  22% { opacity: 0.14; }
+  60% { opacity: 0.09; }
+  100% { opacity: 0.035; }
+}
+
+/* The configuration you left, on its way out. It holds its resolved shape
+   and fades — a residue of a previous state, not a cross-fade. */
+.d-echo {
+  animation: echo-out 240ms var(--ease-spectre) forwards;
+  pointer-events: none;
+}
+.d-echo * {
+  animation: none !important;
+  stroke-dashoffset: 0 !important;
+  opacity: 1;
+  transform: none !important;
+}
+@keyframes echo-out {
+  from { opacity: 0.34; }
+  to { opacity: 0; }
+}
+
+/* The two marks that never move do not re-animate when the specialist
+   changes: the intelligence and the boundary are continuous, and redrawing
+   them every time would say the opposite. */
+.d-frame .d-node-gold,
+.d-frame .d-node-ox,
+.d-frame .d-stop {
+  animation: none;
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+.d-frame .d-node-gold {
+  fill: var(--spectre-gold);
+  filter: drop-shadow(0 0 7px rgba(194, 157, 89, 0.5));
+}
+/* It breathes once as the new configuration resolves into it — the only
+   thing on the page that moves without being asked, and it moves because
+   something has just been understood. */
+.d-structure ~ .d-frame .d-node-gold {
+  animation: node-resolve 900ms var(--ease-spectre) 500ms;
+}
+@keyframes node-resolve {
+  0% { r: 4; }
+  40% { r: 5.6; }
+  100% { r: 4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d-substrate circle {
+    animation: none;
+    opacity: 0.06;
+  }
+  .d-echo {
+    display: none;
+  }
+  .d-structure ~ .d-frame .d-node-gold {
+    animation: none;
+  }
+}
+
+/* ── The opening, read ────────────────────────────────────────────────────
+   Four points found in the mist and one line drawn between them, at the
+   scale of the landscape rather than of the interface. It arrives about two
+   seconds in, holds for less than a second, and is gone — the whole event
+   is under three seconds and happens once.
+
+   It is deliberately below the threshold of a graphic: a single hairline at
+   forty percent, no glow, no repeat. The photograph stays a photograph. The
+   only thing it adds is the sense that something was already looking at it. */
+.hero-trace {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.ht-link {
+  stroke: var(--spectre-gold);
+  stroke-width: 1;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  opacity: 0.4;
+  animation:
+    ht-draw 1500ms var(--ease-spectre) 1900ms forwards,
+    ht-fade 900ms var(--ease-spectre) 3600ms forwards;
+}
+@keyframes ht-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ht-fade {
+  to { opacity: 0; }
+}
+.ht-point {
+  fill: var(--spectre-gold);
+  opacity: 0;
+  animation:
+    ht-point-in 500ms var(--ease-spectre) forwards,
+    ht-fade 900ms var(--ease-spectre) 3600ms forwards;
+}
+@keyframes ht-point-in {
+  to { opacity: 0.62; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-trace {
+    display: none;
+  }
+}
+
+/* ── The day, prepared ────────────────────────────────────────────────────
+   The same behaviour at the scale of one event: as a beat becomes the
+   current one, three fine signals gather into a point beside it and then
+   settle. It runs once per beat, only when that beat arrives, and it is
+   invisible on the beats you have not reached and on the ones behind you —
+   so the chapter shows preparation happening rather than describing it. */
+.beat-trace {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: clamp(70px, 8vw, 104px);
+  height: 30px;
+  opacity: 0;
+  pointer-events: none;
+}
+.beat-body {
+  position: relative;
+}
+.beat.is-now .beat-trace {
+  animation: bt-window 2200ms var(--ease-spectre) both;
+}
+@keyframes bt-window {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  62% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.bt {
+  stroke: var(--spectre-gold);
+  stroke-width: 1;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  opacity: 0.5;
+}
+.beat.is-now .bt {
+  animation: ht-draw 900ms var(--ease-spectre) forwards;
+}
+.bt-node {
+  fill: var(--spectre-gold);
+  opacity: 0;
+}
+.beat.is-now .bt-node {
+  animation: ht-point-in 400ms var(--ease-spectre) 780ms forwards;
+}
+
+/* ── The boundary holds ───────────────────────────────────────────────────
+   Once a person has released the work, everything the system had gathered
+   recedes: the traces stop, the gold leaves the panel, and what is left is
+   the record of a decision. The system does not keep working at you after
+   you have decided — that is the whole argument, expressed as a state. */
+.day.is-approved .beat-trace {
+  animation: none;
+  opacity: 0;
+}
+.day.is-approved .beat-you .approve {
+  border-color: var(--hairline-strong);
+  background: linear-gradient(180deg, var(--spectre-panel) 0%, var(--spectre-charcoal) 100%);
+}
+.day.is-approved .beat.is-now .beat-dot {
+  border-color: var(--spectre-muted-dark);
+  background: var(--spectre-muted-dark);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beat-trace {
+    display: none;
+  }
+}

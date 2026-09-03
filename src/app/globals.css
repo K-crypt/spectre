@@ -833,7 +833,11 @@ a.ledger-item:hover {
   font-size: clamp(26px, 2.8vw, 38px);
   line-height: 1.06;
 }
-.ledger-item > span:not(.ledger-index) {
+/* The evidence line is a statement, not the explanation under it, so it is
+   excluded here rather than fought with specificity further down. A :not()
+   carries its argument's weight, which is why three later rules setting the
+   ledger's second level lost to this one. */
+.ledger-item > span:not(.ledger-index):not(.ledger-said) {
   max-width: 30ch;
   margin-top: 14px;
   color: var(--ghost);
@@ -6537,4 +6541,1911 @@ main[data-accent] .approve-btn {
 .cell.is-blocked {
   background: color-mix(in srgb, var(--ruby) 34%, var(--surface-2));
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ruby) 52%, transparent);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   86. THE GRAPHITE FOUNDATION
+   ──────────────────────────────────────────────────────────────────────────
+   The palette was warm all the way through — every ground, every panel,
+   every rule carried brown in it, so the whole page read as a filter laid
+   over the design rather than as light falling on a material.
+
+   The chassis is neutral graphite now. Warmth stays, but it arrives as
+   light: ivory type, a gold that means the system is working, and one
+   oxblood that means a person decides. The difference is the difference
+   between a brown website and a graphite machine in warm light.
+
+   Nothing else about the identity moves. The maroon is the same maroon, the
+   gold is the same gold, the type stack is untouched.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --spectre-black: #121313;
+  --spectre-graphite: #181a1a;
+  --spectre-charcoal: #1e2020;
+  --spectre-panel: #242625;
+  --spectre-panel-raised: #2a2c2b;
+
+  --spectre-ivory: #f2eee6;
+  --spectre-bone: #e4ded2;
+  --spectre-stone: #d5cdbf;
+
+  --spectre-ink: #1d1d1c;
+  --spectre-muted-dark: #b7b3aa;
+  --spectre-muted-light: #625f59;
+
+  --spectre-oxblood: #69242c;
+  --spectre-gold: #c29d59;
+
+  /* Motion. Four durations, two curves, and nothing outside them. */
+  --motion-micro: 160ms;
+  --motion-ui: 280ms;
+  --motion-scene: 700ms;
+  --motion-cinematic: 1100ms;
+  --ease-spectre: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* The house tokens now resolve to the graphite system. */
+  --ground: var(--spectre-ivory);
+  --surface: #f7f4ee;
+  --surface-2: var(--spectre-bone);
+  --stone: var(--spectre-stone);
+  --ink: var(--spectre-ink);
+  --ghost: var(--spectre-muted-light);
+  --hairline: rgba(29, 29, 28, 0.14);
+  --hairline-strong: rgba(29, 29, 28, 0.28);
+
+  --ruby: var(--spectre-oxblood);
+  --ruby-deep: #561d23;
+  --accent-text: var(--spectre-oxblood);
+
+  --gold: #8a6f3c;
+  --gold-lit: var(--spectre-gold);
+  --gold-deep: #6f582f;
+  --gold-text: #6f582f;
+  --gold-trace: rgba(194, 157, 89, 0.85);
+  --gold-wash: rgba(194, 157, 89, 0.1);
+  --gold-under: rgba(194, 157, 89, 0.2);
+
+  --level-1: var(--spectre-ink);
+  --level-2: #35352f;
+  --level-3: #4e4b45;
+  --level-4: var(--spectre-muted-light);
+
+  /* Ease and durations, mapped onto the names the existing rules use, so
+     one motion language covers everything already written. */
+  --ease: var(--ease-spectre);
+  --t-hover: var(--motion-micro);
+  --t-state: var(--motion-ui);
+  --t-reveal: var(--motion-scene);
+}
+
+.on-dark {
+  --ground: var(--spectre-graphite);
+  --surface: var(--spectre-panel);
+  --surface-2: var(--spectre-panel-raised);
+  --ink: var(--spectre-ivory);
+  --ghost: var(--spectre-muted-dark);
+  --hairline: rgba(242, 238, 230, 0.11);
+  --hairline-strong: rgba(242, 238, 230, 0.22);
+
+  --ruby: #8c3038;
+  --ruby-deep: var(--spectre-oxblood);
+  --accent-text: var(--spectre-gold);
+  --wool: var(--spectre-muted-dark);
+
+  --gold: var(--spectre-gold);
+  --gold-lit: #d4b478;
+  --gold-deep: #8a6f3c;
+  --gold-text: var(--spectre-gold);
+  --gold-trace: rgba(194, 157, 89, 0.9);
+  --gold-wash: rgba(194, 157, 89, 0.09);
+  --gold-under: rgba(194, 157, 89, 0.2);
+
+  --level-1: var(--spectre-ivory);
+  --level-2: #d3cfc6;
+  --level-3: var(--spectre-muted-dark);
+  --level-4: #8e8b84;
+}
+
+.on-stone {
+  --ground: var(--spectre-stone);
+  --surface: var(--spectre-bone);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   87. THE SUITE — ONE STAGE, FIVE SYSTEMS
+   ──────────────────────────────────────────────────────────────────────────
+   A rail of five indices and one stage. Only one system speaks at a time,
+   and the other four stay on the rail rather than vanishing, because the
+   claim is that they share a context.
+
+   The stage is a recessed operating plane: graphite, a one-pixel edge, a
+   light catch along the top. The outcome is the only large type on the
+   screen. The diagram is the second thing the eye reaches, the signals the
+   third, and everything else is metadata.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.suite {
+  display: grid;
+  grid-template-columns: minmax(180px, 232px) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 68px);
+  align-items: start;
+  margin-top: clamp(40px, 5vw, 76px);
+}
+
+.suite-rail {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline);
+}
+.suite-tab {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  width: 100%;
+  min-height: 56px;
+  padding: 15px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--motion-ui) var(--ease-spectre);
+}
+.suite-tab-index {
+  color: var(--level-4);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  transition: color var(--motion-ui) var(--ease-spectre);
+}
+.suite-tab-name {
+  color: var(--level-3);
+  font-family: var(--font-display);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.1;
+  transition: color var(--motion-ui) var(--ease-spectre);
+}
+.suite-tab:hover .suite-tab-name {
+  color: var(--level-2);
+}
+.suite-tab.is-active .suite-tab-name {
+  color: var(--level-1);
+}
+.suite-tab.is-active .suite-tab-index {
+  color: var(--gold);
+}
+/* The active mark: one rule, drawn from the left, nothing else. */
+.suite-tab {
+  position: relative;
+}
+.suite-tab::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-ui) var(--ease-spectre);
+}
+.suite-tab.is-active::after {
+  transform: scaleX(1);
+}
+
+/* The stage: a recessed plane in the chassis. */
+.suite-stage {
+  position: relative;
+  min-height: clamp(400px, 46vw, 540px);
+  padding: clamp(28px, 3.2vw, 44px);
+  border: 1px solid var(--hairline);
+  background: linear-gradient(
+    180deg,
+    var(--spectre-charcoal) 0%,
+    var(--spectre-black) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(242, 238, 230, 0.05),
+    inset 0 0 60px -30px rgba(0, 0, 0, 0.8);
+}
+.suite-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-areas:
+    "status  visual"
+    "outcome visual"
+    "signals visual"
+    "link    visual";
+  gap: 0 clamp(24px, 3vw, 52px);
+  align-content: start;
+  height: 100%;
+  animation: scene-in var(--motion-scene) var(--ease-spectre) both;
+}
+@keyframes scene-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.suite-status {
+  grid-area: status;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.suite-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.suite-outcome {
+  grid-area: outcome;
+  max-width: 15ch;
+  margin: 18px 0 0;
+  color: var(--level-1);
+  font-size: clamp(30px, 3.6vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+}
+.suite-visual {
+  grid-area: visual;
+  align-self: center;
+}
+.sys-diagram {
+  width: 100%;
+  height: auto;
+}
+.suite-signals {
+  grid-area: signals;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 clamp(22px, 2.6vw, 40px);
+  margin: clamp(26px, 3vw, 40px) 0 0;
+}
+.suite-signals > div {
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline);
+}
+.suite-signals dt {
+  color: var(--level-1);
+  font-size: clamp(15px, 1.4vw, 19px);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.suite-signals dd {
+  margin: 4px 0 0;
+  color: var(--level-4);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.suite-link {
+  grid-area: link;
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin-top: clamp(22px, 2.6vw, 34px);
+  color: var(--level-3);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--motion-micro) var(--ease-spectre),
+    border-color var(--motion-micro) var(--ease-spectre);
+}
+.suite-link:hover {
+  color: var(--level-1);
+  border-bottom-color: var(--hairline-strong);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   88. THE OPERATING DIAGRAMS
+   ──────────────────────────────────────────────────────────────────────────
+   Five drawings of five kinds of work, in one visual language: hairline
+   strokes, graphite planes, gold where the intelligence resolves, and one
+   oxblood line at the right of every diagram — the boundary the prepared
+   work stops at, because that is where the person is. That line is in all
+   five, unchanged, which is the whole authority argument stated five times
+   without a word.
+
+   Each plays once when its system becomes active and then holds. Nothing
+   loops; there is no ambient animation anywhere in here. Under reduced
+   motion every diagram renders in its resolved state immediately.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.sys-diagram {
+  --stroke: rgba(242, 238, 230, 0.22);
+  --plane: rgba(242, 238, 230, 0.07);
+}
+
+/* PA — threads converging */
+.d-line {
+  stroke: var(--stroke);
+  stroke-width: 1;
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: draw var(--motion-cinematic) var(--ease-spectre) forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* COO — capacity blocks, three of which are the constraint */
+.d-block {
+  fill: var(--plane);
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  opacity: 0;
+  animation: block-in var(--motion-ui) var(--ease-mechanical) forwards;
+}
+.d-block.is-constraint {
+  fill: rgba(105, 36, 44, 0.5);
+  stroke: rgba(140, 48, 56, 0.85);
+}
+@keyframes block-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* CMO — signals gathering, then a prepared plate */
+.d-dot {
+  fill: var(--spectre-gold);
+  opacity: 0;
+  animation: dot-in var(--motion-ui) var(--ease-spectre) forwards;
+}
+@keyframes dot-in {
+  from { opacity: 0; }
+  to { opacity: 0.72; }
+}
+.d-sweep {
+  stroke: var(--spectre-gold);
+  stroke-width: 1;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  opacity: 0.7;
+  animation: draw var(--motion-scene) var(--ease-spectre) 620ms forwards;
+}
+.d-plate {
+  fill: var(--plane);
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  opacity: 0;
+  animation: dot-in var(--motion-scene) var(--ease-spectre) 900ms forwards;
+}
+
+/* Researcher — claims, then the links that verify them */
+.d-claim {
+  fill: var(--plane);
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  opacity: 0;
+  animation: block-in var(--motion-ui) var(--ease-mechanical) forwards;
+}
+.d-link {
+  stroke: var(--spectre-gold);
+  stroke-width: 1;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  opacity: 0.6;
+  animation: draw var(--motion-scene) var(--ease-spectre) forwards;
+}
+
+/* HR — history resolving into one brief */
+.d-bar {
+  fill: var(--plane);
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  transform-origin: 18px center;
+  transform: scaleX(0);
+  animation: bar-in var(--motion-scene) var(--ease-spectre) forwards;
+}
+@keyframes bar-in {
+  to { transform: scaleX(1); }
+}
+.d-brief-line {
+  stroke: var(--spectre-gold);
+  stroke-width: 1;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  opacity: 0.65;
+  animation: draw var(--motion-scene) var(--ease-spectre) 520ms forwards;
+}
+.d-brief {
+  fill: var(--plane);
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  opacity: 0;
+  animation: dot-in var(--motion-scene) var(--ease-spectre) 700ms forwards;
+}
+
+/* Shared: where the intelligence resolves, and where it stops. */
+.d-node-gold {
+  fill: var(--spectre-gold);
+  opacity: 0;
+  animation: dot-in var(--motion-scene) var(--ease-spectre) 800ms forwards;
+}
+.d-node-ox {
+  fill: var(--spectre-oxblood);
+  opacity: 0;
+  animation: dot-in var(--motion-scene) var(--ease-spectre) 1000ms forwards;
+}
+.d-stop {
+  stroke: var(--spectre-oxblood);
+  stroke-width: 1.5;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: draw var(--motion-scene) var(--ease-spectre) 900ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sys-diagram * {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+  .d-dot { opacity: 0.72 !important; }
+  .suite-scene { animation: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   89. SCENES, NOT SECTIONS
+   ──────────────────────────────────────────────────────────────────────────
+   Each chapter used to open with a stamp, a headline, a claim and a deck —
+   four pieces of type before any content, three of them saying versions of
+   the same thing. A scene opens with one statement and, at most, one line
+   under it. Everything else was explanation, and explanation now lives on
+   the product pages where someone has already asked for it.
+
+   The space that leaves is the point. A scene is sized so that its one idea
+   occupies a screen on its own, with room above and below it — the reader
+   arrives, understands one thing, and moves.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(96px, 14vh, 190px);
+}
+.scene-head {
+  max-width: 22ch;
+}
+.scene-title {
+  color: var(--level-1);
+  font-size: clamp(34px, 5vw, 74px);
+  line-height: 1.03;
+  letter-spacing: -0.028em;
+}
+.scene-line {
+  max-width: 42ch;
+  margin-top: clamp(20px, 2.2vw, 30px);
+  color: var(--level-3);
+  font-family: var(--font-text);
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* The suite's heading sits above the stage rather than beside it, so the
+   stage keeps the full width it needs to hold one idea. */
+.scene-suite .scene-head {
+  max-width: 20ch;
+}
+
+/* ── The day ──────────────────────────────────────────────────────────────
+   A vertical track of four times. The line is the type; there is no card,
+   no list and no second column. */
+.day {
+  position: relative;
+  margin-top: clamp(48px, 6vw, 90px);
+  padding-left: clamp(74px, 8vw, 116px);
+}
+.day-rail {
+  position: absolute;
+  top: 8px;
+  bottom: 74px;
+  left: clamp(44px, 5vw, 70px);
+  width: 1px;
+  background: var(--hairline);
+}
+.beat {
+  position: relative;
+  padding-block: clamp(26px, 3.4vw, 46px);
+}
+.beat-rail {
+  position: absolute;
+  left: calc(clamp(74px, 8vw, 116px) * -1);
+  top: clamp(26px, 3.4vw, 46px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: clamp(74px, 8vw, 116px);
+}
+.beat-time {
+  color: var(--level-4);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+.beat-dot {
+  position: absolute;
+  left: clamp(44px, 5vw, 70px);
+  width: 5px;
+  height: 5px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--level-4);
+  transition: background-color var(--motion-ui) var(--ease-spectre),
+    box-shadow var(--motion-ui) var(--ease-spectre);
+}
+.beat-title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.8vw, 40px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.day-label {
+  margin-top: clamp(30px, 4vw, 52px);
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* The prepared batch: the one raised object in the chapter. */
+.beat-you .approve {
+  max-width: 460px;
+  margin-top: 24px;
+  padding: clamp(22px, 2.6vw, 30px);
+  border: 1px solid var(--hairline-strong);
+  background: linear-gradient(
+    180deg,
+    var(--spectre-panel) 0%,
+    var(--spectre-charcoal) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(242, 238, 230, 0.06);
+}
+.approve-payload {
+  margin: 0 0 20px;
+  color: var(--level-2);
+  font-family: var(--font-text);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.approve-note {
+  margin: 16px 0 0;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+
+/* ── The crossing: almost empty ─────────────────────────────────────────── */
+.dawn-rule > p {
+  max-width: none;
+}
+.dawn-thesis {
+  display: grid;
+  gap: clamp(4px, 0.6vw, 10px);
+}
+.dawn-rule > small {
+  margin-top: clamp(26px, 3vw, 40px);
+  font-size: 9.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+/* ── The ledger: three pieces of evidence ─────────────────────────────────
+   Category, the result as the anchor, what it was, and the status. The
+   figure carries the weight; the sentence under it is its caption. */
+.ledger {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: clamp(34px, 4vw, 68px);
+  margin-top: clamp(56px, 7vw, 110px);
+}
+.ledger-item strong {
+  display: block;
+  margin-top: 16px;
+  color: var(--level-1);
+  font-size: clamp(38px, 4.4vw, 60px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+.ledger-said {
+  display: block;
+  margin-top: 12px;
+  color: var(--level-1);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.7vw, 23px);
+  line-height: 1.2;
+}
+.ledger-item > span:not(.ledger-said):not(.ledger-index) {
+  display: block;
+  margin-top: 14px;
+  color: var(--level-3);
+  font-size: 13px;
+  line-height: 1.62;
+}
+
+/* ── Access: back to deep graphite ─────────────────────────────────────── */
+.scene-access {
+  background: linear-gradient(180deg, var(--spectre-graphite) 0%, var(--spectre-black) 100%);
+}
+.access-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+.access-panel {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .access-grid {
+    grid-template-columns: 1fr;
+  }
+  .day {
+    padding-left: 62px;
+  }
+  .beat-rail {
+    left: -62px;
+    width: 62px;
+  }
+  .day-rail,
+  .beat-dot {
+    left: 38px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   90. THE OPENING — CINEMATIC, AND QUIET
+   ──────────────────────────────────────────────────────────────────────────
+   Five things used to arrive on this screen: a kicker, a headline, a claim,
+   a paragraph and two controls. Three of them said versions of the same
+   thing, and the eye had nowhere obvious to land.
+
+   One statement, one supporting line, one cue. The headline is revealed a
+   line at a time from behind its own mask — not a word at a time, which
+   delays comprehension for the sake of an effect — and the supporting line
+   arrives only once the statement has resolved. The photograph settles from
+   1.03 to 1.0 over four seconds, which is slow enough that it is felt
+   rather than seen.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.hero-block {
+  position: relative;
+  z-index: 1;
+  width: min(1160px, calc(100% - 56px));
+  margin: 0 auto;
+  padding-bottom: clamp(40px, 8vh, 90px);
+}
+.hero-headline {
+  margin: 0;
+  color: var(--spectre-ivory);
+  font-size: clamp(40px, 6.4vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  text-shadow: 0 1px 40px rgba(8, 9, 9, 0.4);
+}
+/* Each line is masked and rises into its own frame. */
+.hero-line {
+  display: block;
+  overflow: hidden;
+}
+.hero-line > span {
+  display: block;
+  transform: translateY(105%);
+  animation: line-rise var(--motion-cinematic) var(--ease-spectre) forwards;
+}
+.hero-line:nth-child(2) > span {
+  animation-delay: 160ms;
+}
+@keyframes line-rise {
+  to { transform: none; }
+}
+.hero-support {
+  max-width: 34ch;
+  margin: clamp(24px, 3vh, 38px) 0 0;
+  color: #cfcac1;
+  font-family: var(--font-text);
+  font-size: clamp(15px, 1.4vw, 19px);
+  font-weight: 300;
+  line-height: 1.6;
+  text-shadow: 0 1px 22px rgba(8, 9, 9, 0.55);
+  opacity: 0;
+  animation: support-in var(--motion-scene) var(--ease-spectre) 900ms forwards;
+}
+@keyframes support-in {
+  to { opacity: 1; }
+}
+
+/* The cue: a word and a rule that draws itself. No arrow, no bounce. */
+.hero-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(26px, 4vh, 46px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 6px 12px;
+  color: #b8b3aa;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: support-in var(--motion-scene) var(--ease-spectre) 1500ms forwards;
+  transition: color var(--motion-micro) var(--ease-spectre);
+}
+.hero-cue:hover {
+  color: var(--spectre-ivory);
+}
+.hero-cue-rule {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(242, 238, 230, 0.5), transparent);
+}
+
+/* The photograph settles rather than performs. */
+.hero-art img {
+  animation: hero-settle 4200ms var(--ease-spectre) forwards;
+}
+@keyframes hero-settle {
+  from { transform: scale(1.03); }
+  to { transform: scale(1); }
+}
+/* The parallax on leave is kept, and applied on top of the settle. */
+.hero.is-leaving .hero-art img {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line > span,
+  .hero-support,
+  .hero-cue,
+  .hero-art img {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   91. THE RAMP, IN GRAPHITE
+   ──────────────────────────────────────────────────────────────────────────
+   Every join on this page is dissolved by one chapter overlapping the next
+   and masking its own ground in across the overlap — and every one of those
+   grounds was a hard-coded warm hex from the old palette. Re-pointing the
+   tokens without re-pointing these would have put a brown plate under a
+   graphite page at each boundary and reopened all six seams.
+
+   The sequence also changes shape. It used to run dark to light and stop;
+   the ask now returns to deep graphite, so the page opens in the dark,
+   crosses into daylight for the principle and the evidence, and closes in
+   the room where the work is actually done.
+
+     opening   #121313 → #161818
+     suite     #181a1a → #1e2020
+     the day   #1e2020 → #141616
+     crossing  photograph → stone
+     proof     #d5cdbf → #cfc7b8
+     access    #1a1c1c → #121313
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.hero {
+  background-color: var(--spectre-black);
+  background-image: linear-gradient(180deg, #101111 0%, #161818 72%, #181a1a 100%);
+}
+
+.desk,
+.scene-suite {
+  background-color: transparent;
+  background-image: none;
+}
+.desk::before,
+.scene-suite::before {
+  background: linear-gradient(180deg, #181a1a 0%, #1c1e1e 48%, #1e2020 100%);
+}
+
+.tuesday {
+  background-color: #1a1c1c;
+  background-image:
+    radial-gradient(
+      ellipse 56% 50% at 74% 46%,
+      rgba(194, 157, 89, 0.09),
+      rgba(194, 157, 89, 0.03) 46%,
+      transparent 74%
+    ),
+    linear-gradient(180deg, #1e2020 0%, #1b1d1d 42%, #171919 74%, #141616 100%);
+}
+.tuesday::before {
+  background: linear-gradient(
+    to bottom,
+    #1e2020 0%,
+    rgba(30, 32, 32, 0.86) 34%,
+    rgba(30, 32, 32, 0.4) 66%,
+    rgba(30, 32, 32, 0) 100%
+  );
+}
+
+/* The crossing: night in graphite over the photograph, day resolving to stone. */
+.dawn-art {
+  background-image: none;
+}
+.dawn-art::before {
+  background: linear-gradient(
+    180deg,
+    #141616 0%,
+    rgba(20, 22, 22, 0.9) 24%,
+    rgba(20, 22, 22, 0.54) 54%,
+    rgba(20, 22, 22, 0.2) 78%,
+    rgba(20, 22, 22, 0) 100%
+  );
+}
+.dawn-art::after {
+  background: linear-gradient(
+    180deg,
+    rgba(213, 205, 191, 0) 0%,
+    rgba(213, 205, 191, 0.3) 46%,
+    rgba(213, 205, 191, 0.8) 80%,
+    var(--spectre-stone) 100%
+  );
+}
+
+#proof.section {
+  background-color: #d2cabb;
+  background-image: linear-gradient(180deg, #d5cdbf 0%, #cfc7b8 100%);
+}
+#proof.section::before {
+  background: linear-gradient(
+    to bottom,
+    #d5cdbf 0%,
+    rgba(213, 205, 191, 0.86) 34%,
+    rgba(213, 205, 191, 0.4) 66%,
+    rgba(213, 205, 191, 0) 100%
+  );
+}
+
+/* The ask returns to the dark. Stone above, graphite below — the one
+   reversal on the page, and it is deliberate: the principle and the
+   evidence happen in daylight, the working session happens in the room. */
+#access.section {
+  background-color: var(--spectre-graphite);
+  background-image: linear-gradient(180deg, #1a1c1c 0%, var(--spectre-black) 100%);
+}
+#access.section::before {
+  background: linear-gradient(
+    to bottom,
+    #cfc7b8 0%,
+    rgba(207, 199, 184, 0.72) 30%,
+    rgba(207, 199, 184, 0.28) 62%,
+    rgba(207, 199, 184, 0) 100%
+  );
+}
+
+/* The footer closes on the same black the ask ends on. */
+.site-footer::before {
+  background: var(--spectre-black);
+}
+.site-footer {
+  --ground: var(--spectre-black);
+  --ink: var(--spectre-ivory);
+  --ghost: var(--spectre-muted-dark);
+  /* The scope was incomplete: --accent-text kept the light-mode oxblood, so
+     the house mark in the lockup sat at 1.67:1 on black. */
+  --accent-text: var(--spectre-muted-dark);
+  --ruby: #8c3038;
+  --hairline: rgba(242, 238, 230, 0.11);
+  --hairline-strong: rgba(242, 238, 230, 0.22);
+  --level-1: var(--spectre-ivory);
+  --level-2: #d3cfc6;
+  --level-3: var(--spectre-muted-dark);
+  --level-4: #8e8b84;
+  color: var(--spectre-ivory);
+}
+html {
+  background: var(--spectre-black);
+}
+
+/* The approval keeps its own material in the graphite system. */
+.approve-btn,
+main[data-accent] .approve-btn {
+  background-color: #161818;
+  background-image: linear-gradient(180deg, #222524 0%, #161818 100%);
+}
+
+/* The suite scene replaced the old `.desk`, and it needs the same chassis:
+   it overlaps the opening and masks its own ground in across that overlap,
+   so the join is dissolved rather than met. Without the pseudo-element the
+   section is simply transparent and the page ground — ivory — shows through
+   between two dark scenes. */
+.scene-suite {
+  --scene-overlap: clamp(260px, 34vh, 420px);
+  position: relative;
+  margin-top: calc(var(--scene-overlap) * -1);
+  padding-top: calc(var(--scene-overlap) + clamp(96px, 14vh, 190px));
+}
+.scene-suite::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--scene-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--scene-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--scene-overlap) * 0.75),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--scene-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--scene-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--scene-overlap) * 0.75),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+}
+.scene-suite > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Corrections after looking at it ─────────────────────────────────────
+   1. The scene heading was clamped to 20ch, so a two-line statement broke
+      into five. The line breaks are authored in the markup; the measure
+      only has to be wide enough to let them stand.
+   2. The oxblood boundary in each diagram was drawn at full oxblood on
+      near-black and effectively vanished — the one mark that carries the
+      authority argument. It is lifted to a value that reads on graphite.
+   3. The stage held its content in the top half and left a void beneath.
+      The scene is centred in the plane now, and the plane sizes to it. */
+
+.scene-head {
+  max-width: none;
+}
+.scene-title {
+  max-width: 24ch;
+}
+.scene-suite .scene-head {
+  max-width: none;
+}
+
+.d-stop {
+  stroke: #a03a44;
+  stroke-width: 1.25;
+}
+.d-node-ox {
+  fill: #a03a44;
+}
+
+.suite-scene {
+  align-content: center;
+}
+.suite-stage {
+  min-height: clamp(360px, 40vw, 470px);
+}
+
+/* The day's statement sits in the narrower of two columns, so a two-line
+   heading was breaking into four. The scene title takes its measure from
+   the column it is actually in rather than from a global character count,
+   and the statement is allowed to lead the scene at a size the column can
+   carry. */
+.tuesday-inner {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  align-items: start;
+}
+.tuesday .scene-title {
+  max-width: none;
+  font-size: clamp(30px, 3.6vw, 54px);
+}
+.tuesday .scene-head {
+  position: sticky;
+  top: calc(var(--nav-h-condensed) + clamp(40px, 12vh, 130px));
+}
+@media (max-width: 900px) {
+  .tuesday .scene-head {
+    position: static;
+  }
+}
+
+/* The evidence line lost to an earlier, more specific rule and was being set
+   at 13px — the same size as the explanation under it, which flattened the
+   entry to two levels instead of four. It is the second level of the ledger
+   and takes its own measure back. */
+.ledger-item .ledger-said {
+  margin-top: 12px;
+  color: var(--level-1);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.008em;
+}
+
+/* The stone got darker when the palette went mineral, and the light-mode
+   level 4 no longer cleared the bar on it — 3.79:1 at the foot of the proof
+   scene, on the status and date cues. Measured against the darkest ground
+   it meets and set from that. */
+:root {
+  --level-4: #54514a;     /* ≥4.72:1 on stone, proof, bone, ivory, surface */
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   92. THE STAGE, WITH PRESENCE
+   ──────────────────────────────────────────────────────────────────────────
+   The composition was right and the scale was not: a large plane holding
+   small type in one half and a small drawing in the other, with a void
+   underneath. Negative space is only powerful when something is commanding
+   it — otherwise it reads as an empty box.
+
+   The outcome is now the largest type in the scene after the scene's own
+   statement, the diagram fills the height it was given, and the plane has
+   material: a light catch along its top edge, a vignette at its corners,
+   and a floor. It should read as an instrument face, not a container.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.suite-stage {
+  min-height: clamp(420px, 44vw, 560px);
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(242, 238, 230, 0.045) 0%,
+      transparent 58%
+    ),
+    linear-gradient(180deg, var(--spectre-charcoal) 0%, var(--spectre-black) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 238, 230, 0.07),
+    inset 0 -60px 80px -70px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(242, 238, 230, 0.04);
+}
+.suite-scene {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+}
+.suite-outcome {
+  max-width: 13ch;
+  margin-top: 22px;
+  font-size: clamp(34px, 4.2vw, 60px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+.suite-visual {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.sys-diagram {
+  width: 100%;
+  max-height: 100%;
+}
+.suite-signals dt {
+  font-size: clamp(17px, 1.7vw, 23px);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   93. THE SCENES ON A PHONE
+   ──────────────────────────────────────────────────────────────────────────
+   Not the desktop composition shrunk. The suite becomes a horizontal rail
+   of five names above a full-width stage — every system still visible or
+   one swipe away, never hidden behind a menu — and the diagram moves under
+   the outcome rather than beside it. The day becomes a single vertical
+   track. Everything keeps its hierarchy; only the axis changes.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 860px) {
+  .suite {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .suite-rail {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    border-top: 0;
+    border-bottom: 1px solid var(--hairline);
+    scrollbar-width: none;
+  }
+  .suite-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .suite-tab {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: auto;
+    min-height: 58px;
+    padding: 10px 18px 12px 0;
+    border-bottom: 0;
+  }
+  .suite-tab-name {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .suite-stage {
+    min-height: 0;
+    padding: 26px 22px 30px;
+  }
+  .suite-scene {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "status"
+      "outcome"
+      "visual"
+      "signals"
+      "link";
+    gap: 0;
+  }
+  .suite-outcome {
+    max-width: 16ch;
+    font-size: clamp(30px, 8.4vw, 40px);
+  }
+  .suite-visual {
+    margin-top: 26px;
+    min-height: 148px;
+  }
+  .suite-signals {
+    gap: 0 26px;
+    margin-top: 26px;
+  }
+  .suite-signals dt {
+    font-size: 18px;
+  }
+  .tuesday-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .beat-title {
+    font-size: clamp(21px, 6.4vw, 30px);
+  }
+  .beat-you .approve {
+    max-width: none;
+  }
+}
+
+/* ── The stage fills its plane ────────────────────────────────────────────
+   The scene was a block of content floating in the top half of a large
+   rectangle, which is what made it read as an empty box rather than an
+   instrument face. The left column now occupies the full height — status at
+   the top edge, the outcome holding the middle, the signals and the link
+   sitting on the floor — and the diagram spans the whole right side. */
+.suite-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-areas:
+    "status  visual"
+    "outcome visual"
+    "signals visual"
+    "link    visual";
+  grid-template-rows: auto 1fr auto auto;
+  align-content: stretch;
+}
+.suite-outcome {
+  align-self: center;
+  margin: clamp(24px, 3vw, 40px) 0;
+  font-size: clamp(36px, 4.6vw, 66px);
+}
+.suite-signals {
+  margin-top: 0;
+}
+.suite-link {
+  margin-top: clamp(18px, 2vw, 26px);
+}
+
+/* ── The opening's type, placed ───────────────────────────────────────────
+   The statement sat low in the frame with the supporting line crowding it
+   and the cue running into both. The block holds the lower third — where
+   the photograph is darkest and the ridge is behind it — with real air
+   between the three elements, and the cue has the floor to itself. */
+.hero {
+  place-items: end center;
+}
+.hero-block {
+  padding-bottom: clamp(96px, 17vh, 190px);
+}
+.hero-headline {
+  max-width: 17ch;
+}
+.hero-support {
+  margin-top: clamp(28px, 3.4vh, 46px);
+  max-width: 40ch;
+  font-size: clamp(14px, 1.15vw, 17px);
+  letter-spacing: 0.005em;
+}
+.hero-cue {
+  bottom: clamp(22px, 3.4vh, 40px);
+  left: auto;
+  right: clamp(28px, 4vw, 64px);
+  align-items: flex-end;
+  transform: none;
+}
+.hero-cue-rule {
+  height: 32px;
+}
+
+@media (max-width: 860px) {
+  .hero-block {
+    padding-bottom: clamp(80px, 14vh, 120px);
+  }
+  .hero-headline {
+    font-size: clamp(34px, 9.2vw, 52px);
+  }
+  .hero-cue {
+    left: 50%;
+    right: auto;
+    align-items: center;
+    transform: translateX(-50%);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   94. AIR IN THE DARK SCENES
+   ──────────────────────────────────────────────────────────────────────────
+   Two scenes were a plane floating in an empty graphite field, and an empty
+   field is not negative space — it is a gap. They now have a horizon: the
+   same ridge the opening stands on, pushed a long way back.
+
+   It is atmosphere, not imagery. Sixteen percent, desaturated, blurred by
+   distance rather than by a filter, with the chapter's own ground graded
+   over it so the type never sits on the picture. The rule the site already
+   follows holds: the background may be atmospheric, the interface must be
+   crisp — and the instrument in front of it is untouched.
+
+   No new asset: this is the file the opening already loaded.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.scene-air {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.scene-air img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 34%;
+  opacity: 0.28;
+  filter: saturate(0.5) contrast(0.94);
+  transform: scale(1.06);
+}
+.scene-air.is-low img {
+  object-position: center 62%;
+  opacity: 0.22;
+}
+/* The ground is graded back over it so the horizon reads as distance and
+   the type keeps its own contrast. */
+.scene-air::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      118% 76% at 26% 48%,
+      rgba(18, 19, 19, 0.82) 0%,
+      rgba(18, 19, 19, 0.38) 48%,
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      var(--spectre-graphite) 0%,
+      rgba(24, 26, 26, 0.42) 26%,
+      rgba(18, 19, 19, 0.52) 72%,
+      var(--spectre-black) 100%
+    );
+}
+.scene-suite > .wrap,
+.scene-access > .wrap {
+  position: relative;
+  z-index: 1;
+}
+/* The suite's own ground plate sits above the air, so the dissolve into the
+   opening still happens over real pixels and no seam returns. */
+.scene-suite::before {
+  z-index: 0;
+}
+
+/* The atmosphere layer is later in the DOM than the dissolve plate, so at
+   the same z-index it painted over it and both joins on the dark scenes
+   reopened. Explicit order, once: air behind, the chapter's own ground and
+   its dissolve over it, content on top. */
+.scene-air {
+  z-index: 0;
+}
+.scene-suite::before,
+#access.section::before {
+  z-index: 1;
+}
+.scene-suite > .wrap,
+.scene-access > .wrap {
+  z-index: 2;
+}
+
+/* The atmosphere begins where its scene begins, and its scene begins under
+   the one above it — so its top edge was a hard line across the opening.
+   It dissolves in across the same overlap the ground does. */
+/* Masked at both ends: it dissolves into the opening above it and hands off
+   to the day below it. An opaque bottom edge on a full-width layer is a
+   line whatever tone it ends on. */
+.scene-suite .scene-air {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.3) calc(var(--scene-overlap) * 0.6),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.3) calc(var(--scene-overlap) * 0.6),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+}
+/* And the ask's atmosphere fades in under the stone it is arriving from. */
+.scene-access .scene-air {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 190px, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 190px, #000 100%);
+}
+
+/* The scene was set to fill its plane with height:100%, which resolves
+   against a parent height that is only a min-height — so it collapsed to
+   its content and left 161px of floor. The plane is a grid; its one child
+   stretches, and the signals now sit on the floor where they belong. */
+.suite-stage {
+  display: grid;
+}
+.suite-scene {
+  height: auto;
+}
+
+/* The atmosphere was being darkened exactly where it was visible. The
+   scrim now sits behind the instrument — which is opaque anyway — and lets
+   the ridge stand in the margin above the rail, where there is nothing to
+   compete with it. */
+.scene-air::after {
+  background:
+    radial-gradient(
+      92% 70% at 62% 62%,
+      rgba(18, 19, 19, 0.9) 0%,
+      rgba(18, 19, 19, 0.55) 52%,
+      transparent 84%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(24, 26, 26, 0.55) 0%,
+      rgba(20, 22, 22, 0.3) 34%,
+      rgba(18, 19, 19, 0.6) 78%,
+      var(--spectre-black) 100%
+    );
+}
+.scene-air img {
+  opacity: 0.4;
+  object-position: center 28%;
+}
+.scene-air.is-low img {
+  opacity: 0.3;
+}
+
+/* The ground plate was opaque across the whole scene, so it painted over
+   the atmosphere it was meant to sit beside and the ridge never appeared.
+   The air layer is the ground now — image, then the chapter's tone graded
+   over it — and the plate does only the job it exists for: dissolving the
+   join at the top. Below the overlap it is transparent and the ridge is
+   what you are looking at. */
+.scene-suite::before {
+  inset: 0 0 auto 0;
+  height: var(--scene-overlap);
+  -webkit-mask-image: none;
+  mask-image: none;
+  background: linear-gradient(
+    180deg,
+    #181a1a 0%,
+    rgba(24, 26, 26, 0.92) 34%,
+    rgba(24, 26, 26, 0.55) 66%,
+    rgba(24, 26, 26, 0) 100%
+  );
+}
+.scene-suite .scene-air::after {
+  background:
+    radial-gradient(
+      88% 66% at 60% 64%,
+      rgba(18, 19, 19, 0.92) 0%,
+      rgba(18, 19, 19, 0.6) 50%,
+      rgba(18, 19, 19, 0.24) 82%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(24, 26, 26, 0.72) 0%,
+      rgba(20, 22, 22, 0.34) 30%,
+      rgba(18, 19, 19, 0.6) 76%,
+      var(--spectre-black) 100%
+    );
+}
+
+/* Making the ground plate top-only reopened the join it exists to hide: its
+   own first row became a hard edge across the opening. The plate goes back
+   to spanning the scene and dissolving in across the overlap — the version
+   that has held — and instead of being opaque throughout it thins out below
+   the join, so the ridge behind it reads through the lower two thirds. */
+.scene-suite::before {
+  inset: 0;
+  height: auto;
+  background: linear-gradient(
+    180deg,
+    #181a1a 0%,
+    #1a1c1c 22%,
+    rgba(26, 28, 28, 0.72) 44%,
+    rgba(24, 26, 26, 0.5) 68%,
+    rgba(20, 22, 22, 0.72) 88%,
+    var(--spectre-black) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--scene-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--scene-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--scene-overlap) * 0.75),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--scene-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--scene-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--scene-overlap) * 0.75),
+    #000 var(--scene-overlap),
+    #000 100%
+  );
+}
+/* With the plate thinned, the air carries less of the grading itself. */
+.scene-suite .scene-air::after {
+  background: radial-gradient(
+    86% 64% at 60% 62%,
+    rgba(18, 19, 19, 0.86) 0%,
+    rgba(18, 19, 19, 0.5) 52%,
+    rgba(18, 19, 19, 0.12) 84%
+  );
+}
+
+/* The air layer is a photograph at 40% over nothing, so whatever sat behind
+   the scene showed through it — the opening's gradient above its last row
+   and the page canvas below it, which is a six-level step exactly there.
+   The layer carries its own solid ground, masked by the same curve, so
+   below the overlap nothing behind it is visible at all. */
+.scene-suite .scene-air,
+.scene-access .scene-air {
+  background: var(--spectre-black);
+}
+
+/* The remaining step was not an element edge but a gradient one: the plate
+   ran from half-transparent at 68% to solid black at 100%, and the eye
+   reads that change of slope as a line. The tail is eased across more
+   stops, and the solid ground underneath means the plate never has to
+   reach full black to close the scene. */
+.scene-suite::before {
+  background: linear-gradient(
+    180deg,
+    #181a1a 0%,
+    #1a1c1c 20%,
+    rgba(26, 28, 28, 0.74) 42%,
+    rgba(24, 26, 26, 0.56) 60%,
+    rgba(22, 24, 24, 0.52) 74%,
+    rgba(20, 22, 22, 0.5) 86%,
+    rgba(19, 20, 20, 0.28) 95%,
+    rgba(18, 19, 19, 0) 100%
+  );
+}
+
+/* Fading the layer out at the bottom was worse: it revealed the canvas
+   under a plate that is only three-quarters opaque, and the tone fell off a
+   cliff. The layer stays solid and instead ENDS on the tone the day opens
+   with, so the two chapters meet on the same value and the overlap has
+   nothing to reconcile. */
+.scene-suite .scene-air {
+  background: linear-gradient(
+    180deg,
+    var(--spectre-black) 0%,
+    var(--spectre-black) 62%,
+    #161818 78%,
+    #1a1c1c 92%,
+    #1e2020 100%
+  );
+}
+
+/* The plate was still three-quarters opaque at the scene's last row, so the
+   ground the day arrives on was darker than the value the day opens with —
+   nine levels, on the edge. The plate clears completely by the bottom and
+   the handoff happens on the air layer's own final tone, which is that
+   value exactly. */
+
+/* The bar's ground ended at 60% and its continuation began at 58%, so the
+   one step left anywhere on the page was two percentage points of the same
+   colour, at the bar's own last row. They are the same value now, and the
+   tail is longer so the change of slope is spread rather than landing. */
+.site-nav.is-condensed {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ground) 98%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 94%, transparent) 62%,
+    color-mix(in srgb, var(--ground) 58%, transparent) 100%
+  );
+}
+.site-nav.is-condensed::after {
+  height: 128px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--ground) 58%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 42%, transparent) 20%,
+    color-mix(in srgb, var(--ground) 26%, transparent) 42%,
+    color-mix(in srgb, var(--ground) 13%, transparent) 64%,
+    color-mix(in srgb, var(--ground) 4%, transparent) 84%,
+    transparent 100%
+  );
+}
+
+/* Text fields signalled focus with a border colour alone — the only control
+   on the site whose focus state was carried by colour and nothing else, and
+   the one place a keyboard user is most likely to be. They take the same
+   ring every other control has. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-color: var(--gold-deep);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   95. THE INSTRUMENT FACE
+   ──────────────────────────────────────────────────────────────────────────
+   The stage was correctly composed and under-built: a dark rectangle with
+   type on one side and a hairline drawing on the other. Restraint is not
+   the same as absence, and the plane had nothing in it to reward looking.
+
+   It is machined now. The index is cut into the face, oversized and barely
+   lit, the way a number is stamped into an instrument bezel. The diagram
+   sits in its own recessed well with a measure ruled along the top of it,
+   and its strokes are drawn at a weight that reads as engineering rather
+   than as a whisper. The bezel catches light along its top and left edges
+   and falls away at the bottom.
+
+   Nothing here is decoration: the index says which of five, the measure
+   says the drawing is to scale, and the well says the drawing is a readout
+   rather than an illustration.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.suite-stage {
+  border-color: rgba(242, 238, 230, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 238, 230, 0.1),
+    inset 1px 0 0 rgba(242, 238, 230, 0.045),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    inset 0 -80px 90px -80px rgba(0, 0, 0, 0.95),
+    0 22px 60px -40px rgba(0, 0, 0, 0.9);
+}
+
+.suite-plate-index {
+  position: absolute;
+  top: clamp(14px, 1.6vw, 22px);
+  right: clamp(18px, 2vw, 30px);
+  z-index: 0;
+  color: rgba(242, 238, 230, 0.05);
+  font-family: var(--font-display);
+  font-size: clamp(76px, 9vw, 140px);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+/* The diagram sits in a well, with a measure ruled across the top of it. */
+.suite-visual {
+  position: relative;
+  padding: clamp(20px, 2.4vw, 32px) 0 clamp(16px, 2vw, 26px);
+}
+.suite-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 0;
+  border-top: 1px solid rgba(242, 238, 230, 0.1);
+  border-bottom: 1px solid rgba(242, 238, 230, 0.06);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(242, 238, 230, 0.14) 0 1px,
+      transparent 1px 100%
+    )
+    0 0 / 28px 7px no-repeat,
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.42) 0%,
+      rgba(0, 0, 0, 0.12) 30%,
+      transparent 62%
+    );
+  background-repeat: repeat-x, no-repeat;
+  pointer-events: none;
+}
+.sys-diagram {
+  position: relative;
+  z-index: 1;
+}
+
+/* Drawn at a weight that reads. The strokes were set for a light ground and
+   were losing half their contrast on graphite. */
+.sys-diagram {
+  --stroke: rgba(242, 238, 230, 0.34);
+  --plane: rgba(242, 238, 230, 0.1);
+}
+.d-line,
+.d-link,
+.d-sweep,
+.d-brief-line {
+  stroke-width: 1.15;
+}
+.d-block,
+.d-claim,
+.d-bar,
+.d-plate,
+.d-brief {
+  stroke-width: 1;
+}
+.d-dot {
+  r: 3;
+}
+.d-node-gold {
+  filter: drop-shadow(0 0 6px rgba(194, 157, 89, 0.55));
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   96. THE BAR TAKES THE ROOM'S TONE
+   ──────────────────────────────────────────────────────────────────────────
+   Condensed, the bar always painted the page's light ground — so scrolling
+   a graphite chapter under it put an ivory band and a long white fall-off
+   across the top of the screen. It now reads which chapter it is over and
+   takes that chapter's ground, and the fall-off is short and weak in both
+   cases: a bar should separate itself from what is behind it, not glow.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.site-nav.is-condensed {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ground) 94%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 82%, transparent) 64%,
+    color-mix(in srgb, var(--ground) 44%, transparent) 100%
+  );
+}
+.site-nav.is-condensed::after {
+  height: 56px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--ground) 44%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 22%, transparent) 40%,
+    color-mix(in srgb, var(--ground) 7%, transparent) 72%,
+    transparent 100%
+  );
+}
+/* Over a dark chapter the bar is dark, and its type is ivory. */
+.site-nav.is-over-dark {
+  --ground: var(--spectre-graphite);
+}
+.site-nav.is-over-dark.is-condensed .nav-brand,
+.site-nav.is-over-dark.is-condensed .nav-links a,
+.site-nav.is-over-dark.is-condensed .nav-systems-btn,
+.site-nav.is-over-dark.is-condensed .menu-btn {
+  color: var(--spectre-ivory);
+}
+.site-nav.is-over-dark.is-condensed .nav-cta {
+  background: rgba(242, 238, 230, 0.94);
+  border-color: transparent;
+  color: #17130f;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   97. THE DAY, AS AN INSTRUMENT TRACK
+   ──────────────────────────────────────────────────────────────────────────
+   Four times and four lines on an empty graphite field read as a list that
+   happened to be there — the chapter had nothing holding it together and no
+   reason to be dark.
+
+   It is built as a track now. A ruled scale runs down it with the four
+   events as major marks; the mark you are at is lit and the ones behind it
+   are filled, so the track shows progress rather than describing it. The
+   ground gets the same treatment as the other dark scenes — a horizon,
+   pushed back — and the light in the room comes from where the approval
+   sits, which is the only thing in the chapter that wants a person.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.tuesday {
+  background-color: #1a1c1c;
+  background-image:
+    radial-gradient(
+      ellipse 46% 42% at 72% 62%,
+      rgba(194, 157, 89, 0.13),
+      rgba(194, 157, 89, 0.04) 44%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 20% 8%,
+      rgba(242, 238, 230, 0.05),
+      transparent 64%
+    ),
+    linear-gradient(180deg, #1e2020 0%, #1b1d1d 42%, #171919 74%, #141616 100%);
+}
+
+/* The scale: a ruled track with the four events as major marks. */
+.day-rail {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--hairline) 6%,
+    var(--hairline) 94%,
+    transparent 100%
+  );
+}
+.day-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -3px;
+  width: 7px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(242, 238, 230, 0.16) 0 1px,
+    transparent 1px 26px
+  );
+}
+.beat-dot {
+  width: 7px;
+  height: 7px;
+  margin-left: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--level-4);
+  background: var(--spectre-graphite);
+}
+.beat.is-done .beat-dot {
+  border-color: var(--spectre-muted-dark);
+  background: var(--spectre-muted-dark);
+  box-shadow: none;
+}
+.beat.is-now .beat-dot {
+  border-color: var(--spectre-gold);
+  background: var(--spectre-gold);
+  box-shadow: 0 0 0 4px rgba(194, 157, 89, 0.14);
+}
+/* The track fills behind you. */
+.beat.is-done .beat-rail::after,
+.beat.is-now .beat-rail::after {
+  content: "";
+  position: absolute;
+  left: clamp(44px, 5vw, 70px);
+  top: 0;
+  bottom: calc(-1 * clamp(26px, 3.4vw, 46px));
+  width: 1px;
+  background: var(--spectre-muted-dark);
+  opacity: 0.5;
+}
+.beat-rail {
+  height: 100%;
+}
+
+/* The statement holds the left, the track the right, and the approval is
+   the only lit object in the chapter. */
+.tuesday .scene-title {
+  font-size: clamp(32px, 3.9vw, 58px);
+}
+.beat-you.is-now .approve {
+  border-color: rgba(194, 157, 89, 0.42);
+  background:
+    radial-gradient(
+      120% 100% at 50% 0%,
+      rgba(194, 157, 89, 0.07) 0%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, var(--spectre-panel) 0%, var(--spectre-charcoal) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 238, 230, 0.08),
+    0 26px 60px -44px rgba(0, 0, 0, 0.95);
+}
+
+/* The two-column arrangement left half the chapter empty for most of its
+   scroll, and pinning the statement against a transformed ancestor was
+   fragile. One column instead: the statement at the top of the scene, the
+   track running the full width beneath it. Nothing is beside anything, so
+   nothing is empty, and the chapter reads as one idea the way the others
+   do. */
+.tuesday-inner {
+  display: block;
+}
+.tuesday .scene-head {
+  position: static;
+  max-width: 20ch;
+}
+.tuesday .scene-title {
+  font-size: clamp(34px, 4.6vw, 66px);
+}
+.tuesday .day {
+  margin-top: clamp(56px, 7vw, 104px);
+  padding-left: clamp(96px, 11vw, 168px);
+}
+.tuesday .day-rail,
+.tuesday .beat-dot,
+.tuesday .beat.is-done .beat-rail::after,
+.tuesday .beat.is-now .beat-rail::after {
+  left: clamp(62px, 7vw, 110px);
+}
+.tuesday .beat-rail {
+  left: calc(clamp(96px, 11vw, 168px) * -1);
+  width: clamp(96px, 11vw, 168px);
+}
+.tuesday .beat-title {
+  max-width: 24ch;
+  font-size: clamp(26px, 3.2vw, 46px);
+}
+.beat-you .approve {
+  max-width: 520px;
+}
+
+@media (max-width: 860px) {
+  .tuesday .day {
+    padding-left: 62px;
+  }
+  .tuesday .day-rail,
+  .tuesday .beat-dot,
+  .tuesday .beat.is-done .beat-rail::after,
+  .tuesday .beat.is-now .beat-rail::after {
+    left: 38px;
+  }
+  .tuesday .beat-rail {
+    left: -62px;
+    width: 62px;
+  }
+}
+
+/* The statement is authored as two lines; the measure has to let them
+   stand rather than re-breaking them into five. */
+.tuesday .scene-head,
+.tuesday .scene-title {
+  max-width: none;
+}
+.scene-title {
+  max-width: none;
+}
+.headline {
+  display: block;
+}
+.headline > span {
+  display: block;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .headline > span {
+    white-space: normal;
+  }
 }

@@ -1,14 +1,22 @@
 "use client";
 
-/* THE DAY — the landing's spine, cut from six beats to three.
-   Six beats restated the Executive Room's argument at four times the length
-   (audit §2.6); the room already carries "one context, five specialists", so
-   the day only has to carry the rhythm: work arrives prepared, work gets
-   tested, and exactly one moment belongs to you.
-   Fictional data by law; the rail says so. Static and complete under
-   prefers-reduced-motion — everything visible, and the tap still works. */
+/* ── The day, in four beats ───────────────────────────────────────────────
+   Six beats became three, and three are now four — but the change that
+   matters is that they no longer arrive together. The chapter used to show
+   its whole timeline at once, with message counts and bottlenecks and
+   staged purchase lists, which made it a table of contents for a day rather
+   than the experience of one.
 
-import Link from "next/link";
+   Four times, four lines, one object. The world is read, the decision is
+   prepared, you release it, and the evening is still yours. Each beat
+   arrives as the reader reaches it; the work behind them stays visible and
+   steps back, because the argument is that it accumulates.
+
+   The only thing on the screen with any weight is the prepared batch and
+   the control that releases it. Fictional data, and the label says so.
+   Complete and static under prefers-reduced-motion — everything visible,
+   and the approval still works. */
+
 import {
   useEffect,
   useRef,
@@ -18,19 +26,9 @@ import {
 } from "react";
 import ApproveButton from "@/components/ApproveButton";
 
-const DOT: Record<string, string> = {
-  pa: "var(--spectral)",
-  coo: "var(--steel)",
-  cmo: "var(--clay)",
-  researcher: "var(--archive)",
-  hr: "var(--ochre)",
-};
-
 function Beat({
   index,
   time,
-  who,
-  slug,
   title,
   children,
   state = "ahead",
@@ -40,8 +38,6 @@ function Beat({
      sequence so the CSS can derive its arrival from the chapter's --p. */
   index: number;
   time: string;
-  who?: string;
-  slug?: string;
   title: string;
   children?: ReactNode;
   /* Where this beat sits relative to where the reader has got to: work
@@ -58,22 +54,10 @@ function Beat({
     >
       <div className="beat-rail">
         <span className="mono beat-time">{time}</span>
-        <span
-          className="beat-dot"
-          style={!you && slug ? { background: DOT[slug] } : undefined}
-        />
+        <span className="beat-dot" />
       </div>
       <div className="beat-body">
-        <div className="beat-head">
-          {who && slug ? (
-            <Link href={`/${slug}/`} className="mono beat-who">
-              {who}
-            </Link>
-          ) : (
-            <span className="mono beat-who">{who ?? "YOU"}</span>
-          )}
-          <span className="beat-title">{title}</span>
-        </div>
+        <p className="beat-title">{title}</p>
         {children}
       </div>
     </div>
@@ -85,18 +69,18 @@ export function Day() {
   const [reached, setReached] = useState(0);
   const root = useRef<HTMLDivElement>(null);
 
-  /* The day advances as the reader moves through it. Each beat reports when
-     it reaches the upper half of the viewport; everything above that point
-     is finished work, which stays present and steps back. */
+  /* Four beats, revealed one at a time as the reader moves through them.
+     The day used to show its whole timeline at once, which made it a table
+     of contents for a day rather than the experience of one. Finished work
+     stays on screen and steps back; what has not happened yet waits. */
   useEffect(() => {
     const el = root.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setReached(3);
+      setReached(4);
       return;
     }
-    const beats = [...el.querySelectorAll<HTMLElement>("[data-beat]")];
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -105,84 +89,63 @@ export function Day() {
           setReached((prev) => (i > prev ? i : prev));
         }
       },
-      { rootMargin: "-45% 0px -35% 0px" },
+      { rootMargin: "-40% 0px -30% 0px" },
     );
-    beats.forEach((b) => io.observe(b));
+    el.querySelectorAll<HTMLElement>("[data-beat]").forEach((b) => io.observe(b));
     return () => io.disconnect();
   }, []);
 
-  const beatState = (i: number) =>
+  const at = (i: number) =>
     reached > i ? "done" : reached === i ? "now" : "ahead";
 
   return (
     <div
       ref={root}
       className={`day ${approved ? "is-approved" : ""}`}
-      data-reached={reached}
     >
       <span className="day-rail" aria-hidden />
-      <div className="mono day-label">
-        A DAY, DEMONSTRATED · FICTIONAL DATA · THE RHYTHM IS REAL
-      </div>
 
-      <Beat
-        index={1}
-        state={beatState(1)}
-        time="07:10"
-        who="AI PA"
-        slug="pa"
-        title="Your inbox, triaged before you wake."
-      >
-        <ul className="beat-list">
-          <li>41 messages read · 3 need your judgment</li>
-          <li>2 replies drafted in your voice, staged</li>
-        </ul>
-      </Beat>
+      <Beat index={1} state={at(1)} time="07:10" title="The world is read." />
 
       <Beat
         index={2}
-        state={beatState(2)}
+        state={at(2)}
         time="10:30"
-        who="AI COO"
-        slug="coo"
-        title="A rush order lands. It is tested before lunch."
-      >
-        <p className="beat-note">
-          Feasible, with one bottleneck on line 2. Purchase list staged,
-          schedule revised, nothing ordered.
-        </p>
-      </Beat>
+        title="The decision is prepared."
+      />
 
       <Beat
         index={3}
-        state={beatState(3)}
+        state={at(3)}
         time="18:45"
         you
-        title="The only tap of the day."
+        title="You approve one batch."
       >
+        {/* The one physical object on this screen: the prepared work, and
+            the boundary it stops at. */}
         <div className="approve">
-          <span className="approve-stamp">STAGED · AWAITING YOUR TAP</span>
           <p className="approve-payload">
-            One batch needs you: tomorrow&rsquo;s post, 12 replies in your voice,
-            one purchase list. 14 items, prepared and logged.
+            14 items, prepared and logged. Nothing has run.
           </p>
-          <ApproveButton onApprove={() => setApproved(true)} doneLabel="Executed" />
-          <p className="approve-note" aria-live="polite">
+          <ApproveButton onApprove={() => setApproved(true)} doneLabel="Released" />
+          <p className="mono approve-note" aria-live="polite">
             {approved
-              ? "18:46 · APPROVED BY YOU · EXECUTED · LOG APPENDED"
-              : "18:45 · STAGED BY THE SYSTEM · NOTHING RUNS WITHOUT YOU"}
+              ? "18:46 · RELEASED BY YOU · LOGGED"
+              : "18:45 · STAGED BY THE SYSTEM"}
           </p>
         </div>
       </Beat>
 
-      {/* The payoff of the only tap of the day: once it is approved, this is
-          the line that lights. It is the whole argument in four words. */}
-      <div className="day-close">
-        <span className="mono beat-time" style={{ opacity: 0.6 }}>
-          19:00
-        </span>
-        <p className="display day-close-line">Your evening. Still yours.</p>
-      </div>
+      <Beat
+        index={4}
+        state={at(4)}
+        time="19:00"
+        title="Your evening is still yours."
+      />
+
+      <p className="mono day-label">
+        A day, demonstrated on fictional data. The rhythm is real.
+      </p>
     </div>
   );
 }

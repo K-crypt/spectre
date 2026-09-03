@@ -1,85 +1,88 @@
 import { Reveal, Stamp, Headline, Counter } from "@/components/ui";
 import { WaitlistForm } from "@/components/interactive";
-import { Queue } from "@/components/queue";
+import { Suite } from "@/components/suite";
 import { Day } from "@/components/day";
 import { Hero, TuesdayGround, Dawn } from "@/components/chapters";
-import { PlantGrid } from "@/components/plant";
 import { withBasePath } from "@/lib/base-path";
-import { DeskChat } from "@/components/desk-chat";
 
-/* Five chapters. Eleven desktop screens became eight, then five.
-   Every chapter states one argument, and nothing on the page exists that
-   cannot say which one it is making:
+/* ── Six scenes ───────────────────────────────────────────────────────────
+   The page was a document: every chapter carried a heading, a claim, a deck
+   and a body, so five things asked for attention at once and the reader had
+   to assemble the argument themselves.
 
-     I    The opening      — what this is, and the room it happens in
-     II   The table        — five specialists reading one context
-     III  One Tuesday      — the rhythm, and the single moment that is yours
-     IV   The pilot        — the proof, before any promise
-     V    The ask          — one consequential workflow
+   It is a sequence of scenes now, and each one holds a single idea:
 
-   "How it works" and "Why we build" are gone as standalone sections. Their
-   arguments survive as single lines inside the chapters that were already
-   making them, which is where they were always strongest. */
+     I    The promise        — what this is
+     II   The suite          — five systems, one memory
+     III  The system working — a day, in four beats
+     IV   Human authority    — the governing principle, almost empty
+     V    Proof              — three pieces of evidence
+     VI   Private access     — one decision, one action
+
+   The rule applied everywhere: one dominant statement, at most one
+   supporting sentence, one meaningful visual, one action if an action is
+   needed. Everything that was explanation now lives on the product pages,
+   where someone who wants it has already asked for it.
+   ───────────────────────────────────────────────────────────────────────── */
 
 export default function Home() {
   return (
     <main id="main">
-      {/* ── I. THE OPENING ── */}
+      {/* ── I. THE PROMISE ── */}
       <Hero />
 
-      {/* ── II. THE TABLE ── */}
-      <section className="section island on-dark desk" id="room" aria-labelledby="room-title">
+      {/* ── II. THE SUITE ── */}
+      <section
+        className="section island on-dark scene scene-suite"
+        id="room"
+        aria-labelledby="suite-title"
+      >
+        {/* The ridge again, pushed far back — the same range the opening
+            stands on, seen from inside the room. It gives the scene depth
+            and a horizon without competing with the instrument in front of
+            it, and it costs nothing: the browser already has this file. */}
+        <div className="scene-air" aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={withBasePath("/ridge-1920.webp")}
+            srcSet={`${withBasePath("/ridge-1280.webp")} 1280w, ${withBasePath("/ridge-1920.webp")} 1920w`}
+            sizes="100vw"
+            width={1920}
+            height={823}
+            loading="lazy"
+            decoding="async"
+            alt=""
+          />
+        </div>
         <div className="wrap">
-          {/* The headline had a screen of empty velvet beside it. It now
-              holds the thing being described: one specialist actually
-              working — reading, drafting, staging, waiting to be released.
-              It follows whichever card is open below it. */}
-          <div className="desk-head">
-            <Reveal className="sec-head">
-              <Stamp>Your queue, this morning</Stamp>
-              <Headline
-                id="room-title"
-                className="sec-title"
-                lines={["Everything is ready.", "Nothing has happened."]}
-              />
-              <span className="sec-claim">
-                Five decisions, already prepared. None of them taken.
-              </span>
-            </Reveal>
-            <DeskChat />
-          </div>
-          <Queue />
+          <Reveal className="scene-head">
+            <Headline
+              id="suite-title"
+              className="scene-title"
+              lines={["Five systems.", "One operating memory."]}
+            />
+          </Reveal>
+          <Suite />
         </div>
       </section>
 
-      {/* ── III. ONE TUESDAY ── */}
+      {/* ── III. THE SYSTEM WORKING ── */}
       <TuesdayGround>
         <div className="tuesday-inner">
-          <Reveal className="sec-head plated">
-            <Stamp>One Tuesday</Stamp>
+          <Reveal className="scene-head">
             <Headline
-              className="sec-title"
-              lines={["Everything prepared.", "One thing decided."]}
+              className="scene-title"
+              lines={["Spectre works all day.", "You touch it once."]}
             />
-            <span className="sec-claim">
-              The machine works the whole day. You touch it once.
-            </span>
-            <p className="sec-deck">
-              A working day, demonstrated on fictional data. The rhythm is
-              real.
-            </p>
           </Reveal>
           <Day />
         </div>
       </TuesdayGround>
 
-      {/* ── FIRST LIGHT — the crossing from night to day, with the page's
-          thesis standing in it. ── */}
+      {/* ── IV. HUMAN AUTHORITY ──
+          The crossing from graphite into ivory, and the governing principle
+          of the company standing in it. Nothing else is on this screen. */}
       <Dawn>
-        {/* The one place the page has to cross from night to day. A gradient
-            did it flatly; this is a photograph whose own tone runs from a
-            near-black ridge at the top to sunlit fog at the bottom, so the
-            crossing is something that happened rather than something drawn. */}
         <div className="dawn-art" aria-hidden>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -93,131 +96,95 @@ export default function Home() {
             alt=""
           />
         </div>
-        {/* The two halves are not set the same, because they are not the
-            same. The machine's half recedes into the fog it is written on;
-            yours lands in full ink. The typography makes the argument the
-            sentence is only describing. */}
+
         <div className="dawn-rule">
-          <span>The operating rule</span>
           <p className="dawn-thesis">
             <span className="dawn-machine">The machine prepares.</span>
             <span className="dawn-human">The human decides.</span>
           </p>
-          <small>
-            Clear permissions · visible sources · logged approvals · reversible
-            actions
-          </small>
+          <small>Visible sources. Logged approvals. Reversible actions.</small>
         </div>
       </Dawn>
 
-      {/* ── IV. THE PILOT ── */}
-      <section className="section on-stone" id="proof" aria-labelledby="proof-title">
+      {/* ── V. PROOF ── */}
+      <section
+        className="section on-stone scene scene-proof"
+        id="proof"
+        aria-labelledby="proof-title"
+      >
         <div className="wrap">
-          <div className="proof-head">
-            <Reveal className="sec-head">
-              <Stamp>Proof before promise</Stamp>
-              <Headline
-                id="proof-title"
-                className="sec-title"
-                lines={["Built inside", "working businesses."]}
-              />
-              <span className="sec-claim">
-                Not a demo lab. A factory, an export house, a study.
-              </span>
-              <p className="sec-deck">
-                Context first, action second — and every number carries the
-                date it was true.
-              </p>
-            </Reveal>
-            <Reveal delay={120}>
-              <PlantGrid />
-            </Reveal>
-          </div>
+          <Reveal className="scene-head">
+            <Stamp>Proof before promise</Stamp>
+            <Headline
+              id="proof-title"
+              className="scene-title"
+              lines={["Built inside", "working businesses."]}
+            />
+          </Reveal>
 
           <Reveal stagger className="ledger">
             <div className="ledger-item">
-              <span className="mono ledger-index">01 · MANUFACTURING</span>
+              <span className="mono ledger-index">Manufacturing</span>
               <strong className="display">
-                <Counter to={400} prefix="≈" /> machines, mapped.
+                <Counter to={400} prefix="≈" />
               </strong>
-              <span>
-                An order tested against real capacity before the business
-                commits to it. In one exercise Spectre surfaced the same
-                two-machine requirement management had reached independently —
-                and still waited for a human.
-              </span>
-              <em>PILOT BUILD · CLIENT NAMED ON PERMISSION</em>
+              <span className="ledger-said">Machines mapped.</span>
+              <span>An order tested against real capacity before the business commits.</span>
+              <em>Pilot build · client named on permission</em>
             </div>
             <div className="ledger-item">
-              <span className="mono ledger-index">02 · EXPORT</span>
-              <strong className="display">One live business, run through it.</strong>
-              <span>
-                Brand memory, content, outreach, ad review and reporting in real
-                weekly work — one review queue before anything moves.
-              </span>
+              <span className="mono ledger-index">Export</span>
+              <strong className="display">One live business</strong>
+              <span className="ledger-said">Run through the system.</span>
+              <span>Brand memory, content, outreach and reporting in real weekly work.</span>
               <em>
-                <a href="https://carpetstory.one">CARPETSTORY ↗</a> · AS OF JUL 2026
+                <a href="https://carpetstory.one">Carpetstory ↗</a> · as of Jul 2026
               </em>
             </div>
             <div className="ledger-item">
-              <span className="mono ledger-index">03 · RESEARCH</span>
-              <strong className="display">Every claim challenged, then re-sourced.</strong>
-              <span>
-                A market-entry study in which two material claims failed the
-                first verification pass and were replaced before a reader ever
-                saw them.
-              </span>
-              <em>DELIVERED · JUL 2026</em>
+              <span className="mono ledger-index">Research</span>
+              <strong className="display">Every claim</strong>
+              <span className="ledger-said">Challenged, then re-sourced.</span>
+              <span>Two material claims failed the first pass and were replaced before a reader saw them.</span>
+              <em>Delivered · Jul 2026</em>
             </div>
           </Reveal>
-
         </div>
       </section>
 
-      {/* ── V. THE ASK ── */}
-      <section className="section on-stone" id="access" aria-labelledby="access-title">
+      {/* ── VI. PRIVATE ACCESS ── */}
+      <section
+        className="section island on-dark scene scene-access"
+        id="access"
+        aria-labelledby="access-title"
+      >
+        <div className="scene-air is-low" aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={withBasePath("/ridge-1920.webp")}
+            srcSet={`${withBasePath("/ridge-1280.webp")} 1280w, ${withBasePath("/ridge-1920.webp")} 1920w`}
+            sizes="100vw"
+            width={1920}
+            height={823}
+            loading="lazy"
+            decoding="async"
+            alt=""
+          />
+        </div>
         <div className="wrap access-grid">
           <Reveal>
-            <Stamp>Private working session</Stamp>
             <Headline
               id="access-title"
-              className="sec-title"
+              className="scene-title"
               lines={["Start with one", "serious decision."]}
             />
-            <span className="sec-claim">
+            <p className="scene-line">
               Bring the workflow you would not delegate.
-            </span>
-            <p className="sec-deck">
-              We map the context, find the decision boundary, and test whether
-              a private deployment is justified.
             </p>
-            <p className="why-close display-sm">
-              Some things should never be automated: your judgment, your taste,
-              the relationships that carry your name. Everything else is
-              workload — and taking workload off you is what we are for.
-            </p>
-            <div className="steps" aria-label="How a working session runs">
-              {[
-                ["01", "Bring it"],
-                ["02", "Map it"],
-                ["03", "Configure Spectre"],
-                ["04", "Run real work"],
-                ["05", "Measure the outcome"],
-              ].map(([number, label]) => (
-                <span key={number}>
-                  <b className="mono">{number}</b>
-                  {label}
-                </span>
-              ))}
-            </div>
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal delay={120}>
             <div className="access-panel">
               <WaitlistForm />
-              <p className="mono access-fine">
-                SELECTIVE PILOTS · DIRECT FOUNDER INVOLVEMENT · HUMAN APPROVAL BY
-                DESIGN
-              </p>
             </div>
           </Reveal>
         </div>

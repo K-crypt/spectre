@@ -305,9 +305,38 @@ export function Nav() {
   const [overDark, setOverDark] = useState(false);
   const pathname = usePathname();
 
+  /* Which chapter is under the bar right now — not merely which one the
+     page opens with. The bar used to take the page's light ground whenever
+     it was condensed, so scrolling a dark chapter under it produced an
+     ivory band across a graphite page. It now takes the ground of whatever
+     it is actually over. */
   useEffect(() => {
-    const first = document.querySelector("main .section");
-    setOverDark(!!first?.classList.contains("on-dark"));
+    const sections = [
+      ...document.querySelectorAll<HTMLElement>("main .section, main > section"),
+    ];
+    if (!sections.length) return;
+    let frame = 0;
+    const paint = () => {
+      frame = 0;
+      const probe = 8;
+      let dark = false;
+      for (const s of sections) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= probe && r.bottom > probe) dark = s.classList.contains("on-dark");
+      }
+      setOverDark(dark);
+    };
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    paint();
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    return () => {
+      window.removeEventListener("scroll", request);
+      window.removeEventListener("resize", request);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [pathname]);
 
   useEffect(() => {

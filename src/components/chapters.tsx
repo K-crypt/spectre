@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { CTA, useScrollProgress } from "@/components/ui";
+import { useScrollProgress } from "@/components/ui";
 import { withBasePath } from "@/lib/base-path";
 
 /* ── The opening ──────────────────────────────────────────────────────────
@@ -40,30 +40,23 @@ export function Hero() {
       </div>
       <div className="hero-scrim" />
 
+      {/* One statement, one supporting line, one cue. The kicker, the note
+          and the second control are gone — three of the five things on this
+          screen were saying versions of the same thing. */}
       <div className="hero-block">
-        <p className="hero-kicker">Private operating intelligence</p>
         <h1 id="hero-title" className="display hero-headline">
-          Automate what can be.
-          <br />
-          Focus on what can&rsquo;t.
+          <span className="hero-line"><span>Automate what can be.</span></span>
+          <span className="hero-line"><span>Focus on what can&rsquo;t.</span></span>
         </h1>
-        <p className="hero-claim display">They prepare. You decide.</p>
+        <p className="hero-support">
+          Five executive systems prepare the work. You decide what moves.
+        </p>
       </div>
 
-      <div className="hero-foot">
-        <p className="hero-note">
-          Spectre learns how your company works, connects the context across
-          it, and prepares the decisions that follow.
-        </p>
-        <div className="hero-actions">
-          <a href="#room" className="btn btn-hard">
-            Meet the table
-          </a>
-          <a href="#access" className="btn btn-soft">
-            {CTA}
-          </a>
-        </div>
-      </div>
+      <a className="hero-cue" href="#room" aria-label="Continue">
+        <span className="mono">The suite</span>
+        <span className="hero-cue-rule" aria-hidden />
+      </a>
     </section>
   );
 }

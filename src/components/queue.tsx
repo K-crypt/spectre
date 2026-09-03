@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Counter } from "@/components/ui";
+import ApproveButton from "@/components/ApproveButton";
 import { PRODUCTS_DATA } from "@/lib/products";
 
 /* ── The queue ────────────────────────────────────────────────────────────
@@ -52,6 +53,55 @@ const AT: Record<string, string> = {
   hr: "16:40",
 };
 const ORDER = ["pa", "researcher", "coo", "cmo", "hr"];
+
+/* One house, five specialist desks. The role and the domain vocabulary say
+   what each desk is responsible for before any decision is opened — a
+   visitor should be able to read the lineup and know this is a suite of
+   specialist systems rather than five separate tools. */
+const DESK: Record<string, { role: string; domain: string[] }> = {
+  pa: {
+    role: "Executive memory",
+    domain: ["priority", "follow-up", "calendar", "context"],
+  },
+  researcher: {
+    role: "Evidence intelligence",
+    domain: ["sources", "verification", "conflict", "confidence"],
+  },
+  coo: {
+    role: "Operations intelligence",
+    domain: ["capacity", "constraints", "orders", "schedule"],
+  },
+  cmo: {
+    role: "Marketing intelligence",
+    domain: ["audience", "content", "campaigns", "performance"],
+  },
+  hr: {
+    role: "People intelligence",
+    domain: ["roles", "history", "hiring", "review"],
+  },
+};
+
+/* Real maturity, short enough to sit in a status column. Nothing here claims
+   more than the product page behind it already claims. */
+const MATURITY: Record<string, string> = {
+  pa: "Running",
+  researcher: "Method proven",
+  coo: "Pilot",
+  cmo: "Running",
+  hr: "Design partner",
+};
+
+/* The five states an open decision moves through. Gold means the system is
+   working; stillness means it has finished and wants a person. */
+type Phase = "idle" | "reading" | "reconciling" | "checked" | "ready";
+
+const PHASE_LABEL: Record<Phase, string> = {
+  idle: "Prepared",
+  reading: "Reading context",
+  reconciling: "Reconciling",
+  checked: "Evidence checked",
+  ready: "Ready for review",
+};
 
 /* The product's own name and its one-line description, taken from the
    registry rather than restated here — so what a block calls a specialist is
@@ -206,6 +256,60 @@ export function Queue() {
   const [modes, setModes] = useState<Record<string, Mode>>({});
   const [alts, setAlts] = useState<Record<string, boolean>>({});
 
+  /* The open decision's phase, and how many of its context sources have
+     resolved. Both reset when a different decision is opened, so the
+     sequence is something you watch happen rather than a badge. */
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [resolved, setResolved] = useState(0);
+  const [logged, setLogged] = useState<Record<string, string>>({});
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const openSeat = open ? SEATS.find((s) => s.slug === open) : undefined;
+  const sources = openSeat ? openSeat.table.sources.split(" · ") : [];
+
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  useEffect(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    if (!open) {
+      setPhase("idle");
+      setResolved(0);
+      return;
+    }
+    /* Already released: there is nothing left to work out, so it opens in
+       its resolved state rather than replaying the thinking. */
+    if (mode(open) === "approved") {
+      setPhase("ready");
+      setResolved(99);
+      return;
+    }
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      /* The states carry meaning, so they still resolve — instantly. */
+      setPhase("ready");
+      setResolved(99);
+      return;
+    }
+
+    const count = (SEATS.find((s) => s.slug === open)?.table.sources.split(" · ").length) ?? 4;
+    setPhase("reading");
+    setResolved(0);
+    const at = (ms: number, fn: () => void) =>
+      timers.current.push(setTimeout(fn, ms));
+
+    /* One source resolves at a time: this is the context arriving, and it is
+       the same list the decision cites underneath. */
+    for (let i = 1; i <= count; i++) at(260 + i * 300, () => setResolved(i));
+    const readDone = 260 + count * 300;
+    at(readDone + 220, () => setPhase("reconciling"));
+    at(readDone + 1180, () => setPhase("checked"));
+    at(readDone + 1900, () => setPhase("ready"));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [open]);
+
   const mode = (slug: string) => modes[slug] ?? "ready";
   const setMode = (slug: string, m: Mode) =>
     setModes((prev) => ({ ...prev, [slug]: m }));
@@ -235,8 +339,11 @@ export function Queue() {
         </span>
       </div>
 
-      {/* The lineup: five vertical cards, side by side, read before opened. */}
-      <div className="lineup" role="list">
+      {/* The lineup: five vertical cards, side by side, read before opened.
+          When one is open the others do not disappear — they step back, so
+          the suite stays visible and the reader keeps their place. Same
+          room, different lens. */}
+      <div className={`lineup ${open ? "has-open" : ""}`} role="list">
         {rows.map((seat, i) => {
           const isOpen = open === seat.slug;
           const m = mode(seat.slug);
@@ -285,8 +392,17 @@ export function Queue() {
                     {m === "approved" ? "Approved · logged" : "Prepared · not sent"}
                   </span>
                 </span>
-                <span className="display lens-name">{product.name}</span>
+                <span className="lens-id">
+                  <span className="display lens-name">{product.name}</span>
+                  <span className="mono lens-maturity">{MATURITY[seat.slug]}</span>
+                </span>
+                <span className="mono lens-role">{DESK[seat.slug].role}</span>
                 <span className="lens-claim">{product.claim}</span>
+                <span className="mono lens-domain" aria-label="Operates on">
+                  {DESK[seat.slug].domain.map((d) => (
+                    <i key={d}>{d}</i>
+                  ))}
+                </span>
                 <span className="mono lens-more">
                   {isOpen ? "Close" : "See the decision"} <span aria-hidden>→</span>
                 </span>
@@ -311,6 +427,30 @@ export function Queue() {
           const alt = alts[seat.slug] ?? false;
           return (
             <div className="lens-detail" id="lens-detail" key={seat.slug}>
+              {/* What the system is doing, and the context it is doing it
+                  with. The sources are the same ones the decision cites
+                  below; here they resolve one at a time, so "reads your
+                  whole context" is something you watch rather than a claim. */}
+              <div className={`convergence is-${phase}`}>
+                <p className="mono conv-status">
+                  <span className="conv-dot" aria-hidden />
+                  {PHASE_LABEL[phase]}
+                </p>
+                <ol className="conv-rail" aria-label="Context read for this decision">
+                  {sources.map((src, i) => (
+                    <li
+                      key={src}
+                      className={`mono conv-source ${
+                        i < resolved ? "is-resolved" : ""
+                      } ${i === resolved && phase === "reading" ? "is-active" : ""}`}
+                    >
+                      <span className="conv-mark" aria-hidden />
+                      {src}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
               <div className="rail-body">
                 <div>
                   <p className="mono rail-eyebrow">
@@ -386,17 +526,30 @@ export function Queue() {
                 <span className="mono">
                   {m === "approved"
                     ? "Released by you · attributable · reversible where reversal exists"
-                    : "Nothing here has executed"}
+                    : phase === "ready"
+                      ? "Nothing here has executed"
+                      : "The system is still working"}
                 </span>
                 <div>
-                  <button
-                    type="button"
-                    className="btn btn-hard"
-                    onClick={() => setMode(seat.slug, "approved")}
-                    disabled={m === "approved"}
-                  >
-                    Approve
-                  </button>
+                  {/* The same approval control the day uses — one event, one
+                      component, one meaning across the site. It cannot be
+                      pressed until the system has finished: approving a
+                      decision mid-reconciliation is the one lie this page
+                      must not tell. */}
+                  <ApproveButton
+                    disabled={m === "approved" || phase !== "ready"}
+                    onApprove={() => {
+                      setMode(seat.slug, "approved");
+                      const [h, min] = AT[seat.slug].split(":").map(Number);
+                      const t = new Date(0, 0, 0, h, min + 1);
+                      setLogged((prev) => ({
+                        ...prev,
+                        [seat.slug]: `${String(t.getHours()).padStart(2, "0")}:${String(
+                          t.getMinutes(),
+                        ).padStart(2, "0")} · APPROVED BY HUMAN`,
+                      }));
+                    }}
+                  />
                   <button
                     type="button"
                     className="btn btn-soft"
@@ -410,6 +563,17 @@ export function Queue() {
                   </button>
                 </div>
               </div>
+
+              {/* The trail. It appears where the decision was taken, in the
+                  machine's own voice, and it does not go away. */}
+              {logged[seat.slug] && (
+                <p className="mono rail-audit" role="status">
+                  <span className="rail-audit-mark" aria-hidden>
+                    ✓
+                  </span>
+                  {logged[seat.slug]}
+                </p>
+              )}
             </div>
           );
         })}

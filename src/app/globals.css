@@ -5514,3 +5514,1027 @@ body::after {
   .rt-hover-color,
   .rt-role-selector button { transition: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   71. THE INSTRUMENT PASS — TOKENS
+   ──────────────────────────────────────────────────────────────────────────
+   Three additions, no replacements. The palette, the type stack and the
+   chapter grounds are untouched.
+
+   1. GOLD IS A STATE, NOT A DECORATION. One warm gold family, and it means
+      exactly one thing: the system is working, or it wants a person. It
+      never carries a heading, a border for its own sake, or navigation. If
+      a screen looks gold, something has gone wrong.
+
+   2. A SECOND STEP IN THE TEXT SCALE. The page had a primary tone and a
+      secondary tone and everything else landed between them, which is why
+      five things could sit near each other and none of them lead. There is
+      now an explicit four-level scale — thesis, claim, explanation,
+      metadata — and each level is a token rather than an opacity guess.
+
+   3. ONE MOTION LANGUAGE. Hover, state change and reveal are three
+      durations, all ease-out, all named. Nothing bounces and nothing loops.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Active intelligence. Restrained warm gold, adapted to sit inside the
+     house's maroon-and-wool warmth rather than beside it. */
+  --gold: #a98b50;
+  --gold-lit: #c8a96b;
+  --gold-deep: #8a6f3c;
+  --gold-trace: rgba(169, 139, 80, 0.85);
+  --gold-wash: rgba(169, 139, 80, 0.09);
+  --gold-under: rgba(169, 139, 80, 0.16);
+
+  /* The four levels. Level 1 leads, level 4 never disappears. */
+  --level-1: var(--ink);
+  --level-2: #3a3530;
+  --level-3: #56524e;
+  --level-4: #6b655e;
+
+  --t-hover: 180ms;
+  --t-state: 380ms;
+  --t-reveal: 560ms;
+}
+
+.on-dark {
+  /* Gold has to lift off a warm-black ground, so it opens up a stop. */
+  --gold: #c8a96b;
+  --gold-lit: #d1b476;
+  --gold-deep: #a98b50;
+  --gold-trace: rgba(200, 169, 107, 0.9);
+  --gold-wash: rgba(200, 169, 107, 0.1);
+  --gold-under: rgba(200, 169, 107, 0.2);
+
+  --level-1: #f7f3ea;     /* ivory, opened up from the old paper */
+  --level-2: #ddd5c8;
+  --level-3: #b3aa9d;     /* warm taupe, not a generic grey */
+  --level-4: #928a7e;
+  --ghost: #b3aa9d;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   72. THE INTERFACE IS CRISP; ONLY THE ROOM IS ATMOSPHERIC
+   ──────────────────────────────────────────────────────────────────────────
+   The site read as slightly out of focus, and the cause was literal: type
+   was being animated in through a 6–7px blur, and three interface surfaces
+   were sitting behind a backdrop filter. Blurred type reads as cheap even
+   for the 500ms it lasts, and a blurred panel is the one luxury cue this
+   page must never use.
+
+   Photography keeps its atmosphere. Everything that carries information —
+   type, panels, controls, rules — is now drawn sharp. Entrances still
+   arrive; they arrive by moving and resolving, not by coming into focus.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.headline.pending .word,
+.hero-block > * {
+  filter: none;
+}
+@keyframes arrive {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.site-nav,
+.site-nav.is-condensed,
+.to-top,
+.seat-strip,
+.rt-role-selector {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* The condensed bar keeps its separation from a gradient rather than a
+   filter — cheaper, sharper, and it does not smear the photograph under it. */
+.site-nav.is-condensed {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ground) 98%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 94%, transparent) 66%,
+    color-mix(in srgb, var(--ground) 60%, transparent) 100%
+  );
+}
+
+/* ── The four levels, applied ─────────────────────────────────────────────
+   Level 1 is the thesis or the outcome and is never dimmed. Level 2 is the
+   claim under it. Level 3 explains. Level 4 is machine metadata — quiet, and
+   still legible, which it was not: several mono labels were sitting under
+   4.5:1 on their own ground. */
+
+.sec-title,
+.display,
+.hero-headline,
+.dawn-rule > p,
+.ledger-item strong {
+  color: var(--level-1);
+}
+.sec-claim,
+.hero-claim {
+  color: var(--level-2);
+}
+.sec-deck,
+.beat-note,
+.ledger-item > span,
+.lens-claim,
+.rail-claim {
+  color: var(--level-3);
+}
+.mono,
+.stamp,
+.beat-time,
+.ledger-item em {
+  color: var(--level-4);
+}
+
+/* Metadata is quiet by tone, never by transparency: an opacity on top of a
+   dimmed colour is how a label ends up at 2:1 without anyone choosing it. */
+.mono,
+.stamp,
+.beat-time,
+.lens-at,
+.queue-head,
+.queue-foot {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   73. THE LINEUP AS FIVE SPECIALIST DESKS
+   ──────────────────────────────────────────────────────────────────────────
+   The cards said what each product had decided this morning but not what
+   each product IS, so five of them read as five decisions rather than as a
+   suite. Each now carries the same four things in the same order — name,
+   maturity, role, and the domain it operates on — which is what makes them
+   read as desks in one office instead of five feature cards.
+
+   The domain vocabulary is set in mono and sits at level 4: it is the
+   machine describing its own remit, and it should be readable at a glance
+   and never compete with the decision above it.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.lens-id {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: clamp(18px, 1.8vw, 24px) 0 0;
+}
+.lens-name {
+  margin: 0;
+}
+.lens-maturity {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--level-4);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lens-role {
+  display: block;
+  margin-top: 8px;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lens-claim {
+  margin-top: 10px;
+}
+.lens-domain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 0;
+  margin-top: 12px;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+.lens-domain i {
+  font-style: normal;
+}
+.lens-domain i + i::before {
+  content: "·";
+  margin: 0 7px;
+  opacity: 0.6;
+}
+
+/* The panel is a surface, not a tint: a hairline top edge catches the light
+   the way a machined face does, and the tone step does the rest. */
+.lens-art {
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.05);
+}
+.lens-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    170deg,
+    rgba(244, 240, 232, 0.05) 0%,
+    transparent 34%
+  );
+}
+.lens.is-open .lens-art {
+  border-color: var(--gold-deep);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   74. THE CONTEXT CONVERGING — AND THE GOLD STATES
+   ──────────────────────────────────────────────────────────────────────────
+   Opening a decision does not reveal a finished answer; it shows the system
+   arriving at one. The sources listed are the same ones the decision cites
+   underneath — no invented telemetry — and they resolve one at a time, so
+   "it reads your whole context" is something watched rather than claimed.
+
+   Gold is the only thing that moves, it is roughly a pixel wide, and it
+   stops when the thinking stops. Reading and reconciling are gold in
+   motion; ready is stillness with one concentrated gold element left, which
+   is the approval — the only thing on screen that now needs a person.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.convergence {
+  padding: clamp(20px, 2.4vw, 28px) 0 0;
+}
+.conv-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color var(--t-state) var(--ease);
+}
+.convergence.is-reading .conv-status,
+.convergence.is-reconciling .conv-status {
+  color: var(--gold-lit);
+}
+.convergence.is-checked .conv-status,
+.convergence.is-ready .conv-status {
+  color: var(--level-2);
+}
+.conv-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--level-4);
+  transition: background-color var(--t-state) var(--ease);
+}
+.convergence.is-reading .conv-dot,
+.convergence.is-reconciling .conv-dot {
+  background: var(--gold-lit);
+}
+.convergence.is-checked .conv-dot,
+.convergence.is-ready .conv-dot {
+  background: var(--gold);
+}
+
+/* The context rail. Each source is a plate that goes muted → being read →
+   resolved. A source being read carries the gold; a resolved one keeps only
+   a small mark, so the rail gets calmer as the decision gets firmer. */
+.conv-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.conv-source {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border: 1px solid var(--hairline);
+  color: var(--level-4);
+  font-size: 9.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition:
+    color var(--t-state) var(--ease),
+    border-color var(--t-state) var(--ease),
+    background-color var(--t-state) var(--ease);
+}
+.conv-mark {
+  width: 4px;
+  height: 4px;
+  background: var(--level-4);
+  transition: background-color var(--t-state) var(--ease),
+    transform var(--t-state) var(--ease);
+}
+/* being read */
+.conv-source.is-active {
+  color: var(--level-1);
+  border-color: var(--gold-deep);
+  background: var(--gold-wash);
+}
+.conv-source.is-active .conv-mark {
+  background: var(--gold-lit);
+}
+/* the thin travelling trace — one line, one pixel, only while reading */
+.conv-source.is-active::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-trace) 45%,
+    var(--gold-lit) 55%,
+    transparent
+  );
+  animation: conv-trace 900ms var(--ease) infinite;
+}
+@keyframes conv-trace {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+/* resolved */
+.conv-source.is-resolved {
+  color: var(--level-2);
+  border-color: var(--hairline-strong);
+}
+.conv-source.is-resolved .conv-mark {
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* Reconciling: the relationships between sources become visible for a
+   moment — they align to one edge and the rail tightens. Gold light passing
+   under paper, not gold text. */
+.convergence.is-reconciling .conv-source {
+  background: var(--gold-wash);
+  border-color: var(--gold-under);
+}
+.convergence.is-checked .conv-source,
+.convergence.is-ready .conv-source {
+  background: transparent;
+}
+
+/* Ready: the system has stopped. The decision is what leads now. */
+.convergence.is-ready + .rail-body .rail-line,
+.convergence.is-checked + .rail-body .rail-line {
+  color: var(--level-1);
+}
+.rail-line {
+  transition: color var(--t-state) var(--ease);
+}
+.convergence.is-reading + .rail-body .rail-line,
+.convergence.is-reconciling + .rail-body .rail-line {
+  color: var(--level-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .conv-source.is-active::after {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   75. THE APPROVAL, AS AN OPERATING EVENT
+   ──────────────────────────────────────────────────────────────────────────
+   The only control on the site where a person, not the system, causes
+   something. It is the one concentrated piece of gold on a resolved screen,
+   and it earns that by being the only thing left that needs anyone.
+
+   Pressed depresses. Approving runs a single gold line across it once.
+   Approved keeps a mark, and the audit line appears under the decision in
+   the machine's own voice. Until the system has finished, the control is
+   disabled and says so — approving something mid-reconciliation would be
+   the one lie this page must not tell.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.approve-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 13px 30px;
+  border: 1px solid var(--gold-deep);
+  background: linear-gradient(180deg, #241f19 0%, #1a1613 100%);
+  color: #f7f3ea;
+  font-family: var(--font-text);
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    border-color var(--t-hover) var(--ease),
+    transform 90ms var(--ease),
+    box-shadow var(--t-hover) var(--ease);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 232, 0.07),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.approve-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 232, 0.11),
+    inset 0 -14px 22px -18px var(--gold-lit),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.approve-btn:active:not(:disabled) {
+  transform: translateY(1.5px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+.approve-btn:disabled {
+  border-color: var(--hairline-strong);
+  color: var(--level-4);
+  cursor: default;
+}
+.approve-btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.approve-btn-mark {
+  color: var(--gold-lit);
+}
+
+/* One gold line, left to right, once. */
+.approve-btn-trace {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-lit), transparent);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.approve-btn.is-approving .approve-btn-trace {
+  opacity: 1;
+  animation: approve-sweep 620ms var(--ease) forwards;
+}
+@keyframes approve-sweep {
+  to { transform: translateX(100%); }
+}
+.approve-btn.is-done {
+  border-color: var(--gold-deep);
+  background: linear-gradient(180deg, #211d17 0%, #191510 100%);
+}
+
+.rail-audit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+  color: var(--level-3);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  animation: audit-in var(--t-reveal) var(--ease) both;
+}
+.rail-audit-mark {
+  color: var(--gold);
+}
+@keyframes audit-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Approve is the concentrated gold; Change is a quiet alternative beside it. */
+.rail-rail .btn-soft {
+  border-color: var(--hairline-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approve-btn.is-approving .approve-btn-trace,
+  .rail-audit {
+    animation: none;
+  }
+  .approve-btn.is-approving .approve-btn-trace {
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   76. ONE TUESDAY, AS A PROGRESSION
+   ──────────────────────────────────────────────────────────────────────────
+   The three beats all sat at the same weight, so the day read as a list of
+   three things rather than as hours passing. Each beat now knows where the
+   reader is: the one being read leads in full ivory, the ones behind it
+   recede to warm grey but stay present — the work accumulates, it does not
+   vanish — and the ones ahead stay quiet.
+
+   The last beat is the only one that needs a person, so it does the
+   opposite of the others: motion settles, the surface sharpens, and the
+   approval is the single concentrated piece of gold on the screen.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.beat {
+  transition:
+    opacity var(--t-state) var(--ease),
+    color var(--t-state) var(--ease);
+}
+.beat.is-ahead {
+  opacity: 0.42;
+}
+.beat.is-done {
+  opacity: 0.68;
+}
+.beat.is-now {
+  opacity: 1;
+}
+.beat.is-now .beat-title {
+  color: var(--level-1);
+}
+.beat.is-done .beat-title {
+  color: var(--level-3);
+}
+.beat.is-ahead .beat-title {
+  color: var(--level-4);
+}
+/* Finished work keeps its mark; the dot fills once the beat is behind you. */
+.beat.is-done .beat-dot {
+  box-shadow: 0 0 0 3px var(--ground);
+}
+.beat.is-now .beat-dot {
+  box-shadow: 0 0 0 3px var(--ground), 0 0 0 4px var(--gold-under);
+}
+
+/* The moment it becomes yours. The room quiets: the beat's own surface
+   sharpens and gains an edge, and everything else has already stepped back. */
+.beat-you.is-now .approve {
+  border-color: var(--gold-deep);
+  background: linear-gradient(
+    180deg,
+    rgba(200, 169, 107, 0.05) 0%,
+    transparent 42%
+  );
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.06);
+}
+.beat-you .approve-stamp {
+  color: var(--gold);
+}
+.day.is-approved .beat-you.is-now .approve {
+  border-color: var(--hairline-strong);
+  background: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beat.is-ahead,
+  .beat.is-done {
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   77. THE PROOF SECTION AS AN EVIDENCE LEDGER
+   ──────────────────────────────────────────────────────────────────────────
+   Three entries in which the category, the number, the explanation and the
+   status were all within a stop of each other, so nothing led — and the one
+   hard number on the page, ≈400 machines mapped, carried no more weight
+   than the words after it.
+
+   It is set as a ledger now: category in mono at the top, the number as the
+   anchor, the explanation beneath it, the status and date last. Where a
+   figure exists it dominates its entry. No metric is invented; these are
+   the three that were already there.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.ledger-item {
+  display: grid;
+  gap: 0;
+  padding-top: clamp(22px, 2.4vw, 30px);
+  border-top: 1px solid var(--hairline-strong);
+}
+.ledger-index {
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+.ledger-item strong {
+  display: block;
+  margin-top: 14px;
+  color: var(--level-1);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.018em;
+}
+/* The figure is the anchor; the words after it are the caption to it. */
+.ledger-item strong .count {
+  display: block;
+  font-size: clamp(46px, 6.4vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.ledger-item > span {
+  margin-top: 14px;
+  color: var(--level-3);
+  font-size: 13.5px;
+  line-height: 1.68;
+}
+.ledger-item em {
+  display: block;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--hairline);
+  color: var(--level-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: 0.16em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   78. SAME ROOM, DIFFERENT LENS
+   ──────────────────────────────────────────────────────────────────────────
+   Opening a specialist changes which desk is speaking, not which building
+   you are in. The selected card comes fully forward — ivory, a thin active
+   rule, its role in gold — and the other four recede without leaving. They
+   stay legible, because the argument is that these five share one context;
+   hiding them would say the opposite.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.lineup.has-open .lens {
+  transition: opacity var(--t-state) var(--ease);
+}
+.lineup.has-open .lens:not(.is-open) {
+  opacity: 0.46;
+}
+.lineup.has-open .lens:not(.is-open):hover,
+.lineup.has-open .lens:not(.is-open):focus-visible {
+  opacity: 0.82;
+}
+.lens.is-open .lens-name,
+.lens.is-open .lens-headline {
+  color: var(--level-1);
+}
+/* The thin active rule: the selected desk is underlined, once. */
+.lens.is-open .lens-id::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -7px 0;
+  height: 1px;
+  background: var(--gold);
+}
+.lens-id {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lineup.has-open .lens:not(.is-open) {
+    opacity: 0.7;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   79. THE OPENING — SHARPENED, NOT REPLACED
+   ──────────────────────────────────────────────────────────────────────────
+   The photograph and the composition stay. What changes is where the
+   contrast sits: the headline was competing with a wash of fog spread
+   evenly across the whole frame, so nothing was dominant and the ridge was
+   flattened at the same time.
+
+   The scrim is now directional rather than a sheet — weighted under the
+   type and to the lower left where the copy and controls sit, and released
+   over the ridge, which keeps its own detail. The headline gains local
+   contrast and one stop of size; the supporting line gets quieter and
+   crisper rather than fainter; the controls separate from the picture with
+   an edge instead of a shadow.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.hero-scrim {
+  background:
+    /* under the headline */
+    radial-gradient(
+      130% 62% at 24% 30%,
+      rgba(12, 10, 9, 0.72) 0%,
+      rgba(12, 10, 9, 0.34) 44%,
+      transparent 72%
+    ),
+    /* under the note and the controls */
+    radial-gradient(
+      110% 52% at 18% 92%,
+      rgba(12, 10, 9, 0.7) 0%,
+      rgba(12, 10, 9, 0.24) 52%,
+      transparent 78%
+    ),
+    /* the frame's own falloff, kept light so the ridge survives */
+    linear-gradient(
+      180deg,
+      rgba(14, 12, 10, 0.42) 0%,
+      rgba(14, 12, 10, 0.06) 38%,
+      rgba(14, 12, 10, 0.1) 62%,
+      rgba(14, 12, 10, 0.5) 100%
+    );
+}
+
+.hero-headline {
+  color: #fbf8f1;
+  font-size: clamp(38px, 5.4vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.026em;
+  text-shadow: 0 1px 34px rgba(10, 8, 7, 0.42);
+}
+.hero-kicker {
+  color: var(--gold-lit);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+}
+.hero-claim {
+  color: #ddd5c8;
+  text-shadow: 0 1px 20px rgba(10, 8, 7, 0.5);
+}
+.hero-note {
+  color: #cfc7ba;
+  text-shadow: 0 1px 18px rgba(10, 8, 7, 0.55);
+}
+/* The controls stop floating: a real edge, a real surface, no shadow. */
+.hero-actions .btn-hard {
+  border-color: rgba(247, 243, 234, 0.5);
+  background: rgba(18, 15, 13, 0.42);
+  color: #fbf8f1;
+}
+.hero-actions .btn-hard:hover {
+  border-color: #fbf8f1;
+  background: rgba(18, 15, 13, 0.62);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   80. THE MACHINE PREPARES. THE HUMAN DECIDES.
+   ──────────────────────────────────────────────────────────────────────────
+   The two halves were set almost identically, so the sentence read as one
+   statement rather than as a handover. The crossing from night to day is
+   untouched; the typography now carries the argument the sentence is only
+   describing.
+
+   The machine's half stays in the weather — lighter, italic, set back into
+   the fog it is written on. The reader's half lands: full ink, a stop
+   larger, tighter, and sitting on the plate rather than in it.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.dawn-machine {
+  color: #4b443b;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.66em;
+  letter-spacing: 0.004em;
+}
+.dawn-human {
+  color: #17130f;
+  font-weight: 400;
+  letter-spacing: -0.028em;
+}
+.dawn-rule > small {
+  color: #3a332b;
+  letter-spacing: 0.2em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   81. THE SYSTEMS COLUMN
+   ──────────────────────────────────────────────────────────────────────────
+   Five products that were only reachable from one chapter of the home page
+   are now reachable from every page. It is a column of names and roles on a
+   plain surface with one hairline — the way a private portfolio lists its
+   holdings, not the way a SaaS site lists its features. No icons, no
+   descriptions, no columns of links, no chevrons.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.nav-systems {
+  position: relative;
+}
+.nav-systems-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: var(--font-text);
+  font-size: 13.5px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color var(--t-hover) var(--ease);
+}
+.nav-systems-btn:hover,
+.nav-systems-btn[aria-expanded="true"] {
+  color: var(--level-1);
+}
+.nav-systems-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 5;
+  width: 262px;
+  padding: 8px 0;
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.55);
+  transform: translateX(-50%);
+  animation: systems-in var(--t-hover) var(--ease) both;
+}
+@keyframes systems-in {
+  from { opacity: 0; transform: translate(-50%, -5px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.nav-systems-menu a {
+  display: block;
+  padding: 11px 18px;
+  text-decoration: none;
+  transition: background-color var(--t-hover) var(--ease);
+}
+.nav-systems-menu a:hover {
+  background: var(--gold-wash);
+}
+.nav-systems-name {
+  display: block;
+  color: var(--level-1);
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.2;
+}
+.nav-systems-role {
+  display: block;
+  margin-top: 2px;
+  color: var(--level-4);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+/* Over the opening the bar is on the dark scale, so the column is too. */
+.site-nav.is-over-dark:not(.is-condensed) .nav-systems-btn {
+  color: #f4f0e8;
+}
+
+@media (max-width: 900px) {
+  .nav-systems {
+    display: none; /* the sheet already lists all five */
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-systems-menu {
+    animation: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   82. METADATA THAT IS QUIET, NOT FAINT
+   ──────────────────────────────────────────────────────────────────────────
+   Level 4 carries timestamps, statuses and system labels — the tone the
+   direction asks to be "quieter, never illegibly faint". Measured against
+   every ground it actually sits on, the first pass landed at 4.01 on stone
+   and 4.45 on the card panels: under the bar on exactly the text that says
+   what the machine is doing.
+
+   Both ends are corrected to the value that clears 4.5:1 on the worst
+   ground each one meets, with the hierarchy intact — level 4 is still
+   clearly the quietest of the four.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --level-4: #5c564f;     /* ≥5.05:1 on stone, paper and surface */
+}
+.on-dark {
+  --level-4: #9c948a;     /* ≥5.07:1 on every dark ground and panel */
+}
+
+/* The approval control declares a solid ground under its gradient. Without
+   it, a page that fails to paint background images puts ivory text on
+   paper — and on the product pages that is exactly what happened. */
+.approve-btn {
+  background-color: #1a1613;
+}
+
+/* The marketing console's week grid set its times at 8px behind a 0.7
+   opacity — the exact pattern that produces an unreadable label nobody
+   chose. The chips come in two tones, so the time takes the chip's own
+   colour and steps back within it rather than fading toward the chip. */
+.cmo-slot-time {
+  color: color-mix(in srgb, currentColor 82%, transparent);
+  letter-spacing: 0.08em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   83. ONE SUITE, FIVE MEMBERS
+   ──────────────────────────────────────────────────────────────────────────
+   Every product page opened with its status tinted in its own accent — five
+   different colours doing the same job, which made five members of one
+   suite read as five unrelated products. The mark is identical on all five
+   now: system, role, maturity, in that order. What differs between them is
+   the vocabulary and the work, which is the only honest difference.
+
+   Gold appears once, on the maturity, because that is the one part of the
+   line that is a live claim about the system.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.suite-mark {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  margin: 0 0 20px;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.suite-mark-name {
+  color: var(--level-2);
+}
+.suite-mark-role {
+  position: relative;
+  padding-left: 15px;
+  color: var(--level-4);
+}
+.suite-mark-role::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 7px;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+.suite-mark-status {
+  padding: 3px 9px;
+  border: 1px solid var(--gold-under);
+  color: var(--gold);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   84. THE HOUSE OWNS THE CONTROLS
+   ──────────────────────────────────────────────────────────────────────────
+   Each product page set --accent to its own hue, and the primary control
+   took its fill from it — so the same button was steel blue on operations,
+   clay on marketing, green on research. Five different colours for one
+   action across one suite, and a blue CTA in a house that has no blue in
+   its palette.
+
+   The control is the house's everywhere: ink on light, ivory on dark, one
+   shape, one behaviour. The per-page hue survives only where it was always
+   meant to live — the faint motif artwork behind the heading, at a tenth
+   opacity, where it reads as a watermark rather than a brand.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+main[data-accent] .btn-hard {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+}
+main[data-accent] .btn-hard:hover {
+  background: color-mix(in srgb, var(--ink) 86%, var(--ground));
+  border-color: color-mix(in srgb, var(--ink) 86%, var(--ground));
+}
+/* The approval control keeps its own material on every page. */
+main[data-accent] .approve-btn {
+  background-color: #1a1613;
+  background-image: linear-gradient(180deg, #241f19 0%, #1a1613 100%);
+  border-color: var(--gold-deep);
+  color: #f7f3ea;
+}
+
+/* A gold light enough to read as gold on a dark ground is not dark enough to
+   carry text on paper: the maturity label measured 2.84:1. Type gets its own
+   step of the same family — still unmistakably the gold, dark enough to be
+   read — while the marks, rules and traces keep the lit value. */
+:root {
+  --gold-text: #6f582f;   /* ≥4.7:1 on stone, paper and surface */
+}
+.on-dark {
+  --gold-text: var(--gold);
+}
+.suite-mark-status,
+.lens-role {
+  color: var(--gold-text);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   85. THE PLANT READS IN THE HOUSE PALETTE
+   ──────────────────────────────────────────────────────────────────────────
+   The live operating picture drew its running cells in steel blue — the one
+   cool hue on an otherwise entirely warm page, and the reading it produced
+   was "dashboard" rather than "instrument".
+
+   The states now use the semantics the rest of the site already has:
+   running is the gold of active intelligence, changeover is the neutral
+   surface, and blocked is the house maroon — the colour this palette has
+   always used to mean "look at this". Nothing was added to the palette.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.cell.is-running {
+  background: color-mix(in srgb, var(--gold) 30%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 40%, transparent);
+}
+.cell.is-blocked {
+  background: color-mix(in srgb, var(--ruby) 34%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ruby) 52%, transparent);
+}

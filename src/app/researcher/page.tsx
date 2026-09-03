@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp } from "@/components/ui";
+import { SuiteMark } from "@/components/suite-mark";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm, Comparison } from "@/components/interactive";
 import { ResearcherPlayground } from "@/components/researcher-playground";
@@ -18,7 +19,7 @@ export default function ResearcherPage() {
         <Motif kind="researcher" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--archive)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
           <Reveal>
-            <Stamp>AI RESEARCHER · <span style={{ color: "var(--archive)" }}>METHOD PROVEN</span></Stamp>
+            <SuiteMark slug="researcher" />
             <h1 className="display" style={{ fontSize: "clamp(36px, 5.2vw, 56px)", maxWidth: "19ch" }}>
               The diligence a committee would do, at a depth a committee can&apos;t.
             </h1>

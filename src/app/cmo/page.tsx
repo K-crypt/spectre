@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp } from "@/components/ui";
+import { SuiteMark } from "@/components/suite-mark";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm, Comparison } from "@/components/interactive";
 import { CmoPlayground } from "@/components/cmo-playground";
@@ -18,7 +19,7 @@ export default function CmoPage() {
         <Motif kind="cmo" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--clay)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
           <Reveal>
-            <Stamp>AI CMO · <span style={{ color: "var(--clay)" }}>RUNNING IN PRODUCTION</span></Stamp>
+            <SuiteMark slug="cmo" />
             <h1 className="display" style={{ fontSize: "clamp(38px, 5.5vw, 58px)", maxWidth: "18ch" }}>
               A marketing department that never forgets your brand.
             </h1>

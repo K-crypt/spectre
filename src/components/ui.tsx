@@ -283,9 +283,22 @@ const NAV_ITEMS = [
   ["/#proof", "Proof"],
 ];
 
+/* The five systems, reachable from anywhere. A visitor who lands on a
+   product page should be able to see the rest of the house without going
+   back to the top of the home page — but this is a private portfolio, not a
+   SaaS mega-menu, so it is a single quiet column of names and roles. */
+const SYSTEMS: [string, string, string][] = [
+  ["/pa/", "AI PA", "Executive memory"],
+  ["/coo/", "AI COO", "Operations intelligence"],
+  ["/cmo/", "AI CMO", "Marketing intelligence"],
+  ["/researcher/", "AI Researcher", "Evidence intelligence"],
+  ["/hr/", "AI HR", "People intelligence"],
+];
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
+  const [systems, setSystems] = useState(false);
   /* Whether the chapter directly under the bar is a dark one. At the top of
      the home page it is the ridge photograph, and a light bar drawn over it
      read as a hard rule across the sky. */
@@ -326,7 +339,18 @@ export function Nav() {
 
   useEffect(() => {
     setOpen(false);
+    setSystems(false);
   }, [pathname]);
+
+  /* Escape closes the systems column, and so does clicking anywhere else. */
+  useEffect(() => {
+    if (!systems) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSystems(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [systems]);
 
   const close = () => setOpen(false);
 
@@ -348,6 +372,30 @@ export function Nav() {
               {label}
             </Link>
           ))}
+          <div
+            className="nav-systems"
+            onMouseEnter={() => setSystems(true)}
+            onMouseLeave={() => setSystems(false)}
+          >
+            <button
+              type="button"
+              className="nav-systems-btn"
+              aria-expanded={systems}
+              aria-haspopup="true"
+              onClick={() => setSystems(!systems)}
+              onFocus={() => setSystems(true)}
+            >
+              Systems
+            </button>
+            <div className="nav-systems-menu" hidden={!systems}>
+              {SYSTEMS.map(([href, name, role]) => (
+                <Link key={href} href={href} onClick={() => setSystems(false)}>
+                  <span className="nav-systems-name">{name}</span>
+                  <span className="mono nav-systems-role">{role}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
           <Link href="/notes/" className="nav-notes">
             Notes
           </Link>

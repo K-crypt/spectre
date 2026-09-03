@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp, Status, ApproveCard } from "@/components/ui";
+import { SuiteMark } from "@/components/suite-mark";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm, Comparison } from "@/components/interactive";
 import { PaPlayground } from "@/components/pa-playground";
@@ -35,7 +36,7 @@ export default function PaPage() {
         <Motif kind="pa" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--spectral)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
           <Reveal>
-            <Stamp>AI PA · SECOND BRAIN · <span style={{ color: "var(--spectral)" }}>RUNNING IN PRODUCTION</span></Stamp>
+            <SuiteMark slug="pa" />
             <h1 className="display" style={{ fontSize: "clamp(38px, 5.5vw, 58px)", maxWidth: "17ch" }}>
               Most AI forgets you. This one is you.
             </h1>

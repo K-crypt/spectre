@@ -9,7 +9,13 @@
    prefers-reduced-motion — everything visible, and the tap still works. */
 
 import Link from "next/link";
-import { useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import ApproveButton from "@/components/ApproveButton";
 
 const DOT: Record<string, string> = {
@@ -27,6 +33,7 @@ function Beat({
   slug,
   title,
   children,
+  state = "ahead",
   you = false,
 }: {
   /* The scroll advances the beats; each one carries its own place in the
@@ -37,11 +44,16 @@ function Beat({
   slug?: string;
   title: string;
   children?: ReactNode;
+  /* Where this beat sits relative to where the reader has got to: work
+     already done recedes without disappearing, the current beat leads, and
+     what has not happened yet stays quiet. */
+  state?: "done" | "now" | "ahead";
   you?: boolean;
 }) {
   return (
     <div
-      className={`beat ${you ? "beat-you" : ""}`}
+      className={`beat is-${state} ${you ? "beat-you" : ""}`}
+      data-beat={index}
       style={{ "--i": index } as CSSProperties}
     >
       <div className="beat-rail">
@@ -70,8 +82,44 @@ function Beat({
 
 export function Day() {
   const [approved, setApproved] = useState(false);
+  const [reached, setReached] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
+
+  /* The day advances as the reader moves through it. Each beat reports when
+     it reaches the upper half of the viewport; everything above that point
+     is finished work, which stays present and steps back. */
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setReached(3);
+      return;
+    }
+    const beats = [...el.querySelectorAll<HTMLElement>("[data-beat]")];
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const i = Number((e.target as HTMLElement).dataset.beat);
+          setReached((prev) => (i > prev ? i : prev));
+        }
+      },
+      { rootMargin: "-45% 0px -35% 0px" },
+    );
+    beats.forEach((b) => io.observe(b));
+    return () => io.disconnect();
+  }, []);
+
+  const beatState = (i: number) =>
+    reached > i ? "done" : reached === i ? "now" : "ahead";
+
   return (
-    <div className={`day ${approved ? "is-approved" : ""}`}>
+    <div
+      ref={root}
+      className={`day ${approved ? "is-approved" : ""}`}
+      data-reached={reached}
+    >
       <span className="day-rail" aria-hidden />
       <div className="mono day-label">
         A DAY, DEMONSTRATED · FICTIONAL DATA · THE RHYTHM IS REAL
@@ -79,6 +127,7 @@ export function Day() {
 
       <Beat
         index={1}
+        state={beatState(1)}
         time="07:10"
         who="AI PA"
         slug="pa"
@@ -92,6 +141,7 @@ export function Day() {
 
       <Beat
         index={2}
+        state={beatState(2)}
         time="10:30"
         who="AI COO"
         slug="coo"
@@ -103,7 +153,13 @@ export function Day() {
         </p>
       </Beat>
 
-      <Beat index={3} time="18:45" you title="The only tap of the day.">
+      <Beat
+        index={3}
+        state={beatState(3)}
+        time="18:45"
+        you
+        title="The only tap of the day."
+      >
         <div className="approve">
           <span className="approve-stamp">STAGED · AWAITING YOUR TAP</span>
           <p className="approve-payload">

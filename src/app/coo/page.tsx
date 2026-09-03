@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp } from "@/components/ui";
+import { SuiteMark } from "@/components/suite-mark";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm, Comparison } from "@/components/interactive";
 import { CooPlayground } from "@/components/coo-playground";
@@ -18,7 +19,7 @@ export default function CooPage() {
         <Motif kind="coo" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--steel)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
           <Reveal>
-            <Stamp>AI COO · <span style={{ color: "var(--steel)" }}>IN PILOT BUILD</span></Stamp>
+            <SuiteMark slug="coo" />
             <h1 className="display" style={{ fontSize: "clamp(36px, 5.2vw, 56px)", maxWidth: "19ch" }}>
               See your whole plant, live. Then test next month before you promise it.
             </h1>

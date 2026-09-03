@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal, Stamp } from "@/components/ui";
+import { SuiteMark } from "@/components/suite-mark";
 import { Motif } from "@/components/motifs";
 import { WaitlistForm, Comparison } from "@/components/interactive";
 import { HrPlayground } from "@/components/hr-playground";
@@ -18,7 +19,7 @@ export default function HrPage() {
         <Motif kind="hr" size={420} style={{ position: "absolute", right: -60, top: -40, color: "var(--ochre)", opacity: 0.1 }} />
         <div className="wrap" style={{ padding: "96px 24px 72px", position: "relative" }}>
           <Reveal>
-            <Stamp>AI HR · <span style={{ color: "var(--ochre)" }}>TAKING DESIGN PARTNERS</span></Stamp>
+            <SuiteMark slug="hr" />
             <h1 className="display" style={{ fontSize: "clamp(36px, 5.2vw, 56px)", maxWidth: "18ch" }}>
               People decisions, made with full memory.
             </h1>

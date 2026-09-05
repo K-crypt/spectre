@@ -29,6 +29,7 @@ import { ChatWidget } from "@/components/chat-widget";
 import { SmoothScroll } from "@/components/scroll";
 import { Pointer } from "@/components/shell/pointer";
 import { SITE_NAME, SITE_URL, canonical, OG_IMAGE, shouldIndex } from "@/lib/site";
+import { withBasePath } from "@/lib/base-path";
 
 const DESCRIPTION =
   "The Spectre builds five AI operating systems that run a business's repeatable work: research, monitoring, drafting, scheduling, reconciliation. Nothing is sent, published or spent until a person approves it.";
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
   robots: shouldIndex
     ? { index: true, follow: true }
     : { index: false, follow: false, nocache: true },
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: withBasePath("/favicon.svg") },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
@@ -78,8 +79,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           rel="preload"
           as="image"
-          href="/ridge-1920.webp"
-          imageSrcSet="/ridge-1280.webp 1280w, /ridge-1920.webp 1920w, /ridge-2560.webp 2560w"
+          href={withBasePath("/ridge-1920.webp")}
+          imageSrcSet={`${withBasePath("/ridge-1280.webp")} 1280w, ${withBasePath("/ridge-1920.webp")} 1920w, ${withBasePath("/ridge-2560.webp")} 2560w`}
           imageSizes="100vw"
           fetchPriority="high"
         />

@@ -1,0 +1,1619 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   The Spectre - engine styles.
+
+   The five playgrounds, the chat layer, the plant grid, the approval queue
+   and the staged-approve card carry their own visual logic. That logic was
+   proven in production and is not part of the 2026-09-05 shell rebuild, so
+   it is lifted out of the old stylesheet intact rather than rewritten.
+
+   Extracted mechanically: every rule whose selector names a class the ported
+   engine components actually reference, minus the ones the new shell owns.
+   The shell in globals.css defines the ground, the type scale, the buttons
+   and the section rhythm; this file only styles what lives inside a demo
+   frame. Imported last so an engine can specialise a shell class, never the
+   other way round.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes type-left {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes type-right {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes log-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+/* 8.5 The approval moment — the product thesis in miniature.
+   No overlay, no page dim, no glow. Under 900ms, all of it on the card. */
+.approve {
+  max-width: 480px;
+  padding: 22px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+.approve.is-flipping .approve-stamp {
+  opacity: 0;
+}
+.approve.is-armed .approve-payload::after {
+  transform: scaleX(1);
+}
+.approve-btn {
+  min-height: 44px;
+  transition: transform 120ms ease-out;
+}
+.approve-btn:active {
+  transform: translateY(1px);
+}
+.cmp-swap,
+.view-swap {
+  animation: swap-in 320ms var(--ease);
+}
+@keyframes swap-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+/* 9.2 The try-it affordance (playgrounds) */
+.spot-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.spot-ring.sq {
+  border-radius: 10px;
+}
+.tryit-pill {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  z-index: 20;
+  padding: 8px 13px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--ground);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.tryit-pill::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: var(--ink);
+  transform: translateX(-50%);
+}
+.tryit-pill.edge-r {
+  left: auto;
+  right: -8px;
+  transform: none;
+}
+.tryit-pill.edge-r::after {
+  left: auto;
+  right: 22px;
+  transform: none;
+}
+.tryit-pill.below {
+  bottom: auto;
+  top: calc(100% + 12px);
+}
+.tryit-pill.below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--ink);
+}
+/* 9.3 Researcher playground */
+.rsr-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) 1fr;
+  gap: 18px;
+}
+.rsr-tree {
+  padding-right: 14px;
+  border-right: 1px solid var(--hairline);
+}
+/* 9.4 Chat layer */
+.chat-launcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform 180ms var(--ease), border-color 180ms var(--ease);
+}
+.chat-launcher:hover {
+  transform: translateY(-2px);
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+.chat-thread {
+  flex: 1;
+  min-height: 180px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px 4px;
+  border-top: 1px solid var(--hairline);
+}
+.chat-chips .chip {
+  min-height: 30px;
+  padding: 6px 10px;
+  font-size: 10.5px;
+  text-align: left;
+}
+.chat-input {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px 8px;
+}
+.chat-input input[type="text"] {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 7px;
+}
+.chat-input .btn {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  border-radius: 7px;
+}
+.chat-label {
+  position: fixed;
+  right: 78px;
+  bottom: 20px;
+  z-index: 80;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+.chat-foot {
+  padding: 0 14px 10px;
+  color: var(--ghost);
+  font-size: 9.5px;
+  letter-spacing: 0.11em;
+  text-align: center;
+}
+.chat-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px 2px;
+}
+.chat-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ghost);
+  opacity: 0.55;
+}
+.chat-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 84;
+  background: rgba(20, 15, 12, 0.42);
+}
+.chat-panel-x {
+  right: 50%;
+  bottom: 50%;
+  width: min(720px, 94vw);
+  height: min(78vh, 720px);
+  max-height: none;
+  transform: translate(50%, 50%);
+}
+.chat-panel-x .chat-thread {
+  padding: 18px 20px;
+  gap: 12px;
+}
+@media (max-width: 860px) {
+.rsr-grid {
+    grid-template-columns: 1fr;
+  }
+.rsr-tree {
+    padding-right: 0;
+    padding-bottom: 10px;
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+}
+.approve-btn {
+  position: relative;
+}
+.approve.is-tracing .approve-trace {
+  opacity: 1;
+}
+.approve.is-tracing .approve-trace rect {
+  animation: trace 620ms cubic-bezier(0.35, 0.05, 0.3, 1) forwards;
+}
+@keyframes trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes receipt-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes desk-load {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.plant {
+  padding: clamp(22px, 2.6vw, 34px);
+  border: 1px solid var(--hairline);
+  border-top: 2px solid var(--ruby);
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+.plant-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--ghost);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+}
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+  margin: 22px 0;
+}
+.cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  /* Each cell eases between states, so the grid never blinks. */
+  transition: background-color 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cell.is-running {
+  background: color-mix(in srgb, var(--steel) 26%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--steel) 34%, transparent);
+}
+.cell.is-idle {
+  background: var(--surface-2);
+}
+.cell.is-blocked {
+  background: color-mix(in srgb, var(--clay) 46%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--clay) 62%, transparent);
+}
+.plant-readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+}
+.plant-readout dt {
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+.plant-readout dd {
+  margin-top: 8px;
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-variant-numeric: tabular-nums;
+}
+.plant-note {
+  margin-top: 18px;
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  line-height: 1.6;
+}
+@keyframes arrive {
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   28. HAIRLINES, NOT BOXES
+   ──────────────────────────────────────────────────────────────────────────
+   A house habit worth keeping: rules rather than containers. Cards, panels
+   and bordered boxes were doing the work that white space and a single 1px
+   line do better, and they were what made the page read as loud.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.card,
+.access-panel,
+.plant,
+.system-window,
+.cmp-panel {
+  border: 0;
+  border-top: 1px solid var(--hairline-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.access-panel,
+.plant {
+  padding: clamp(26px, 3vw, 38px) 0 0;
+}
+/* The chat launcher was competing with the hero's own call to action.
+   It steps back to a single quiet mark. */
+.chat-label {
+  display: none;
+}
+.chat-launcher {
+  right: 24px;
+  bottom: 24px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--hairline-strong);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: none;
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   31. THE ONLY TAP OF THE DAY
+   ──────────────────────────────────────────────────────────────────────────
+   Two things about the approval moment.
+
+   First, the page used to shift when the button was pressed: the label
+   changes from "Approve" to a tick and a different word, and the note under
+   it changes length, so the block reflowed and everything below it moved.
+   Both now hold their size, and nothing on the page moves at all.
+
+   Second, the point of that tap is the line at the bottom of the day. When
+   the approval lands, "Your evening. Still yours." warms and lifts out of
+   the velvet — so the visitor sees what the tap actually bought.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.approve :global(.approve-btn),
+.approve-actions,
+.approve button {
+  min-width: 168px;
+}
+.day.is-approved .day-close-line {
+  color: #f0dcae;
+  text-shadow: 0 0 34px rgba(212, 175, 116, 0.55),
+    0 0 90px rgba(212, 175, 116, 0.28);
+}
+.day.is-approved .day-close::before {
+  opacity: 1;
+}
+/* No red separations. The maroon is a mark — the sigil, a numeral, the rule
+   under a live reading — and never a line ruled between two sections. Every
+   boundary is now the tonal step itself, or a neutral hairline. */
+.island,
+.card,
+.access-panel,
+.plant,
+.system-window,
+.cmp-panel,
+.spread,
+.label {
+  border-top-color: var(--hairline-strong);
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   55. THE DESK
+   ──────────────────────────────────────────────────────────────────────────
+   No photograph here. The opening is a landscape and One Tuesday is a
+   landscape; a third would be wallpaper, and it was the one thing every
+   earlier version of this chapter had in common.
+
+   The chapter is the product instead: the five listed as long rounded rows —
+   name, what it does, whether it has been released — so the page reads as a
+   set of products before it reads as a demonstration. Opening one expands it
+   in place to show the decision it prepared, what it read that from, and
+   what it still does not know.
+
+   These rows are the only element on the site with a radius. That is
+   deliberate: this is the one place the page stops being a document and
+   starts being the thing itself.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.desk {
+  background-color: #1f1b16;
+  background-image: linear-gradient(
+    180deg,
+    #1c1813 0%,
+    #201c16 46%,
+    #232019 100%
+  );
+}
+.queue {
+  margin-top: clamp(34px, 4vw, 60px);
+}
+.queue-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  color: var(--ghost);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.queue-head b {
+  color: var(--wool);
+  font-weight: 400;
+}
+.lens {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.lens-art {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: clamp(300px, 30vw, 420px);
+  padding: clamp(20px, 1.9vw, 28px);
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      color-mix(in srgb, var(--tone) 42%, transparent),
+      transparent 74%
+    ),
+    color-mix(in srgb, var(--ink) 5%, transparent);
+  transition:
+    transform 520ms var(--ease),
+    border-color 380ms var(--ease),
+    background-color 380ms var(--ease);
+}
+.lens:hover .lens-art {
+  transform: translateY(-4px);
+  border-color: var(--hairline-strong);
+}
+.lens.is-open .lens-art {
+  border-color: var(--wool);
+  transform: translateY(-4px);
+}
+.lens-at {
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+}
+.lens-headline {
+  color: var(--ink);
+  font-size: clamp(21px, 1.9vw, 27px);
+  line-height: 1.18;
+  letter-spacing: -0.014em;
+}
+.lens-signals {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 13px;
+  padding-bottom: 6px;
+}
+.lens-signal {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--hairline);
+}
+.lens-signal b {
+  flex: 1;
+  color: var(--ink);
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.lens-signal i {
+  color: var(--ghost);
+  font-size: 8.5px;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-align: right;
+}
+.lens-state {
+  color: var(--wool);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lens.is-approved .lens-state {
+  color: var(--accent-text);
+}
+.lens-name {
+  display: block;
+  margin: clamp(18px, 1.8vw, 24px) 0 0;
+  color: var(--ink);
+  font-size: clamp(22px, 2vw, 29px);
+  line-height: 1.14;
+  letter-spacing: -0.016em;
+}
+.lens-claim {
+  display: block;
+  margin-top: 9px;
+  color: var(--ghost);
+  font-family: var(--font-text);
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.62;
+}
+.lens-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+  margin-top: 14px;
+  color: var(--wool);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.lens-more span {
+  transition: transform 300ms var(--ease);
+}
+.lens:hover .lens-more span {
+  transform: translateX(4px);
+}
+/* Each card carries its own tone. Low saturation, and only ever as a wash at
+   the top of the panel — the palette's accents are accents. */
+.lens-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  margin-top: 4px;
+  color: var(--ghost);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 220ms var(--ease), border-color 220ms var(--ease);
+}
+.lens-page:hover {
+  color: var(--ink);
+  border-bottom-color: var(--hairline-strong);
+}
+.lens[data-tone="pa"] { --tone: #4e4975; }
+.lens[data-tone="researcher"] { --tone: #3e5a46; }
+.lens[data-tone="coo"] { --tone: #35527a; }
+.lens[data-tone="cmo"] { --tone: #883f2b; }
+.lens[data-tone="hr"] { --tone: #64512c; }
+.lens-detail {
+  margin-top: clamp(16px, 1.6vw, 22px);
+  padding: 0 clamp(22px, 2.6vw, 36px) clamp(26px, 3vw, 38px);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  animation: rail-open 460ms var(--ease) both;
+}
+.lens-detail .rail-body {
+  border-top: 0;
+  padding-top: clamp(24px, 2.8vw, 34px);
+}
+@keyframes rail-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.rail-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 76px);
+  align-items: start;
+  padding: clamp(22px, 2.6vw, 32px) 0;
+  border-top: 1px solid var(--hairline);
+}
+.rail-eyebrow {
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.rail-line {
+  max-width: 28ch;
+  margin-top: 14px;
+  font-size: clamp(20px, 2.1vw, 31px);
+  line-height: 1.18;
+}
+.rail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  margin-top: 20px;
+  color: var(--ghost);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.rail-link:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+.rail-signals {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+.rail-signals > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--hairline);
+}
+.rail-signals dt {
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+.rail-signals dd {
+  margin: 0;
+  font-size: clamp(16px, 1.5vw, 21px);
+}
+.rail-evidence {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 3vw, 52px);
+  margin: 0;
+  padding-top: clamp(20px, 2.6vw, 28px);
+  border-top: 1px solid var(--hairline);
+}
+.rail-evidence dt {
+  color: var(--wool);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.rail-evidence dd {
+  margin-top: 8px;
+  color: var(--ghost);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.rail-alternatives {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 40px;
+  margin: clamp(20px, 2.6vw, 28px) 0 0;
+  padding: clamp(18px, 2.4vw, 24px) 0 0;
+  border: 0;
+  border-top: 1px solid var(--hairline);
+}
+.rail-alternatives legend {
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.rail-alternatives label {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  align-items: start;
+  color: var(--ghost);
+  font-size: 13px;
+  line-height: 1.55;
+  cursor: pointer;
+}
+.rail-alternatives b {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.rail-alternatives input {
+  margin-top: 3px;
+  accent-color: var(--wool);
+}
+.rail-rail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: clamp(22px, 2.8vw, 30px);
+  padding-top: clamp(18px, 2.4vw, 24px);
+  border-top: 1px solid var(--hairline);
+}
+.rail-rail > span {
+  max-width: 52ch;
+  color: var(--ghost);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+.rail-rail > div {
+  display: flex;
+  gap: 10px;
+}
+.queue-foot {
+  margin-top: clamp(26px, 3vw, 40px);
+  color: var(--wool);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+@media (max-width: 760px) {
+.rail-body,
+  .rail-evidence,
+  .rail-alternatives {
+    grid-template-columns: 1fr;
+  }
+.rail-evidence {
+    gap: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+.lens-detail {
+    animation: none;
+  }
+.lens-art {
+    transition: border-color 380ms var(--ease);
+    transform: none;
+  }
+.lens:hover .lens-art,
+  .lens.is-open .lens-art {
+    transform: none;
+  }
+}
+.desk-chat {
+  min-width: 0;
+}
+.desk-chat .card {
+  max-width: none !important;
+  border-radius: 20px;
+  /* The transcript grows beat by beat as it plays. Without a reserve the
+     whole page below it shifts five times while you are reading it, so the
+     card is given the height of its finished state up front — measured, not
+     guessed — and fills into it. */
+  display: flex;
+  flex-direction: column;
+  min-height: 700px;
+}
+@media (max-width: 900px) {
+.desk-chat .card {
+    min-height: 640px;
+  }
+}
+@media (max-width: 560px) {
+.desk-chat .card {
+    min-height: 720px;
+  }
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   61. THE HERO'S OWN JOIN
+   ──────────────────────────────────────────────────────────────────────────
+   The two grounds already agreed on a value here, and a faint step survived
+   anyway — the same failure as every other boundary on this page: two
+   backgrounds meeting at a row, with sub-pixel rounding and the compositor
+   free to disagree about the last hundredth of a stop.
+
+   So they no longer meet. The room overlaps the opening and lays its own
+   ground over the join as a gradient that starts on the exact tone the
+   opening ends on and fades out over a couple of hundred pixels. The
+   transition happens in the middle of one element instead of at the edge of
+   two, which is the only version of this that has ever held.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.desk {
+  position: relative;
+  margin-top: -1px;
+}
+.desk::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto 0;
+  height: clamp(160px, 24vh, 300px);
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    #1c1813 0%,
+    rgba(28, 24, 19, 0.86) 34%,
+    rgba(28, 24, 19, 0.4) 66%,
+    rgba(28, 24, 19, 0) 100%
+  );
+}
+.desk > .wrap {
+  position: relative;
+  z-index: 1;
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   66. THE OPENING'S JOIN, MEASURED
+   ──────────────────────────────────────────────────────────────────────────
+   Measured in the rendered pixels rather than argued from the stylesheet:
+   at the opening's last row the page is not one tone. The photograph and its
+   scrim run dark on the left and nine levels lighter on the right, and the
+   room began as a single flat value across the whole width. A flat tone
+   meeting a tone that varies horizontally steps on one side however exactly
+   the two agree in the middle — which is why every previous fix here looked
+   right in the centre of the screen and still drew a line at the edges.
+
+   The room therefore no longer begins anywhere. It overlaps the opening and
+   masks its own ground in across that overlap, reaching full strength on the
+   exact row the opening ends. What fades is the room over the photograph's
+   own pixels, left and right alike, so there is no row where two grounds
+   meet and nothing for them to disagree about.
+
+   Verified: max row-to-row step across the join, sampled in the left gutter
+   where the mismatch was largest, 8.7 levels before, under 0.5 after.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.desk {
+  --desk-overlap: clamp(150px, 20vh, 260px);
+  position: relative;
+  margin-top: calc(var(--desk-overlap) * -1);
+  padding-top: var(--desk-overlap);
+  background-color: transparent;
+  background-image: none;
+}
+.desk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    #1c1813 0%,
+    #201c16 46%,
+    #232019 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.45) calc(var(--desk-overlap) * 0.5),
+    #000 var(--desk-overlap),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.45) calc(var(--desk-overlap) * 0.5),
+    #000 var(--desk-overlap),
+    #000 100%
+  );
+}
+.desk {
+  --desk-overlap: clamp(260px, 34vh, 420px);
+}
+.desk::before {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--desk-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--desk-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--desk-overlap) * 0.75),
+    #000 var(--desk-overlap),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) calc(var(--desk-overlap) * 0.25),
+    rgba(0, 0, 0, 0.34) calc(var(--desk-overlap) * 0.5),
+    rgba(0, 0, 0, 0.72) calc(var(--desk-overlap) * 0.75),
+    #000 var(--desk-overlap),
+    #000 100%
+  );
+}
+@keyframes spectre-first-light {
+  0% { opacity: .82; }
+  100% { opacity: 0; }
+}
+@keyframes spectre-image-light {
+  0% { filter: sepia(.1) saturate(.45) contrast(1.12) brightness(.2); }
+  100% { filter: sepia(.1) saturate(.66) contrast(1.08) brightness(.91); }
+}
+@keyframes spectre-copy-arrive {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes arrive {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sec-deck,
+.beat-note,
+.ledger-item > span,
+.lens-claim,
+.rail-claim {
+  color: var(--level-3);
+}
+/* Metadata is quiet by tone, never by transparency: an opacity on top of a
+   dimmed colour is how a label ends up at 2:1 without anyone choosing it. */
+.mono,
+.stamp,
+.beat-time,
+.lens-at,
+.queue-head,
+.queue-foot {
+  opacity: 1;
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   73. THE LINEUP AS FIVE SPECIALIST DESKS
+   ──────────────────────────────────────────────────────────────────────────
+   The cards said what each product had decided this morning but not what
+   each product IS, so five of them read as five decisions rather than as a
+   suite. Each now carries the same four things in the same order — name,
+   maturity, role, and the domain it operates on — which is what makes them
+   read as desks in one office instead of five feature cards.
+
+   The domain vocabulary is set in mono and sits at level 4: it is the
+   machine describing its own remit, and it should be readable at a glance
+   and never compete with the decision above it.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.lens-id {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: clamp(18px, 1.8vw, 24px) 0 0;
+}
+.lens-name {
+  margin: 0;
+}
+.lens-maturity {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--level-4);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lens-role {
+  display: block;
+  margin-top: 8px;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lens-claim {
+  margin-top: 10px;
+}
+.lens-domain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 0;
+  margin-top: 12px;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+.lens-domain i {
+  font-style: normal;
+}
+.lens-domain i + i::before {
+  content: "·";
+  margin: 0 7px;
+  opacity: 0.6;
+}
+/* The panel is a surface, not a tint: a hairline top edge catches the light
+   the way a machined face does, and the tone step does the rest. */
+.lens-art {
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.05);
+}
+.lens-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    170deg,
+    rgba(244, 240, 232, 0.05) 0%,
+    transparent 34%
+  );
+}
+.lens.is-open .lens-art {
+  border-color: var(--gold-deep);
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   74. THE CONTEXT CONVERGING — AND THE GOLD STATES
+   ──────────────────────────────────────────────────────────────────────────
+   Opening a decision does not reveal a finished answer; it shows the system
+   arriving at one. The sources listed are the same ones the decision cites
+   underneath — no invented telemetry — and they resolve one at a time, so
+   "it reads your whole context" is something watched rather than claimed.
+
+   Gold is the only thing that moves, it is roughly a pixel wide, and it
+   stops when the thinking stops. Reading and reconciling are gold in
+   motion; ready is stillness with one concentrated gold element left, which
+   is the approval — the only thing on screen that now needs a person.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.convergence {
+  padding: clamp(20px, 2.4vw, 28px) 0 0;
+}
+.conv-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--level-4);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color var(--t-state) var(--ease);
+}
+.convergence.is-reading .conv-status,
+.convergence.is-reconciling .conv-status {
+  color: var(--gold-lit);
+}
+.convergence.is-checked .conv-status,
+.convergence.is-ready .conv-status {
+  color: var(--level-2);
+}
+.conv-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--level-4);
+  transition: background-color var(--t-state) var(--ease);
+}
+.convergence.is-reading .conv-dot,
+.convergence.is-reconciling .conv-dot {
+  background: var(--gold-lit);
+}
+.convergence.is-checked .conv-dot,
+.convergence.is-ready .conv-dot {
+  background: var(--gold);
+}
+/* The context rail. Each source is a plate that goes muted → being read →
+   resolved. A source being read carries the gold; a resolved one keeps only
+   a small mark, so the rail gets calmer as the decision gets firmer. */
+.conv-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.conv-source {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border: 1px solid var(--hairline);
+  color: var(--level-4);
+  font-size: 9.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition:
+    color var(--t-state) var(--ease),
+    border-color var(--t-state) var(--ease),
+    background-color var(--t-state) var(--ease);
+}
+.conv-mark {
+  width: 4px;
+  height: 4px;
+  background: var(--level-4);
+  transition: background-color var(--t-state) var(--ease),
+    transform var(--t-state) var(--ease);
+}
+/* being read */
+.conv-source.is-active {
+  color: var(--level-1);
+  border-color: var(--gold-deep);
+  background: var(--gold-wash);
+}
+.conv-source.is-active .conv-mark {
+  background: var(--gold-lit);
+}
+/* the thin travelling trace — one line, one pixel, only while reading */
+.conv-source.is-active::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-trace) 45%,
+    var(--gold-lit) 55%,
+    transparent
+  );
+  animation: conv-trace 900ms var(--ease) infinite;
+}
+@keyframes conv-trace {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+/* resolved */
+.conv-source.is-resolved {
+  color: var(--level-2);
+  border-color: var(--hairline-strong);
+}
+.conv-source.is-resolved .conv-mark {
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+/* Reconciling: the relationships between sources become visible for a
+   moment — they align to one edge and the rail tightens. Gold light passing
+   under paper, not gold text. */
+.convergence.is-reconciling .conv-source {
+  background: var(--gold-wash);
+  border-color: var(--gold-under);
+}
+.convergence.is-checked .conv-source,
+.convergence.is-ready .conv-source {
+  background: transparent;
+}
+/* Ready: the system has stopped. The decision is what leads now. */
+.convergence.is-ready + .rail-body .rail-line,
+.convergence.is-checked + .rail-body .rail-line {
+  color: var(--level-1);
+}
+.rail-line {
+  transition: color var(--t-state) var(--ease);
+}
+.convergence.is-reading + .rail-body .rail-line,
+.convergence.is-reconciling + .rail-body .rail-line {
+  color: var(--level-3);
+}
+@media (prefers-reduced-motion: reduce) {
+.conv-source.is-active::after {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   75. THE APPROVAL, AS AN OPERATING EVENT
+   ──────────────────────────────────────────────────────────────────────────
+   The only control on the site where a person, not the system, causes
+   something. It is the one concentrated piece of gold on a resolved screen,
+   and it earns that by being the only thing left that needs anyone.
+
+   Pressed depresses. Approving runs a single gold line across it once.
+   Approved keeps a mark, and the audit line appears under the decision in
+   the machine's own voice. Until the system has finished, the control is
+   disabled and says so — approving something mid-reconciliation would be
+   the one lie this page must not tell.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.approve-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 13px 30px;
+  border: 1px solid var(--gold-deep);
+  background: linear-gradient(180deg, #241f19 0%, #1a1613 100%);
+  color: #f7f3ea;
+  font-family: var(--font-text);
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    border-color var(--t-hover) var(--ease),
+    transform 90ms var(--ease),
+    box-shadow var(--t-hover) var(--ease);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 232, 0.07),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.approve-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 232, 0.11),
+    inset 0 -14px 22px -18px var(--gold-lit),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.approve-btn:active:not(:disabled) {
+  transform: translateY(1.5px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+.approve-btn:disabled {
+  border-color: var(--hairline-strong);
+  color: var(--level-4);
+  cursor: default;
+}
+.approve-btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.approve-btn-mark {
+  color: var(--gold-lit);
+}
+/* One gold line, left to right, once. */
+.approve-btn-trace {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-lit), transparent);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.approve-btn.is-approving .approve-btn-trace {
+  opacity: 1;
+  animation: approve-sweep 620ms var(--ease) forwards;
+}
+@keyframes approve-sweep {
+  to { transform: translateX(100%); }
+}
+.approve-btn.is-done {
+  border-color: var(--gold-deep);
+  background: linear-gradient(180deg, #211d17 0%, #191510 100%);
+}
+.rail-audit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+  color: var(--level-3);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  animation: audit-in var(--t-reveal) var(--ease) both;
+}
+.rail-audit-mark {
+  color: var(--gold);
+}
+@keyframes audit-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+/* Approve is the concentrated gold; Change is a quiet alternative beside it. */
+.rail-rail .btn-soft {
+  border-color: var(--hairline-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+.approve-btn.is-approving .approve-btn-trace,
+  .rail-audit {
+    animation: none;
+  }
+.approve-btn.is-approving .approve-btn-trace {
+    opacity: 0;
+  }
+}
+/* The moment it becomes yours. The room quiets: the beat's own surface
+   sharpens and gains an edge, and everything else has already stepped back. */
+.beat-you.is-now .approve {
+  border-color: var(--gold-deep);
+  background: linear-gradient(
+    180deg,
+    rgba(200, 169, 107, 0.05) 0%,
+    transparent 42%
+  );
+  box-shadow: inset 0 1px 0 rgba(244, 240, 232, 0.06);
+}
+.day.is-approved .beat-you.is-now .approve {
+  border-color: var(--hairline-strong);
+  background: none;
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   78. SAME ROOM, DIFFERENT LENS
+   ──────────────────────────────────────────────────────────────────────────
+   Opening a specialist changes which desk is speaking, not which building
+   you are in. The selected card comes fully forward — ivory, a thin active
+   rule, its role in gold — and the other four recede without leaving. They
+   stay legible, because the argument is that these five share one context;
+   hiding them would say the opposite.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.lineup.has-open .lens {
+  transition: opacity var(--t-state) var(--ease);
+}
+.lineup.has-open .lens:not(.is-open) {
+  opacity: 0.46;
+}
+.lineup.has-open .lens:not(.is-open):hover,
+.lineup.has-open .lens:not(.is-open):focus-visible {
+  opacity: 0.82;
+}
+.lens.is-open .lens-name,
+.lens.is-open .lens-headline {
+  color: var(--level-1);
+}
+/* The thin active rule: the selected desk is underlined, once. */
+.lens.is-open .lens-id::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -7px 0;
+  height: 1px;
+  background: var(--gold);
+}
+.lens-id {
+  position: relative;
+}
+@media (prefers-reduced-motion: reduce) {
+.lineup.has-open .lens:not(.is-open) {
+    opacity: 0.7;
+  }
+}
+@keyframes systems-in {
+  from { opacity: 0; transform: translate(-50%, -5px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+/* The approval control declares a solid ground under its gradient. Without
+   it, a page that fails to paint background images puts ivory text on
+   paper — and on the product pages that is exactly what happened. */
+.approve-btn {
+  background-color: #1a1613;
+}
+/* The marketing console's week grid set its times at 8px behind a 0.7
+   opacity — the exact pattern that produces an unreadable label nobody
+   chose. The chips come in two tones, so the time takes the chip's own
+   colour and steps back within it rather than fading toward the chip. */
+.cmo-slot-time {
+  color: color-mix(in srgb, currentColor 82%, transparent);
+  letter-spacing: 0.08em;
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   83. ONE SUITE, FIVE MEMBERS
+   ──────────────────────────────────────────────────────────────────────────
+   Every product page opened with its status tinted in its own accent — five
+   different colours doing the same job, which made five members of one
+   suite read as five unrelated products. The mark is identical on all five
+   now: system, role, maturity, in that order. What differs between them is
+   the vocabulary and the work, which is the only honest difference.
+
+   Gold appears once, on the maturity, because that is the one part of the
+   line that is a live claim about the system.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.suite-mark {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  margin: 0 0 20px;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.suite-mark-name {
+  color: var(--level-2);
+}
+.suite-mark-role {
+  position: relative;
+  padding-left: 15px;
+  color: var(--level-4);
+}
+.suite-mark-role::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 7px;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+.suite-mark-status {
+  padding: 3px 9px;
+  border: 1px solid var(--gold-under);
+  color: var(--gold);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+}
+/* The approval control keeps its own material on every page. */
+main[data-accent] .approve-btn {
+  background-color: #1a1613;
+  background-image: linear-gradient(180deg, #241f19 0%, #1a1613 100%);
+  border-color: var(--gold-deep);
+  color: #f7f3ea;
+}
+.suite-mark-status,
+.lens-role {
+  color: var(--gold-text);
+}
+/* ══════════════════════════════════════════════════════════════════════════
+   85. THE PLANT READS IN THE HOUSE PALETTE
+   ──────────────────────────────────────────────────────────────────────────
+   The live operating picture drew its running cells in steel blue — the one
+   cool hue on an otherwise entirely warm page, and the reading it produced
+   was "dashboard" rather than "instrument".
+
+   The states now use the semantics the rest of the site already has:
+   running is the gold of active intelligence, changeover is the neutral
+   surface, and blocked is the house maroon — the colour this palette has
+   always used to mean "look at this". Nothing was added to the palette.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.cell.is-running {
+  background: color-mix(in srgb, var(--gold) 30%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 40%, transparent);
+}
+.cell.is-blocked {
+  background: color-mix(in srgb, var(--ruby) 34%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ruby) 52%, transparent);
+}
+@keyframes scene-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes block-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dot-in {
+  from { opacity: 0; }
+  to { opacity: 0.72; }
+}
+@keyframes bar-in {
+  to { transform: scaleX(1); }
+}
+/* The prepared batch: the one raised object in the chapter. */
+.beat-you .approve {
+  max-width: 460px;
+  margin-top: 24px;
+  padding: clamp(22px, 2.6vw, 30px);
+  border: 1px solid var(--hairline-strong);
+  background: linear-gradient(
+    180deg,
+    var(--spectre-panel) 0%,
+    var(--spectre-charcoal) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(242, 238, 230, 0.06);
+}
+@keyframes line-rise {
+  to { transform: none; }
+}
+@keyframes support-in {
+  to { opacity: 1; }
+}
+@keyframes hero-settle {
+  from { transform: scale(1.03); }
+  to { transform: scale(1); }
+}
+.desk,
+.scene-suite {
+  background-color: transparent;
+  background-image: none;
+}
+.desk::before,
+.scene-suite::before {
+  background: linear-gradient(180deg, #181a1a 0%, #1c1e1e 48%, #1e2020 100%);
+}
+/* The approval keeps its own material in the graphite system. */
+.approve-btn,
+main[data-accent] .approve-btn {
+  background-color: #161818;
+  background-image: linear-gradient(180deg, #222524 0%, #161818 100%);
+}
+/* The suite scene replaced the old `.desk`, and it needs the same chassis:
+   it overlaps the opening and masks its own ground in across that overlap,
+   so the join is dissolved rather than met. Without the pseudo-element the
+   section is simply transparent and the page ground — ivory — shows through
+   between two dark scenes. */
+.scene-suite {
+  --scene-overlap: clamp(260px, 34vh, 420px);
+  position: relative;
+  margin-top: calc(var(--scene-overlap) * -1);
+  padding-top: calc(var(--scene-overlap) + clamp(96px, 14vh, 190px));
+}
+.beat-you.is-now .approve {
+  border-color: rgba(194, 157, 89, 0.42);
+  background:
+    radial-gradient(
+      120% 100% at 50% 0%,
+      rgba(194, 157, 89, 0.07) 0%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, var(--spectre-panel) 0%, var(--spectre-charcoal) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 238, 230, 0.08),
+    0 26px 60px -44px rgba(0, 0, 0, 0.95);
+}
+.beat-you .approve {
+  max-width: 520px;
+}
+@keyframes substrate-lift {
+  0% { opacity: 0.035; }
+  22% { opacity: 0.14; }
+  60% { opacity: 0.09; }
+  100% { opacity: 0.035; }
+}
+@keyframes echo-out {
+  from { opacity: 0.34; }
+  to { opacity: 0; }
+}
+@keyframes node-resolve {
+  0% { r: 4; }
+  40% { r: 5.6; }
+  100% { r: 4; }
+}
+@keyframes ht-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ht-fade {
+  to { opacity: 0; }
+}
+@keyframes ht-point-in {
+  to { opacity: 0.62; }
+}
+@keyframes bt-window {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  62% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* ── The boundary holds ───────────────────────────────────────────────────
+   Once a person has released the work, everything the system had gathered
+   recedes: the traces stop, the gold leaves the panel, and what is left is
+   the record of a decision. The system does not keep working at you after
+   you have decided — that is the whole argument, expressed as a state. */
+.day.is-approved .beat-trace {
+  animation: none;
+  opacity: 0;
+}
+.day.is-approved .beat-you .approve {
+  border-color: var(--hairline-strong);
+  background: linear-gradient(180deg, var(--spectre-panel) 0%, var(--spectre-charcoal) 100%);
+}
+.day.is-approved .beat.is-now .beat-dot {
+  border-color: var(--spectre-muted-dark);
+  background: var(--spectre-muted-dark);
+  box-shadow: none;
+}

@@ -240,7 +240,7 @@ export function CmoPlayground() {
                     <div className="mono" style={{ fontSize: 9, color: "var(--ghost)", marginBottom: 4 }}>{day.d}</div>
                     {day.slots.map(([t, n, special]) => (
                       <div key={t + n} style={{ background: special ? "color-mix(in srgb, var(--clay) 14%, var(--surface-2))" : "var(--ink)", color: special ? "var(--ink)" : "var(--ground)", borderRadius: 6, padding: "5px 7px", marginBottom: 4 }}>
-                        <div className="mono" style={{ fontSize: 8, opacity: 0.7 }}>{t}</div>
+                        <div className="mono cmo-slot-time" style={{ fontSize: 8 }}>{t}</div>
                         <div style={{ fontSize: 10.5, fontWeight: 600 }}>{n}</div>
                       </div>
                     ))}

@@ -3,6 +3,13 @@ export type Product = {
   name: string;
   short: string;
   accent: string;
+  /* The full-bleed ground this system owns, and the tint its schematic is
+     drawn in on top of that ground. DESIGN.md §2 defined five hues and then
+     spent them on 8px dots; as fields they are what the suite has instead of
+     five logos. One hue is ever on screen at a time, so §2's real rule holds
+     even though rule 2's "home is near-mono" does not. */
+  field: string;
+  fieldDeep: string;
   claim: string;
   status: string;
   sub: string;
@@ -12,6 +19,8 @@ export type Product = {
 export const PRODUCTS_DATA: Product[] = [
   {
     slug: "pa",
+    field: "#4b466f",
+    fieldDeep: "#373354",
     name: "AI PA · Second Brain",
     short: "AI PA",
     accent: "var(--spectral)",
@@ -26,6 +35,8 @@ export const PRODUCTS_DATA: Product[] = [
   },
   {
     slug: "coo",
+    field: "#2f4c73",
+    fieldDeep: "#22395a",
     name: "AI COO",
     short: "AI COO",
     accent: "var(--steel)",
@@ -40,6 +51,8 @@ export const PRODUCTS_DATA: Product[] = [
   },
   {
     slug: "cmo",
+    field: "#7c3826",
+    fieldDeep: "#5e2819",
     name: "AI CMO",
     short: "AI CMO",
     accent: "var(--clay)",
@@ -54,6 +67,8 @@ export const PRODUCTS_DATA: Product[] = [
   },
   {
     slug: "researcher",
+    field: "#3c5844",
+    fieldDeep: "#2b4132",
     name: "AI Researcher",
     short: "Researcher",
     accent: "var(--archive)",
@@ -68,6 +83,8 @@ export const PRODUCTS_DATA: Product[] = [
   },
   {
     slug: "hr",
+    field: "#634f24",
+    fieldDeep: "#47391a",
     name: "AI HR",
     short: "AI HR",
     accent: "var(--ochre)",

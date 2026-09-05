@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Counter } from "@/components/ui";
+import { Counter } from "@/components/shell/counter";
 import ApproveButton from "@/components/ApproveButton";
 import { PRODUCTS_DATA } from "@/lib/products";
 

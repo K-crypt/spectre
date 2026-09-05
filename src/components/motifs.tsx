@@ -67,7 +67,12 @@ export function Motif({
       fill="none"
       stroke="currentColor"
       strokeWidth="1"
-      className={className}
+      /* `vector-effect` is not an inherited property, so it cannot be set
+         once on the root and left to reach the shapes. It is applied to the
+         children from the stylesheet instead (`.motif *`). Without it a
+         90-unit schematic blown up to fill half a screen draws its
+         hairlines at seven pixels and stops being a schematic. */
+      className={["motif", className].filter(Boolean).join(" ")}
       style={{ pointerEvents: "none", ...style }}
       aria-hidden
     >

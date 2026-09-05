@@ -1,49 +1,54 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Reveal, Stamp } from "@/components/ui";
+import { Reveal, Words } from "@/components/shell/reveal";
 import { NOTES } from "@/lib/notes";
+import { canonical } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Studio notes — The Spectre",
-  description: "Substantive thinking from the studio: context, software as a service, and the architecture of trust.",
+  title: "Studio notes",
+  description:
+    "Substantive writing from the studio on context, software sold as a service, and the architecture of trust in systems that act on your behalf.",
+  alternates: { canonical: canonical("notes") },
 };
 
 export default function NotesIndex() {
   return (
     <main id="main">
-      <section className="hairline-b">
-        <div className="wrap" style={{ padding: "88px 24px 56px" }}>
-          <Reveal>
-            <Stamp>STUDIO NOTES</Stamp>
-            <h1 className="display" style={{ fontSize: "clamp(34px, 4.6vw, 52px)", maxWidth: "18ch" }}>
-              Thinking we stand behind.
-            </h1>
-            <p style={{ color: "var(--ghost)", maxWidth: "52ch", marginTop: 14 }}>
-              Written by the studio, in the studio&apos;s voice. No news, no
-              announcements — only ideas we run our own operations on.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section>
-        <div className="wrap" style={{ padding: "40px 24px 96px" }}>
-          {NOTES.map((n, i) => (
-            <Reveal key={n.slug} delay={i * 60}>
-              <Link href={`/notes/${n.slug}/`} className="note-row">
-                <div className="mono note-row-stamp">
-                  {n.stamp} · {n.minutes} MIN
-                </div>
-                <div>
-                  <div className="display note-row-title">{n.title}</div>
-                  <div className="note-row-dek">{n.dek}</div>
-                </div>
-                <span className="mono note-row-arrow" aria-hidden>
-                  →
-                </span>
-              </Link>
+      <section className="section">
+        <div className="wrap">
+          <div className="movement-head">
+            <Words as="h1" className="display-lg" lines={["Thinking we", "stand behind."]} />
+            <Reveal delay={120}>
+              <p className="lede">
+                Written by the studio, in the studio&apos;s voice. No news and no
+                announcements. Only ideas we run our own operations on.
+              </p>
             </Reveal>
-          ))}
+          </div>
+
+          {/* The same row grammar as the roster on the home page, because
+              this is the same kind of object: a short list of named things
+              that wants to be scanned in one pass. */}
+          <Reveal className="roster is-plain" stagger>
+            {NOTES.map((n, i) => (
+              <div className="roster-row" key={n.slug} style={{ "--i": i } as React.CSSProperties}>
+                <div className="roster-main">
+                  <h2 className="roster-name display display-md">
+                    <Link href={`/notes/${n.slug}/`}>{n.title}</Link>
+                  </h2>
+                  <p className="roster-claim">{n.dek}</p>
+                </div>
+                <div className="roster-meta">
+                  <span className="stamp">
+                    {n.stamp} · {n.minutes} min
+                  </span>
+                  <span className="roster-go" aria-hidden>
+                    Read
+                  </span>
+                </div>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
     </main>

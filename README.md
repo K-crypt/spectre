@@ -158,23 +158,36 @@ ends with actions staged for approval.
   attach only when JavaScript and motion preferences allow them. Showcases
   gate on real visibility (pixel math, not just intersection) so nobody
   misses the journey.
-- **Design tokens** live in `src/app/globals.css` and nowhere else: near-black
-  and warm-paper grounds, one hairline, brass reserved for the house, and one
-  accent per product (Spectral, Steel, Clay, Archive, Ochre). Cormorant Garamond for
-  display, Instrument Sans for text, Spline Sans Mono for data, Michroma for
-  the wordmark.
+- **Design tokens** live in `src/app/globals.css` and nowhere else: warm-paper
+  and graphite grounds, one hairline, maroon for rules and plate numerals,
+  gold reserved for system state, and one accent per product (Spectral, Steel,
+  Clay, Archive, Ochre). Cormorant Garamond for display, Instrument Sans for
+  text, Spline Sans Mono for data, Michroma for the wordmark.
+- **The home page crosses grounds once.** Graphite for the first three
+  movements, the dawn photograph as the transition, paper for the last two.
 
 ## Repository map
 
 ```
-src/app/          routes: / /pa /coo /cmo /researcher /hr /data, plus globals.css (all tokens)
-src/components/   ui (nav, footer, reveal), mark, motifs, interactive (comparison, waitlist),
-                  chat-widget, chat-showcase, and one playground per product
-src/lib/          products.ts (roster), chat-content.ts (personas), chat-scenarios.ts (showcases)
-netlify/          preview-gate/ (parked password gate; see Deploy)
-.github/          workflows/deploy.yml (on-demand deploy)
-docs/readme/      the screenshots in this file
+src/app/                routes: / /pa /coo /cmo /researcher /hr /method /notes /data,
+                        plus globals.css (the shell), sitemap.ts and robots.ts
+src/styles/             engines.css (the playground and chat styling, lifted intact
+                        from the pre-2026-09-05 stylesheet)
+src/components/shell/   nav, footer, reveal (block and word), counter
+src/components/sections/ roster, day, access-form, product-page (one template, five pages)
+src/components/         mark, motifs, suite-mark, chat-widget, chat-showcase,
+                        queue, plant, ApproveButton, and one playground per product
+src/lib/                products.ts (roster), product-pages.ts (page copy),
+                        site.tsx (canonical host, structured data),
+                        chat-content.ts (personas), chat-scenarios.ts (showcases)
+netlify/                preview-gate/ (parked password gate; see Deploy)
+.github/                workflows/deploy.yml (on-demand deploy)
+docs/readme/            the screenshots in this file
 ```
+
+The shell was rebuilt from an empty stylesheet on 2026-09-05. The five
+playgrounds and the chat layer were carried across unchanged; see
+`docs/REBUILD-2026-09-05.md` for what moved and why.
 
 ## Develop
 

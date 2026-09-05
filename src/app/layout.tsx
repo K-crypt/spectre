@@ -1,68 +1,97 @@
 import type { Metadata } from "next";
-/* The house stack, shared with the studio's other venture: Cormorant
-   Garamond for display — fine, high-contrast, italic for names — and Poppins
-   for body and the wide-tracked small-caps labels. */
+
+/* ── The house stack ───────────────────────────────────────────────────────
+   Three registers, self-hosted through @fontsource: the build has no network
+   dependency and the page has no font-loading flash.
+
+   Only the weights actually used are loaded. Cormorant carries display at
+   300 with 400 for the rare short line that needs weight, and both italics
+   because italic is the brand's emphasis. Instrument Sans carries every
+   running word at 400 with 500 for the few places that need a lift. Spline
+   Sans Mono carries data. Michroma exists for the wordmark and nothing else.
+   ───────────────────────────────────────────────────────────────────────── */
 import "@fontsource/cormorant-garamond/latin-300.css";
 import "@fontsource/cormorant-garamond/latin-300-italic.css";
 import "@fontsource/cormorant-garamond/latin-400.css";
 import "@fontsource/cormorant-garamond/latin-400-italic.css";
-import "@fontsource/poppins/latin-300.css";
-import "@fontsource/poppins/latin-400.css";
-import "@fontsource/poppins/latin-500.css";
+import "@fontsource/instrument-sans/latin-400.css";
+import "@fontsource/instrument-sans/latin-500.css";
 import "@fontsource/spline-sans-mono/latin-400.css";
 import "@fontsource/michroma/latin-400.css";
+
 import "./globals.css";
-import { Nav, Footer } from "@/components/ui";
+/* Last, so a demo frame can specialise a shell class and never the reverse. */
+import "../styles/engines.css";
+
+import { Nav } from "@/components/shell/nav";
+import { Footer } from "@/components/shell/footer";
 import { ChatWidget } from "@/components/chat-widget";
 import { SmoothScroll } from "@/components/scroll";
+import { Pointer } from "@/components/shell/pointer";
+import { SITE_NAME, SITE_URL, canonical, OG_IMAGE, shouldIndex } from "@/lib/site";
 import { withBasePath } from "@/lib/base-path";
 
-/* The preview image has to be an absolute URL, and which host that is
-   depends on where the build is going. Production is thespectre.one; a
-   GitHub Pages build serves from /<repo> on k-crypt.github.io, and pointing
-   a card there at thespectre.one would show whatever that host happens to
-   have rather than this build's image. Derived from the same variable as
-   the base path, so it is right for either without anyone remembering to
-   switch it. */
-const OG_HOST =
-  process.env.GITHUB_ACTIONS === "true" && process.env.GITHUB_REPOSITORY
-    ? `https://k-crypt.github.io/${process.env.GITHUB_REPOSITORY.split("/")[1]}`
-    : "https://thespectre.one";
-const OG_IMAGE = `${OG_HOST}/og-v2.jpg`;
+const DESCRIPTION =
+  "The Spectre builds five AI operating systems that run a business's repeatable work: research, monitoring, drafting, scheduling, reconciliation. Nothing is sent, published or spent until a person approves it.";
 
 export const metadata: Metadata = {
-  title: "The Spectre — AI operating layer for founder-led businesses",
-  description:
-    "Spectre turns scattered business information into one operating picture, prepares the work, and keeps every material decision under human control.",
-  robots: { index: true, follow: true }, // launched 2026-07-22 on thespectre.one
-  metadataBase: new URL("https://thespectre.one"),
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "The Spectre - AI operating systems for founder-led businesses",
+    /* Every page states its own subject; the house name is appended once,
+       here, so no page title has to remember to carry it. */
+    template: `%s - ${SITE_NAME}`,
+  },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: { canonical: canonical("/") },
+  /* A GitHub Pages build is a preview until the canonical origin is
+     settled, and two indexed copies of one site compete with each other. */
+  robots: shouldIndex
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
   icons: { icon: withBasePath("/favicon.svg") },
   openGraph: {
-    title: "The Spectre — Your business in one operating picture",
-    description:
-      "An AI operating layer for founder-led businesses. Built around your workflows, trained on your context, and always under human control.",
-    url: "https://thespectre.one",
-    siteName: "The Spectre",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
     type: "website",
+    siteName: SITE_NAME,
+    url: canonical("/"),
+    title: "The Spectre - AI operating systems for founder-led businesses",
+    description: DESCRIPTION,
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "The Spectre" }],
+    locale: "en",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Spectre — Your business in one operating picture",
-    description:
-      "An AI operating layer for founder-led businesses. They prepare. You decide.",
+    title: "The Spectre - AI operating systems for founder-led businesses",
+    description: "Five systems that prepare the work. One person who decides.",
     images: [OG_IMAGE],
   },
+  category: "technology",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* The hero photograph is the largest contentful paint on the home
+            page, and it is a static export, so the preload is the only way
+            the browser learns about it before the stylesheet resolves. */}
+        <link
+          rel="preload"
+          as="image"
+          href={withBasePath("/ridge-1920.webp")}
+          imageSrcSet={`${withBasePath("/ridge-1280.webp")} 1280w, ${withBasePath("/ridge-1920.webp")} 1920w, ${withBasePath("/ridge-2560.webp")} 2560w`}
+          imageSizes="100vw"
+          fetchPriority="high"
+        />
+        <meta name="theme-color" content="#221e1b" />
+      </head>
       <body>
         <SmoothScroll />
-        <a className="skip-link" href="#main">Skip to content</a>
+        <Pointer />
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
         <Nav />
         {children}
         <Footer />
